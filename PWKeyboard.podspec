@@ -12,12 +12,12 @@ Pod::Spec.new do |s|
   s.summary             = "Plate Keyboard in china"
   s.homepage            = "https://github.com/parkingwang/vehicle-keyboard-ios"
   s.license             = { :type => 'MIT', :file => 'LICENSE' }
-  s.author              = { "冯紫瑜" => "fengziyu@parkingwang.com" }
+  s.author              = { "f2yu" => "fengziyu@parkingwang.com" }
   s.platform            = :ios, "8.0"
   s.source              = { :git => "https://github.com/parkingwang/vehicle-keyboard-ios", :tag => "1.0.0" }
-  s.source_files        = "HybridPlateKeyboard/PlateKeyboard/**/*.{h,m}"
-  s.resources           = ['HybridPlateKeyboard/PlateKeyboard/js/*','HybridPlateKeyboard/PlateKeyboard/PWBundle.bundle']
-  s.requires_arc	= true
-  s.frameworks   	= "JavaScriptCore"
+  s.source_files        = "PWKeyboardDemo/PWKeyboard/**/*.{h,m}"
+  s.resources           = ['PWKeyboardDemo/PWKeyboard/js/*','PWKeyboardDemo/PWKeyboard/PWBundle.bundle']
+  s.requires_arc	      = true
+  s.frameworks   	      = "JavaScriptCore"
   s.dependency "JSONModel"
 end
