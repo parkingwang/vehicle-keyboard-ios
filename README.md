@@ -16,17 +16,19 @@
 - VehicleKeyboard-JS GitHub项目主页： [https://github.com/parkingwang/vehicle-keyboard-js](https://github.com/parkingwang/vehicle-keyboard-js)
 - VehicleKeyboard-JS OSChina项目主页： [https://gitee.com/iRainIoT/vehicle-keyboard-js](https://gitee.com/iRainIoT/vehicle-keyboard-js)
 
-##概述
-####键盘作为inputView使用
+## 概述
+
+#### 键盘作为inputView使用
+
 * 可直接赋给textField或textView，使用方式和常规键盘一致
 * 提供包含自定义输入框的使用方式，逻辑已实现，使用者需自行修改样式
 
-####已适配横竖屏、iPhone X
+#### 已适配横竖屏、iPhone X
 
 
-##使用组件
+## 使用组件
 
-###直接作为inputView使用
+### 直接作为inputView使用
 
 ![](./PWK_TEXTFIELD.png)
 
@@ -54,7 +56,7 @@ self.textField.inputView = [PWPlateKeyBoardWindow shareInstance];
 };
 ```
 
-###自定义输入框
+### 自定义输入框
 
 ![](./PWK_CUSTOMVIEW.png)
 
@@ -81,7 +83,8 @@ self.collectionView.clipsToBounds = NO;
 
 ```
 
-##主要类的介绍
+## 主要类的介绍
+
 > 详细属性介绍请看注释
 
 * PWKeyboardView:核心类，主要实现键盘逻辑与布局;
@@ -89,12 +92,13 @@ self.collectionView.clipsToBounds = NO;
 * PWSegmentCollectionViewCell:自定义输入框cell，使用者可通过继承该类，对cell样式及各状态效果进行调整;
 
 
-##注意
+## 注意
 
 * 直接作为inputView使用时，当输入长度超过车牌规定长度时，键盘会自动收起
 * 键盘除了主题色外，其他样式暂不支持修改
 
-##cocoaPods
+## cocoaPods
+
 > 会自动引入JSONModel
 
 ```
