@@ -35,9 +35,6 @@
 ```
 #import "PWPlateKeyBoardWindow.h"
 
-```
-
-```
 __weak typeof (self)weakSelf = self;
 self.textField.inputView = [PWPlateKeyBoardWindow shareInstance];
 [PWPlateKeyBoardWindow shareInstance].buttonClickBlock = ^(PWPlteKeyBoardButtonType buttonType, NSString *text) {
@@ -63,18 +60,15 @@ self.textField.inputView = [PWPlateKeyBoardWindow shareInstance];
 ```
 #import "PWHandler.h"
 
-```
-
-
-
-```
-//self.handler = [[PWHandler alloc] initWithReuseIdentifier:NSStringFromClass(PWSegmentCollectionViewCell.class)];
 //实例化PWHandler，同时注册UICollectionViewCell，此cell需要继承PWSegmentCollectionViewCell，供使用者自定义样式
 self.handler = [[PWHandler alloc] initWithReuseIdentifier:NSStringFromClass(TestCollectionViewCell.class)];
+
 //设置PWHandler中UICollectionView的应用，在PWHandler实现中用于UICollectionView的相关操作
 self.handler.collectionView = self.collectionView;
+
 //PWHandler中(NSString *)plate提供车牌号的主动设置，可也用此属性过去当前的车牌号
-//self.handler.plate = @"京2345678910101";
+//self.handler.plate = @"京A23456";
+
 //使用者自己提供的UICollectionView，仅需注册UICollectionViewCell，同时将代理引用与PWHandler关联
 [self.collectionView registerClass:TestCollectionViewCell.class forCellWithReuseIdentifier:NSStringFromClass(TestCollectionViewCell.class)];
 self.collectionView.delegate = self.handler;
