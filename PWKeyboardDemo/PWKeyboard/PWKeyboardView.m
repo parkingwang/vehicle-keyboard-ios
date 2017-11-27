@@ -178,7 +178,7 @@
             [self addConstraint:constraint];
         }
     } else {
-        CGFloat constants[4] = {0,0,2,6};
+        CGFloat constants[4] = {0,0,2,4};
         for (NSInteger i = 0; i < sizeof(layoutAttributes) / sizeof(NSInteger); i++) {
             NSLayoutAttribute layoutAttribute = layoutAttributes[i];
             NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self.collectionView attribute:layoutAttribute relatedBy:NSLayoutRelationEqual toItem:self attribute:layoutAttribute multiplier:1.0 constant:constants[i]];
@@ -212,6 +212,7 @@
     
     self.divisionLine = [UIView new];
     self.divisionLine.backgroundColor = [UIColor colorWithRed:204.f/255.f green:204.f/255.f blue:204.f/255.f alpha:1];
+    self.divisionLine.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:self.divisionLine];
     
     self.collectionViewLayout = [PWCollectionLayout new];
