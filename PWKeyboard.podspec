@@ -8,13 +8,13 @@
 
 Pod::Spec.new do |s|
   s.name                = "PWKeyboard"
-  s.version             = "1.0.0"
+  s.version             = "1.0.1"
   s.summary             = "Plate Keyboard in china"
   s.homepage            = "https://github.com/parkingwang/vehicle-keyboard-ios.git"
   s.license             = { :type => 'MIT', :file => 'LICENSE' }
   s.author              = { "f2yu" => "fengziyu@parkingwang.com" }
   s.platform            = :ios, "8.0"
-  s.source              = { :git => "https://github.com/parkingwang/vehicle-keyboard-ios.git", :tag => "1.0.0" }
+  s.source              = { :git => "https://github.com/parkingwang/vehicle-keyboard-ios.git", :tag => "1.0.1" }
   s.source_files        = "PWKeyboardDemo/PWKeyboard/**/*.{h,m}"
   s.resources           = ['PWKeyboardDemo/PWKeyboard/js/*','PWKeyboardDemo/PWKeyboard/PWBundle.bundle']
   s.requires_arc	      = true

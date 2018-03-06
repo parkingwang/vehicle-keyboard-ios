@@ -11,11 +11,12 @@
 
 #define PWKeyboardViewHorizontalMargin 4
 #define PWKeyboardViewHorizontalEdge 4
-#define PWKeyboardViewVerticalMargin 4.5
+#define PWKeyboardViewVerticalMargin 4
 #define PWKeyboardViewVerticalEdge 3.5
 
-#define PWKeyboardViewHeightNormal 216
-#define PWKeyboardViewHeightPlus 226
+#define PWKeyboardViewHeightLow 196
+#define PWKeyboardViewHeightNormal 240
+#define PWKeyboardViewHeightPlus 258
 
 @interface PWCollectionLayout : UICollectionViewFlowLayout
 
@@ -149,17 +150,54 @@
 }
 
 - (instancetype)init {
-    if (self = [super initWithFrame:CGRectZero inputViewStyle:UIInputViewStyleKeyboard]) {
+    CGFloat height = CGRectGetWidth([UIScreen mainScreen].bounds) > CGRectGetHeight([UIScreen mainScreen].bounds) ? CGRectGetWidth([UIScreen mainScreen].bounds) : CGRectGetHeight([UIScreen mainScreen].bounds);
+    CGFloat keyboardHeight;
+    if (height == 812) {
+        keyboardHeight = PWKeyboardViewHeightPlus;
+    } else if (height > 667) {
+        keyboardHeight = PWKeyboardViewHeightNormal;
+    } else {
+        keyboardHeight = PWKeyboardViewHeightLow;
+    }
+    if (self = [super initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, keyboardHeight) inputViewStyle:UIInputViewStyleKeyboard]) {
         self.backgroundColor = [UIColor colorWithRed:238.f/255.f green:238.f/255.f blue:238.f/255.f alpha:1];
-        [self setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
         self.type = PWKeyBoardTypeCivilAndArmy;
+        [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(handleStatusBarOrientationChange:)
+                                                    name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
         [self setupWebView];
     }
     return self;
 }
 
-- (void)layoutSubviews {
-    [super layoutSubviews];
+//界面方向改变的处理
+- (void)handleStatusBarOrientationChange: (NSNotification *)notification{
+    UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    switch (interfaceOrientation) {
+        case UIInterfaceOrientationUnknown:
+        case UIInterfaceOrientationPortrait:
+        case UIInterfaceOrientationLandscapeLeft:
+        case UIInterfaceOrientationLandscapeRight: {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self setConstraints];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.collectionView reloadData];
+                });
+            });
+            break;
+        }
+        case UIInterfaceOrientationPortraitUpsideDown:
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+    [[UIDevice currentDevice]endGeneratingDeviceOrientationNotifications];
+}
+
+- (void)setConstraints {
     [self removeConstraints:self.constraints];
     [self updateConstraintsIfNeeded];
     NSLayoutAttribute layoutAttributes[4] = {NSLayoutAttributeLeft,NSLayoutAttributeRight,NSLayoutAttributeTop,NSLayoutAttributeBottom};
@@ -178,7 +216,7 @@
             [self addConstraint:constraint];
         }
     } else {
-        CGFloat constants[4] = {0,0,2,6};
+        CGFloat constants[4] = {0,0,2,3};
         for (NSInteger i = 0; i < sizeof(layoutAttributes) / sizeof(NSInteger); i++) {
             NSLayoutAttribute layoutAttribute = layoutAttributes[i];
             NSLayoutConstraint *constraint = [NSLayoutConstraint constraintWithItem:self.collectionView attribute:layoutAttribute relatedBy:NSLayoutRelationEqual toItem:self attribute:layoutAttribute multiplier:1.0 constant:constants[i]];
@@ -197,8 +235,6 @@
         
         [self addConstraint:constraint];
     }
-    
-    [self.collectionView reloadData];
 }
 
 - (void)setupWebView{
@@ -212,14 +248,14 @@
     
     self.divisionLine = [UIView new];
     self.divisionLine.backgroundColor = [UIColor colorWithRed:204.f/255.f green:204.f/255.f blue:204.f/255.f alpha:1];
+    self.divisionLine.translatesAutoresizingMaskIntoConstraints = NO;
     [self addSubview:self.divisionLine];
     
     self.collectionViewLayout = [PWCollectionLayout new];
     self.collectionViewLayout.minimumInteritemSpacing = PWKeyboardViewHorizontalMargin / 2;
     self.collectionViewLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:self.collectionViewLayout];
+    self.collectionView = [[UICollectionView alloc] initWithFrame:self.frame collectionViewLayout:self.collectionViewLayout];
     self.collectionView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self.collectionView setAutoresizingMask:UIViewAutoresizingFlexibleHeight];
     
     self.collectionViewLayout.linkCollectionView = self.collectionView;
     self.collectionView.backgroundColor = [UIColor colorWithRed:238.f/255.f green:238.f/255.f blue:238.f/255.f alpha:1];
@@ -233,6 +269,9 @@
     
     [self.collectionView registerClass:PWCollectionViewCell.class forCellWithReuseIdentifier:NSStringFromClass(PWCollectionViewCell.class)];
     [self addSubview:self.collectionView];
+    [self setConstraints];
+    
+    self.markView = [PWMarkView new];
 }
 
 - (void)resetSourceWithModel:(PWListModel *)listModel {
