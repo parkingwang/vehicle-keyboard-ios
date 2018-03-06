@@ -67,10 +67,12 @@
     //    [[PWPlateKeyBoardWindow shareInstance] setPlate:self.textField.text type:self.type index:[self.textField offsetFromPosition:self.textField.beginningOfDocument toPosition:self.textField.selectedTextRange.start]];
     //    [sender setTitle:[NSString stringWithFormat:@"%ld",i%3] forState:UIControlStateNormal];
     i++;
-    if (i%2) {
+    if (i%3==0) {
         [self.handler setNumType:PWKeyboardNumTypeNewEnergy];
-    } else {
+    } else if (i%3==1) {
         [self.handler setNumType:PWKeyboardNumTypeAuto];
+    } else {
+        [[UIApplication sharedApplication].keyWindow endEditing:YES];
     }
     [self.collectionView reloadData];
 }
