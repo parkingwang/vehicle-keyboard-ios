@@ -41,8 +41,6 @@ typedef void(^ButtonClickBlock)(PWKeyboardButtonType buttonType, NSString *text)
 
 @property (weak, nonatomic) id<PWKeyboardViewDelegate> delegate;
 
-@property (assign, nonatomic, readonly) BOOL isShow;
-
 + (instancetype)shareInstance;
 
 - (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
@@ -60,8 +58,5 @@ typedef void(^ButtonClickBlock)(PWKeyboardButtonType buttonType, NSString *text)
  */
 - (void)setPlate:(NSString *)plate type:(PWKeyboardType)type numType:(PWKeyboardNumType)numType index:(NSInteger)index;
 - (void)setPlate:(NSString *)plate type:(PWKeyboardType)type index:(NSInteger)index;
-
-- (void)show;
-- (void)hide;
 
 @end

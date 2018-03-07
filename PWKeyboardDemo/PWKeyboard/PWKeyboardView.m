@@ -421,14 +421,6 @@
 }
 
 #pragma mark - display
-- (void)show {
-    self.isShow = YES;
-}
-
-- (void)hide {
-    [[UIApplication sharedApplication].keyWindow endEditing:YES];
-    self.isShow = NO;
-}
 
 - (void)markViewShowOnCell:(PWCollectionViewCell *)cell {
     if (CGRectGetWidth(self.markView.bounds) < 10) {
@@ -500,10 +492,6 @@
 - (void)setSelectedColor:(UIColor *)selectedColor {
     _selectedColor = selectedColor;
     self.markView.label.textColor = selectedColor;
-}
-
-- (void)setIsShow:(BOOL)isShow {
-    _isShow = isShow;
 }
 
 #pragma mark - Logical

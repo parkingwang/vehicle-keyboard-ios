@@ -32,6 +32,8 @@
 
 //- (BOOL)shouldDone:(NSString *)plate index:(NSInteger)index;
 
+- (void)plateKeyboardIsShow:(BOOL)isShow;
+
 @end
 
 @interface PWHandler : NSObject <UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
@@ -43,18 +45,20 @@
 @property (copy, nonatomic) UIColor * keyboardSelectedColor;
 //与使用者声明的UICollectionView进行关联
 @property (strong, nonatomic) UICollectionView * collectionView;
-//蒙版，在选中的view上面，可设置属性或者使用者重新初始化，若使用者希望高度自定义，可隐藏此视图，通过代理方法在外部实现蒙版
+//蒙版，在选中的view上面，可设置属性或者使用者重新初始化
 @property (strong, nonatomic) UIView * maskView;
 //cell间隔
 @property (assign, nonatomic) CGFloat minimumInteritemSpacing;
 //蒙版视图宽高的增量，(0,0)表示延cell边缘，正数向外扩充，负数向内聚合
 @property (assign, nonatomic) CGSize maskViewOffset;
 
-@property (assign, nonatomic, readonly) BOOL isShow;
-
 @property (weak, nonatomic) id <PWHandlerDelegate> delegate;
 
 //注册方法
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier;
+
+//在下一次runloop调用，比如viewDidAppear
+- (void)show;
+- (void)hide;
 
 @end

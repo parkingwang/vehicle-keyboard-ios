@@ -60,6 +60,7 @@
     self.collectionView.delegate = self.handler;
     self.collectionView.dataSource = self.handler;
     self.collectionView.clipsToBounds = NO;
+
 }
 
 - (IBAction)changeKeyboardType:(UIButton *)sender {
@@ -73,6 +74,7 @@
         [self.handler setNumType:PWKeyboardNumTypeAuto];
     } else {
         [[UIApplication sharedApplication].keyWindow endEditing:YES];
+//        [self.handler]
     }
     [self.collectionView reloadData];
 }

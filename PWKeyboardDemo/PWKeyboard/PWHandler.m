@@ -30,6 +30,9 @@ typedef NS_ENUM(NSInteger,PWHandlerOperationType){
 
 @property (strong, nonatomic) UITextField * textField;
 
+@property (assign, nonatomic) BOOL canSelected;
+@property (assign, nonatomic) BOOL isShow;
+
 @end
 
 @implementation PWHandler
@@ -47,7 +50,7 @@ typedef NS_ENUM(NSInteger,PWHandlerOperationType){
                     [weakSelf delete];
                 }  break;
                 case PWKeyboardButtonTypeDone: {
-                    [weakSelf.keyBoard hide];
+                    [weakSelf.textField resignFirstResponder];
                 }  break;
             }
         };
@@ -58,9 +61,65 @@ typedef NS_ENUM(NSInteger,PWHandlerOperationType){
         self.maskView.layer.borderColor = [UIColor redColor].CGColor;
         self.maskView.userInteractionEnabled = NO;
         self.maskViewOffset = CGSizeMake(2, 0);
+        self.maskView.hidden = YES;
+        
+        //监听当键盘将要出现时
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(keyboardWillShow:)
+                                                     name:UIKeyboardWillShowNotification
+                                                   object:nil];
+        
+        //监听当键将要退出时
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(keyboardWillHide:)
+                                                     name:UIKeyboardWillHideNotification
+                                                   object:nil];
+        
     }
     return self;
 }
+
+//当键盘出现
+- (void)keyboardWillShow:(NSNotification *)notification {
+    if (self.textField.isFirstResponder) {
+        self.canSelected = YES;
+        self.maskView.hidden = NO;
+        self.isShow = YES;
+        if (self.delegate && [self.delegate respondsToSelector:@selector(plateKeyboardIsShow:)]) {
+            [self.delegate plateKeyboardIsShow:self.isShow];
+        }
+    } else {
+        self.canSelected = NO;
+        self.maskView.hidden = YES;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.collectionView reloadData];
+    });
+}
+
+//当键退出
+- (void)keyboardWillHide:(NSNotification *)notification {
+    self.canSelected = NO;
+    self.maskView.hidden = YES;
+    if (self.isShow) {
+        self.isShow = NO;
+        if (self.delegate && [self.delegate respondsToSelector:@selector(plateKeyboardIsShow:)]) {
+            [self.delegate plateKeyboardIsShow:self.isShow];
+        }
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.collectionView reloadData];
+    });
+}
+
+- (void)show {
+    [self.textField becomeFirstResponder];
+}
+
+- (void)hide {
+    [self.textField resignFirstResponder];
+}
+
 
 - (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
     self = [self init];
@@ -72,7 +131,7 @@ typedef NS_ENUM(NSInteger,PWHandlerOperationType){
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     PWSegmentCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:self.reuseIdentifier forIndexPath:indexPath];
     cell.textLabel.text = self.chars[indexPath.row];
-    cell.selected = self.index == indexPath.row;
+    cell.selected = self.index == indexPath.row && self.canSelected;
     if (self.index == indexPath.row) {
         [self changeMaskViewPlace:self.index];
         if (self.delegate && [self.delegate respondsToSelector:@selector(collectionView:currentIndexPath:cell:)]) {
@@ -89,12 +148,11 @@ typedef NS_ENUM(NSInteger,PWHandlerOperationType){
 #pragma mark - UICollectionViewDelegate
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     [collectionView reloadData];
-    if (!self.keyBoard.isShow && self.delegate && [self.delegate respondsToSelector:@selector(plateBeginEditing:index:)]) {
+    if (![self.textField isFirstResponder] && self.delegate && [self.delegate respondsToSelector:@selector(plateBeginEditing:index:)]) {
         [self.delegate plateBeginEditing:self.plate index:self.index];
     }
     if (![self.textField isFirstResponder]) {
-        [self.textField becomeFirstResponder];
-        [self.keyBoard show];
+         [self.textField becomeFirstResponder];
     }
     return [self isRightfulWithCurrentIndex:indexPath.row];
 }
@@ -255,10 +313,6 @@ typedef NS_ENUM(NSInteger,PWHandlerOperationType){
 - (void)setKeyboardSelectedColor:(UIColor *)keyboardSelectedColor {
     _keyboardSelectedColor = keyboardSelectedColor;
     self.keyBoard.selectedColor = keyboardSelectedColor;
-}
-
-- (BOOL)isShow {
-    return self.keyBoard.isShow;
 }
 
 - (void)setIndex:(NSInteger)index {
