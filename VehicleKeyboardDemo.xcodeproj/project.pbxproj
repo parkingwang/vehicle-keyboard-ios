@@ -1,0 +1,557 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		270C77042079F16F009688AF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270C77032079F16F009688AF /* AppDelegate.swift */; };
+		270C77062079F16F009688AF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270C77052079F16F009688AF /* ViewController.swift */; };
+		270C77092079F16F009688AF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 270C77072079F16F009688AF /* Main.storyboard */; };
+		270C770B2079F16F009688AF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 270C770A2079F16F009688AF /* Assets.xcassets */; };
+		270C770E2079F16F009688AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 270C770C2079F16F009688AF /* LaunchScreen.storyboard */; };
+		270C77192079F16F009688AF /* VehicleKeyboardDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270C77182079F16F009688AF /* VehicleKeyboardDemoTests.swift */; };
+		270C77242079F16F009688AF /* VehicleKeyboardDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270C77232079F16F009688AF /* VehicleKeyboardDemoUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		270C77152079F16F009688AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 270C76F82079F16E009688AF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 270C76FF2079F16E009688AF;
+			remoteInfo = VehicleKeyboardDemo;
+		};
+		270C77202079F16F009688AF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 270C76F82079F16E009688AF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 270C76FF2079F16E009688AF;
+			remoteInfo = VehicleKeyboardDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		270C77002079F16E009688AF /* VehicleKeyboardDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VehicleKeyboardDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		270C77032079F16F009688AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		270C77052079F16F009688AF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		270C77082079F16F009688AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		270C770A2079F16F009688AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		270C770D2079F16F009688AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		270C770F2079F16F009688AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		270C77142079F16F009688AF /* VehicleKeyboardDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VehicleKeyboardDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		270C77182079F16F009688AF /* VehicleKeyboardDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleKeyboardDemoTests.swift; sourceTree = "<group>"; };
+		270C771A2079F16F009688AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		270C771F2079F16F009688AF /* VehicleKeyboardDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VehicleKeyboardDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		270C77232079F16F009688AF /* VehicleKeyboardDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleKeyboardDemoUITests.swift; sourceTree = "<group>"; };
+		270C77252079F16F009688AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		270C76FD2079F16E009688AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		270C77112079F16F009688AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		270C771C2079F16F009688AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		270C76F72079F16E009688AF = {
+			isa = PBXGroup;
+			children = (
+				270C77022079F16E009688AF /* VehicleKeyboardDemo */,
+				270C77172079F16F009688AF /* VehicleKeyboardDemoTests */,
+				270C77222079F16F009688AF /* VehicleKeyboardDemoUITests */,
+				270C77012079F16E009688AF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		270C77012079F16E009688AF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				270C77002079F16E009688AF /* VehicleKeyboardDemo.app */,
+				270C77142079F16F009688AF /* VehicleKeyboardDemoTests.xctest */,
+				270C771F2079F16F009688AF /* VehicleKeyboardDemoUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		270C77022079F16E009688AF /* VehicleKeyboardDemo */ = {
+			isa = PBXGroup;
+			children = (
+				270C77032079F16F009688AF /* AppDelegate.swift */,
+				270C77052079F16F009688AF /* ViewController.swift */,
+				270C77072079F16F009688AF /* Main.storyboard */,
+				270C770A2079F16F009688AF /* Assets.xcassets */,
+				270C770C2079F16F009688AF /* LaunchScreen.storyboard */,
+				270C770F2079F16F009688AF /* Info.plist */,
+			);
+			path = VehicleKeyboardDemo;
+			sourceTree = "<group>";
+		};
+		270C77172079F16F009688AF /* VehicleKeyboardDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				270C77182079F16F009688AF /* VehicleKeyboardDemoTests.swift */,
+				270C771A2079F16F009688AF /* Info.plist */,
+			);
+			path = VehicleKeyboardDemoTests;
+			sourceTree = "<group>";
+		};
+		270C77222079F16F009688AF /* VehicleKeyboardDemoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				270C77232079F16F009688AF /* VehicleKeyboardDemoUITests.swift */,
+				270C77252079F16F009688AF /* Info.plist */,
+			);
+			path = VehicleKeyboardDemoUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		270C76FF2079F16E009688AF /* VehicleKeyboardDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 270C77282079F16F009688AF /* Build configuration list for PBXNativeTarget "VehicleKeyboardDemo" */;
+			buildPhases = (
+				270C76FC2079F16E009688AF /* Sources */,
+				270C76FD2079F16E009688AF /* Frameworks */,
+				270C76FE2079F16E009688AF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = VehicleKeyboardDemo;
+			productName = VehicleKeyboardDemo;
+			productReference = 270C77002079F16E009688AF /* VehicleKeyboardDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		270C77132079F16F009688AF /* VehicleKeyboardDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 270C772B2079F16F009688AF /* Build configuration list for PBXNativeTarget "VehicleKeyboardDemoTests" */;
+			buildPhases = (
+				270C77102079F16F009688AF /* Sources */,
+				270C77112079F16F009688AF /* Frameworks */,
+				270C77122079F16F009688AF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				270C77162079F16F009688AF /* PBXTargetDependency */,
+			);
+			name = VehicleKeyboardDemoTests;
+			productName = VehicleKeyboardDemoTests;
+			productReference = 270C77142079F16F009688AF /* VehicleKeyboardDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		270C771E2079F16F009688AF /* VehicleKeyboardDemoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 270C772E2079F16F009688AF /* Build configuration list for PBXNativeTarget "VehicleKeyboardDemoUITests" */;
+			buildPhases = (
+				270C771B2079F16F009688AF /* Sources */,
+				270C771C2079F16F009688AF /* Frameworks */,
+				270C771D2079F16F009688AF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				270C77212079F16F009688AF /* PBXTargetDependency */,
+			);
+			name = VehicleKeyboardDemoUITests;
+			productName = VehicleKeyboardDemoUITests;
+			productReference = 270C771F2079F16F009688AF /* VehicleKeyboardDemoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		270C76F82079F16E009688AF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = yangzhihao;
+				TargetAttributes = {
+					270C76FF2079F16E009688AF = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					270C77132079F16F009688AF = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 270C76FF2079F16E009688AF;
+					};
+					270C771E2079F16F009688AF = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 270C76FF2079F16E009688AF;
+					};
+				};
+			};
+			buildConfigurationList = 270C76FB2079F16E009688AF /* Build configuration list for PBXProject "VehicleKeyboardDemo" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 270C76F72079F16E009688AF;
+			productRefGroup = 270C77012079F16E009688AF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				270C76FF2079F16E009688AF /* VehicleKeyboardDemo */,
+				270C77132079F16F009688AF /* VehicleKeyboardDemoTests */,
+				270C771E2079F16F009688AF /* VehicleKeyboardDemoUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		270C76FE2079F16E009688AF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				270C770E2079F16F009688AF /* LaunchScreen.storyboard in Resources */,
+				270C770B2079F16F009688AF /* Assets.xcassets in Resources */,
+				270C77092079F16F009688AF /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		270C77122079F16F009688AF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		270C771D2079F16F009688AF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		270C76FC2079F16E009688AF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				270C77062079F16F009688AF /* ViewController.swift in Sources */,
+				270C77042079F16F009688AF /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		270C77102079F16F009688AF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				270C77192079F16F009688AF /* VehicleKeyboardDemoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		270C771B2079F16F009688AF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				270C77242079F16F009688AF /* VehicleKeyboardDemoUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		270C77162079F16F009688AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 270C76FF2079F16E009688AF /* VehicleKeyboardDemo */;
+			targetProxy = 270C77152079F16F009688AF /* PBXContainerItemProxy */;
+		};
+		270C77212079F16F009688AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 270C76FF2079F16E009688AF /* VehicleKeyboardDemo */;
+			targetProxy = 270C77202079F16F009688AF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		270C77072079F16F009688AF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				270C77082079F16F009688AF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		270C770C2079F16F009688AF /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				270C770D2079F16F009688AF /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		270C77262079F16F009688AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		270C77272079F16F009688AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		270C77292079F16F009688AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = VehicleKeyboardDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yzh.-.VehicleKeyboardDemo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		270C772A2079F16F009688AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = VehicleKeyboardDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yzh.-.VehicleKeyboardDemo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		270C772C2079F16F009688AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = VehicleKeyboardDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yzh.-.VehicleKeyboardDemoTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VehicleKeyboardDemo.app/VehicleKeyboardDemo";
+			};
+			name = Debug;
+		};
+		270C772D2079F16F009688AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = VehicleKeyboardDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yzh.-.VehicleKeyboardDemoTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VehicleKeyboardDemo.app/VehicleKeyboardDemo";
+			};
+			name = Release;
+		};
+		270C772F2079F16F009688AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = VehicleKeyboardDemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yzh.-.VehicleKeyboardDemoUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = VehicleKeyboardDemo;
+			};
+			name = Debug;
+		};
+		270C77302079F16F009688AF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = VehicleKeyboardDemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.yzh.-.VehicleKeyboardDemoUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = VehicleKeyboardDemo;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		270C76FB2079F16E009688AF /* Build configuration list for PBXProject "VehicleKeyboardDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				270C77262079F16F009688AF /* Debug */,
+				270C77272079F16F009688AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		270C77282079F16F009688AF /* Build configuration list for PBXNativeTarget "VehicleKeyboardDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				270C77292079F16F009688AF /* Debug */,
+				270C772A2079F16F009688AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		270C772B2079F16F009688AF /* Build configuration list for PBXNativeTarget "VehicleKeyboardDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				270C772C2079F16F009688AF /* Debug */,
+				270C772D2079F16F009688AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		270C772E2079F16F009688AF /* Build configuration list for PBXNativeTarget "VehicleKeyboardDemoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				270C772F2079F16F009688AF /* Debug */,
+				270C77302079F16F009688AF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 270C76F82079F16E009688AF /* Project object */;
+}
