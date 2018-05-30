@@ -14,6 +14,12 @@
 		270C770E2079F16F009688AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 270C770C2079F16F009688AF /* LaunchScreen.storyboard */; };
 		270C77192079F16F009688AF /* VehicleKeyboardDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270C77182079F16F009688AF /* VehicleKeyboardDemoTests.swift */; };
 		270C77242079F16F009688AF /* VehicleKeyboardDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270C77232079F16F009688AF /* VehicleKeyboardDemoUITests.swift */; };
+		270C77322079F571009688AF /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270C77312079F571009688AF /* UITextField+Extension.swift */; };
+		270C77352079F97A009688AF /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270C77342079F97A009688AF /* Engine.swift */; };
+		270C77372079FA59009688AF /* PWModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270C77362079FA59009688AF /* PWModel.swift */; };
+		270C7739207A1112009688AF /* PWKeyBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270C7738207A1112009688AF /* PWKeyBoardView.swift */; };
+		272A32C220BE3DD9002735DA /* PWKeyBoardWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272A32C120BE3DD9002735DA /* PWKeyBoardWindow.swift */; };
+		272A32C420BE49AC002735DA /* PWBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 272A32C320BE49AC002735DA /* PWBundle.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +53,12 @@
 		270C771F2079F16F009688AF /* VehicleKeyboardDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VehicleKeyboardDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		270C77232079F16F009688AF /* VehicleKeyboardDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleKeyboardDemoUITests.swift; sourceTree = "<group>"; };
 		270C77252079F16F009688AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		270C77312079F571009688AF /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		270C77342079F97A009688AF /* Engine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
+		270C77362079FA59009688AF /* PWModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWModel.swift; sourceTree = "<group>"; };
+		270C7738207A1112009688AF /* PWKeyBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWKeyBoardView.swift; sourceTree = "<group>"; };
+		272A32C120BE3DD9002735DA /* PWKeyBoardWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWKeyBoardWindow.swift; sourceTree = "<group>"; };
+		272A32C320BE49AC002735DA /* PWBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PWBundle.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,8 +109,10 @@
 		270C77022079F16E009688AF /* VehicleKeyboardDemo */ = {
 			isa = PBXGroup;
 			children = (
+				270C77332079F97A009688AF /* PWKeyBoard */,
 				270C77032079F16F009688AF /* AppDelegate.swift */,
 				270C77052079F16F009688AF /* ViewController.swift */,
+				270C77312079F571009688AF /* UITextField+Extension.swift */,
 				270C77072079F16F009688AF /* Main.storyboard */,
 				270C770A2079F16F009688AF /* Assets.xcassets */,
 				270C770C2079F16F009688AF /* LaunchScreen.storyboard */,
@@ -124,6 +138,18 @@
 			);
 			path = VehicleKeyboardDemoUITests;
 			sourceTree = "<group>";
+		};
+		270C77332079F97A009688AF /* PWKeyBoard */ = {
+			isa = PBXGroup;
+			children = (
+				272A32C320BE49AC002735DA /* PWBundle.bundle */,
+				270C77342079F97A009688AF /* Engine.swift */,
+				270C77362079FA59009688AF /* PWModel.swift */,
+				270C7738207A1112009688AF /* PWKeyBoardView.swift */,
+				272A32C120BE3DD9002735DA /* PWKeyBoardWindow.swift */,
+			);
+			path = PWKeyBoard;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -232,6 +258,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				272A32C420BE49AC002735DA /* PWBundle.bundle in Resources */,
 				270C770E2079F16F009688AF /* LaunchScreen.storyboard in Resources */,
 				270C770B2079F16F009688AF /* Assets.xcassets in Resources */,
 				270C77092079F16F009688AF /* Main.storyboard in Resources */,
@@ -259,6 +286,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				270C77322079F571009688AF /* UITextField+Extension.swift in Sources */,
+				270C77352079F97A009688AF /* Engine.swift in Sources */,
+				270C7739207A1112009688AF /* PWKeyBoardView.swift in Sources */,
+				272A32C220BE3DD9002735DA /* PWKeyBoardWindow.swift in Sources */,
+				270C77372079FA59009688AF /* PWModel.swift in Sources */,
 				270C77062079F16F009688AF /* ViewController.swift in Sources */,
 				270C77042079F16F009688AF /* AppDelegate.swift in Sources */,
 			);
@@ -427,7 +459,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6RP578AZND;
 				INFOPLIST_FILE = VehicleKeyboardDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yzh.-.VehicleKeyboardDemo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -441,7 +475,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6RP578AZND;
 				INFOPLIST_FILE = VehicleKeyboardDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.yzh.-.VehicleKeyboardDemo";
 				PRODUCT_NAME = "$(TARGET_NAME)";

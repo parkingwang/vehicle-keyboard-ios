@@ -9,17 +9,21 @@
 import UIKit
 
 class ViewController: UIViewController {
+    var count = 0
 
+    @IBOutlet weak var myTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        self.myTextField.changeInputView()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func buttonAction(_ sender: UIButton) {
+        self.view.endEditing(false)
     }
-
-
+    
+    @IBAction func testButtonAction(_ sender: UIButton) {
+        count += 1
+        print("点击了最下面的按钮\(count)");
+    }
 }
 
