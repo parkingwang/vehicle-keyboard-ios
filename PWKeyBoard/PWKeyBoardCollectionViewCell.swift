@@ -21,8 +21,10 @@ class PWKeyBoardCollectionViewCell: UICollectionViewCell {
         let path = Bundle(for: self.classForCoder).path(forResource: "PWBundle", ofType: "bundle")
         let pwBundle = Bundle(path: path!)
         let normalImage = UIImage(contentsOfFile: (pwBundle?.path(forResource: "btn_normal@2x", ofType: "png", inDirectory: "Image"))!)?.resizableImage(withCapInsets: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
-        self.shadowImageVIew.image = normalImage
-        self.backgroundColor = UIColor.clear
+        let pressedImage = UIImage(contentsOfFile: (pwBundle?.path(forResource: "btn_pressed@2x", ofType: "png", inDirectory: "Image"))!)?.resizableImage(withCapInsets: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
+        shadowImageVIew.image = normalImage
+        shadowImageVIew.highlightedImage = pressedImage
+        backgroundColor = UIColor.clear
     }
     
     func setDeleteButton(left:CGFloat) {

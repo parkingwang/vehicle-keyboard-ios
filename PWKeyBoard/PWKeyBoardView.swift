@@ -15,7 +15,10 @@ let PWMainScreen = UIScreen.main
 
 let PWkeybordHeight : CGFloat = 226
 
-let itemSpacing : CGFloat = 1
+let kItemSpacing : CGFloat = 1
+
+let kItemHeight : CGFloat = 52
+
 
 class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource {
     
@@ -25,6 +28,8 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     var listModel = Engine.update(keyboardType: PWKeyboardType.civilAndArmy, inputIndex: 0, presetNumber: "", numberType: PWKeyboardNumType.auto);
     
     let identifier = "PWKeyBoardCollectionViewCell"
+    
+    let promptView = Bundle.main.loadNibNamed("PWPromptView", owner: nil, options: nil)?.last as! PWPromptView
     
     override init(frame: CGRect) {
         super.init(frame: CGRect(x:0 , y: PWScreenHeight - PWkeybordHeight, width: PWScreenWidth, height: PWkeybordHeight))
@@ -45,10 +50,15 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
         collectionView.bounces = false
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.delaysContentTouches = false;
+        collectionView.canCancelContentTouches = true;
         collectionView.reloadData()
         let lineView = UIView(frame: CGRect(x: 0, y: 0, width: PWScreenWidth, height: 0.5))
         lineView.backgroundColor = UIColor(red: 204/256.0, green: 204/256.0, blue: 204/256.0, alpha: 1)
-        self.addSubview(lineView)
+        addSubview(lineView)
+        promptView.isHidden = true
+        promptView.frame = CGRect(x: 0, y: 0, width: 55, height: 74)
+        addSubview(promptView)
     }
     
     func show() {
@@ -61,7 +71,7 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     
     func normalItemWith() -> CGFloat{
         //删除按钮的大小还需要加上左边的间距
-        let width = (PWScreenWidth - 8 - itemSpacing * (CGFloat(listModel.rowArray()[0].count) - 1)) / CGFloat(listModel.rowArray()[0].count)
+        let width = (PWScreenWidth - 8 - kItemSpacing * (CGFloat(listModel.rowArray()[0].count) - 1)) / CGFloat(listModel.rowArray()[0].count)
         return width
     }
     
@@ -71,8 +81,18 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     }
     
     func delegateItemWidth() -> CGFloat{
-        let width = (PWScreenWidth - 8 - submitItemWidth() - normalItemWith() * CGFloat(listModel.rowArray()[3].count - 2) - CGFloat(listModel.rowArray()[3].count - 1) * itemSpacing)
+        let width = (PWScreenWidth - 8 - submitItemWidth() - normalItemWith() * CGFloat(listModel.rowArray()[3].count - 2) - CGFloat(listModel.rowArray()[3].count - 1) * kItemSpacing)
         return width
+    }
+    
+    func showPrompt(item:PWKeyBoardCollectionViewCell){
+        promptView.center = CGPoint(x: item.center.x, y: item.center.y - kItemHeight / 2 - 21)
+        promptView.centerTextLabel.text = item.centerLabel.text
+        promptView.isHidden = false
+    }
+    
+    func hiddenPromt(){
+        promptView.isHidden = true
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -82,7 +102,6 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 4
     }
-
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! PWKeyBoardCollectionViewCell
@@ -98,22 +117,36 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
         let width = normalItemWith()
         if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3![listModel.row3!.count - 2]){
             
-            return CGSize(width: delegateItemWidth(), height: 52)
+            return CGSize(width: delegateItemWidth(), height: kItemHeight)
         } else if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3?.last){
-            return CGSize(width: submitItemWidth(), height: 52)
+            return CGSize(width: submitItemWidth(), height: kItemHeight)
         }
         return CGSize(width: width, height: 51)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        let width = (PWScreenWidth - 8 - itemSpacing * (CGFloat(listModel.rowArray()[0].count) - 1)) / CGFloat(listModel.rowArray()[0].count)
-        var leftWidth = (PWScreenWidth - width * CGFloat(listModel.rowArray()[section].count) - itemSpacing * CGFloat(listModel.rowArray()[section].count - 1)) / 2
+        let width = (PWScreenWidth - 8 - kItemSpacing * (CGFloat(listModel.rowArray()[0].count) - 1)) / CGFloat(listModel.rowArray()[0].count)
+        var leftWidth = (PWScreenWidth - width * CGFloat(listModel.rowArray()[section].count) - kItemSpacing * CGFloat(listModel.rowArray()[section].count - 1)) / 2
         leftWidth = section == 3 ? 4 : leftWidth
         let topArray = [7,5,5,4]
         return UIEdgeInsets(top: CGFloat(topArray[section]), left: leftWidth, bottom:0, right: leftWidth)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return itemSpacing
+        return kItemSpacing
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+        let item = collectionView.cellForItem(at: indexPath) as! PWKeyBoardCollectionViewCell
+        showPrompt(item: item)
+        return true
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+        hiddenPromt()
     }
 }
