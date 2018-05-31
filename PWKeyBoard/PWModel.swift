@@ -50,4 +50,8 @@ class PWListModel: NSObject {
     var numberLength :Int?
     //numberLimitLength 当前车牌号码的最大长度；
     var numberLimitLength :Int?
+    
+    func rowArray() -> [[PWModel]] {
+        return [self.row0!,self.row1!,self.row2!,self.row3!]
+    }
 }

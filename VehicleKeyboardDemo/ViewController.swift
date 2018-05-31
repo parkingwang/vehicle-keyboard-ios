@@ -15,6 +15,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.myTextField.changeInputView()
+//        let coview = PWKeyBoardView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
+//        view.addSubview(coview)
     }
 
     @IBAction func buttonAction(_ sender: UIButton) {

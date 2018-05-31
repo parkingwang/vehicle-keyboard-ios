@@ -20,6 +20,8 @@
 		270C7739207A1112009688AF /* PWKeyBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270C7738207A1112009688AF /* PWKeyBoardView.swift */; };
 		272A32C220BE3DD9002735DA /* PWKeyBoardWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272A32C120BE3DD9002735DA /* PWKeyBoardWindow.swift */; };
 		272A32C420BE49AC002735DA /* PWBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 272A32C320BE49AC002735DA /* PWBundle.bundle */; };
+		272A32C920BE4DD5002735DA /* PWKeyBoardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272A32C720BE4DD5002735DA /* PWKeyBoardCollectionViewCell.swift */; };
+		272A32CA20BE4DD5002735DA /* PWKeyBoardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 272A32C820BE4DD5002735DA /* PWKeyBoardCollectionViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		270C7738207A1112009688AF /* PWKeyBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWKeyBoardView.swift; sourceTree = "<group>"; };
 		272A32C120BE3DD9002735DA /* PWKeyBoardWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWKeyBoardWindow.swift; sourceTree = "<group>"; };
 		272A32C320BE49AC002735DA /* PWBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PWBundle.bundle; sourceTree = "<group>"; };
+		272A32C720BE4DD5002735DA /* PWKeyBoardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWKeyBoardCollectionViewCell.swift; sourceTree = "<group>"; };
+		272A32C820BE4DD5002735DA /* PWKeyBoardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PWKeyBoardCollectionViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +151,8 @@
 				270C77362079FA59009688AF /* PWModel.swift */,
 				270C7738207A1112009688AF /* PWKeyBoardView.swift */,
 				272A32C120BE3DD9002735DA /* PWKeyBoardWindow.swift */,
+				272A32C720BE4DD5002735DA /* PWKeyBoardCollectionViewCell.swift */,
+				272A32C820BE4DD5002735DA /* PWKeyBoardCollectionViewCell.xib */,
 			);
 			path = PWKeyBoard;
 			sourceTree = SOURCE_ROOT;
@@ -260,6 +266,7 @@
 			files = (
 				272A32C420BE49AC002735DA /* PWBundle.bundle in Resources */,
 				270C770E2079F16F009688AF /* LaunchScreen.storyboard in Resources */,
+				272A32CA20BE4DD5002735DA /* PWKeyBoardCollectionViewCell.xib in Resources */,
 				270C770B2079F16F009688AF /* Assets.xcassets in Resources */,
 				270C77092079F16F009688AF /* Main.storyboard in Resources */,
 			);
@@ -290,6 +297,7 @@
 				270C77352079F97A009688AF /* Engine.swift in Sources */,
 				270C7739207A1112009688AF /* PWKeyBoardView.swift in Sources */,
 				272A32C220BE3DD9002735DA /* PWKeyBoardWindow.swift in Sources */,
+				272A32C920BE4DD5002735DA /* PWKeyBoardCollectionViewCell.swift in Sources */,
 				270C77372079FA59009688AF /* PWModel.swift in Sources */,
 				270C77062079F16F009688AF /* ViewController.swift in Sources */,
 				270C77042079F16F009688AF /* AppDelegate.swift in Sources */,
