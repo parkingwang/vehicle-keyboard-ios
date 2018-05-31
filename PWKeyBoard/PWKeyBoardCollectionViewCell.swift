@@ -27,6 +27,11 @@ class PWKeyBoardCollectionViewCell: UICollectionViewCell {
         backgroundColor = UIColor.clear
     }
     
+    func resetUI(){
+        imageViewLeftConstraint.constant = 0
+        iconImageView.isHidden = true
+    }
+    
     func setDeleteButton(left:CGFloat) {
         imageViewLeftConstraint.constant = left
         centerLabel.text = ""

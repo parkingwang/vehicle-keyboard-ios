@@ -105,6 +105,7 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! PWKeyBoardCollectionViewCell
+        cell.resetUI()
         cell.centerLabel.text = listModel.rowArray()[indexPath.section][indexPath.row].text
         if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3![listModel.row3!.count - 2]){
             let  left = delegateItemWidth() - (normalItemWith() - 5) / 40 * 42 - 5
@@ -116,7 +117,6 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = normalItemWith()
         if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3![listModel.row3!.count - 2]){
-            
             return CGSize(width: delegateItemWidth(), height: kItemHeight)
         } else if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3?.last){
             return CGSize(width: submitItemWidth(), height: kItemHeight)
@@ -137,12 +137,16 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        collectionView.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        let item = collectionView.cellForItem(at: indexPath) as! PWKeyBoardCollectionViewCell
-        showPrompt(item: item)
+        if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3![listModel.row3!.count - 2]){
+            let item = collectionView.cellForItem(at: indexPath) as! PWKeyBoardCollectionViewCell
+            showPrompt(item: item)
+        } else if (listModel.rowArray()[indexPath.section][indexPath.row] != listModel.row3?.last){
+            return false
+        }
         return true
     }
     
