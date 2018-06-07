@@ -84,9 +84,6 @@ class Engine: NSObject {
     //键位注册
     static func keyRegist(keyString:String , inputIndex: Int , listModel: PWListModel ,numberType :PWKeyboardNumType) -> PWListModel {
         var list = listModel;
-        for i in 1...5 {
-            print(i)
-        }
         switch inputIndex {
         case 0:
             if numberType == PWKeyboardNumType.newEnergy {

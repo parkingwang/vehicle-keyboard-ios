@@ -19,6 +19,10 @@ let kItemSpacing : CGFloat = 1
 
 let kItemHeight : CGFloat = 52
 
+protocol PWKeyBoardViewDeleagte {
+    func selectComplete(char:String)
+}
+
 
 class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource {
     
@@ -26,6 +30,8 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     var collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: PWScreenWidth, height: PWkeybordHeight),collectionViewLayout: UICollectionViewLayout())
 
     var listModel = Engine.update(keyboardType: PWKeyboardType.civilAndArmy, inputIndex: 0, presetNumber: "", numberType: PWKeyboardNumType.auto);
+    
+    var delegate :PWKeyBoardViewDeleagte?
     
     let identifier = "PWKeyBoardCollectionViewCell"
     
@@ -69,8 +75,13 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
         
     }
     
+    func updateText(text:String){
+        listModel = Engine.update(keyboardType: PWKeyboardType.civilAndArmy, inputIndex: text.count, presetNumber: text, numberType: PWKeyboardNumType.auto);
+        collectionView.reloadData()
+    }
+    
     func normalItemWith() -> CGFloat{
-        //删除按钮的大小还需要加上左边的间距
+        
         let width = (PWScreenWidth - 8 - kItemSpacing * (CGFloat(listModel.rowArray()[0].count) - 1)) / CGFloat(listModel.rowArray()[0].count)
         return width
     }
@@ -81,7 +92,8 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     }
     
     func delegateItemWidth() -> CGFloat{
-        let width = (PWScreenWidth - 8 - submitItemWidth() - normalItemWith() * CGFloat(listModel.rowArray()[3].count - 2) - CGFloat(listModel.rowArray()[3].count - 1) * kItemSpacing)
+        //删除按钮的大小还需要加上左边的间距
+        let width = (PWScreenWidth - 8 - submitItemWidth() - normalItemWith() * CGFloat(listModel.rowArray()[3].count - 2) - CGFloat(listModel.rowArray()[3].count - 1) * kItemSpacing) - 0.1
         return width
     }
     
@@ -111,6 +123,7 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
             let  left = delegateItemWidth() - (normalItemWith() - 5) / 40 * 42 - 5
             cell.setDeleteButton(left:left)
         }
+        cell.isEnabledStatus = listModel.rowArray()[indexPath.section][indexPath.row].enabled
         return cell
     }
     
@@ -137,17 +150,24 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.reloadData()
+        //没有值时点击删除键有点击效果但是不做处理
+        if  listModel.presetNumber != nil,listModel.presetNumber!.count < 1 ,indexPath.section == 3, indexPath.row == listModel.rowArray()[indexPath.section].count - 2 {
+            collectionView.reloadData()
+            return
+        }
+        self.delegate?.selectComplete(char: listModel.rowArray()[indexPath.section][indexPath.row].text!)
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3![listModel.row3!.count - 2]){
+         if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3?.last){
+            
+         } else if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3![listModel.row3!.count - 2]){
+            
+         }else if listModel.rowArray()[indexPath.section][indexPath.row].enabled {
             let item = collectionView.cellForItem(at: indexPath) as! PWKeyBoardCollectionViewCell
             showPrompt(item: item)
-        } else if (listModel.rowArray()[indexPath.section][indexPath.row] != listModel.row3?.last){
-            return false
         }
-        return true
+        return listModel.rowArray()[indexPath.section][indexPath.row].enabled
     }
     
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {

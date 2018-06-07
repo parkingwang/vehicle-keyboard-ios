@@ -16,6 +16,17 @@ class PWKeyBoardCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var centerLabel: UILabel!
     
     @IBOutlet weak var imageViewLeftConstraint: NSLayoutConstraint!
+    
+    var isEnabledStatus: Bool = true{
+        willSet{
+            if newValue {
+                centerLabel.textColor = UIColor.black
+            }else {
+                centerLabel.textColor = UIColor(red: 204/255.0, green: 204/255.0, blue: 204/255.0, alpha: 1)
+            }
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         let path = Bundle(for: self.classForCoder).path(forResource: "PWBundle", ofType: "bundle")
