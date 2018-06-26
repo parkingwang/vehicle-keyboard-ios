@@ -10,31 +10,42 @@ import UIKit
 
 class Engine: NSObject {
     
-    static let _STR_CIVIL_PVS = "京津晋冀蒙辽吉黑沪苏浙皖闽赣鲁豫鄂湘粤桂琼渝川贵云藏陕甘青宁新";
+    static let _STR_CIVIL_PVS = "京津晋冀蒙辽吉黑沪苏浙皖闽赣鲁豫鄂湘粤桂琼渝川贵云藏陕甘青宁新台"
     static let _CHAR_DEL = "-"
     static let _STR_DEL_OK = _CHAR_DEL + "+"
     static let _STR_OK = "+"
-    static let _STR_Q_OP = "QWERTYUOP";
-    static let _STR_Q_P = "QWERTYUP";
-    static let _STR_A_L = "ASDFGHJKL";
-    static let _STR_A_L_WITHOUT_J = "ASDFGHKL";
-    static let _STR_Z_M = "ZXCVBNM";
-    static let _CHAR_W = "W";
-    static let _CHAR_J = "J";
-    static let _STR_DF = "DF";
+    static let _STR_MORE = ">"
+    static let _STR_BACK = "<"
+    static let _STR_Q_OP = "QWERTYUIOP"
+    static let _STR_Q_N = "QWERTYCVBN"
+    static let _STR_Q_P = "QWERTYUP"
+    static let _STR_A_L = "ASDFGHJKL"
+    static let _STR_A_M = "ASDFGHJKLM"
+    static let _STR_A_B = "ASDFGHJKLB"
+    static let _STR_A_K = "ABCDEFGHJK"
+    static let _STR_Z_V = "ZXCV"
+    static let _STR_Z_N = "ZXCVBN"
+    static let _STR_W_Z = "WXYZ"
+    static let _CHAR_W = "W"
+    static let _CHAR_J = "J"
+    static let _STR_DF = "DF"
+    static let _STR_ZX = "ZX"
     static let _STR_NUM = "1234567890"
     static let _CHAR_MACAO = "澳"
-    static let _CHAR_HK = "港";
+    static let _CHAR_HK = "港"
     static let _CHAR_XUE = "学"
+    static let _CHAR_MIN = "民"
+    static let _CHAR_SHI = "使"
+    static let _CHAR_SPECIAL = "学警港澳航挂试超使领"
     static let _STR_HK_MACAO = _CHAR_HK + _CHAR_MACAO;
     
-    class func update(keyboardType: PWKeyboardType ,inputIndex: Int,presetNumber: String,numberType: PWKeyboardNumType) -> PWListModel {
+    class func update(keyboardType: PWKeyboardType ,inputIndex: Int,presetNumber: String,numberType: PWKeyboardNumType,isMoreType:Bool) -> PWListModel {
         var detectedNumberType = numberType
         if  numberType == PWKeyboardNumType.auto{
            detectedNumberType = Engine.detectNumberTypeOf(presetNumber: presetNumber)
         }
         //获取键位布局
-        var listModel = Engine.getKeyProvider(inputIndex: inputIndex, presetNumber: presetNumber)
+        var listModel = Engine.getKeyProvider(inputIndex: inputIndex, presetNumber: presetNumber,isMoreType:isMoreType, numberType: detectedNumberType)
         //注册键位
         listModel = Engine.keyRegist(keyString: presetNumber, inputIndex: inputIndex, listModel: listModel, numberType: detectedNumberType)
     
@@ -50,32 +61,46 @@ class Engine: NSObject {
     }
     
     //键位布局
-    static func getKeyProvider(inputIndex: Int ,presetNumber: String) -> PWListModel{
-        let listModel = PWListModel()
+    static func getKeyProvider(inputIndex: Int ,presetNumber: String,isMoreType:Bool,numberType: PWKeyboardNumType) -> PWListModel{
+        var listModel = PWListModel()
         switch inputIndex {
         case 0:
-            listModel.row0 = Engine.getModelArrayWithString(keyString:Engine.subString(str: _STR_CIVIL_PVS, start: 0, length: 9))
-            listModel.row1 = Engine.getModelArrayWithString(keyString:Engine.subString(str: _STR_CIVIL_PVS, start: 9, length: 9))
-            listModel.row2 = Engine.getModelArrayWithString(keyString:Engine.subString(str: _STR_CIVIL_PVS, start: 18, length: 8))
-            listModel.row3 = Engine.getModelArrayWithString(keyString:Engine.subString(str: _STR_CIVIL_PVS, start: 26, length: 5) + _CHAR_W + _STR_DEL_OK)
-        case 1:
-            listModel.row0 = Engine.getModelArrayWithString(keyString: _STR_NUM)
-            listModel.row1 = Engine.getModelArrayWithString(keyString:_STR_Q_OP + _CHAR_MACAO)
-            listModel.row2 = Engine.getModelArrayWithString(keyString:_STR_A_L + _CHAR_HK)
-            listModel.row3 = Engine.getModelArrayWithString(keyString:_STR_Z_M + _STR_DEL_OK)
-        case 2, 3, 4, 5, 6, 7:
-            if inputIndex == 2 && Engine.subString(str: presetNumber, start: 0, length: 2) == (_CHAR_W + _CHAR_J) {
-                listModel.row0 = Engine.getModelArrayWithString(keyString: _STR_NUM + Engine.subString(str:_STR_CIVIL_PVS, start: 0, length: 1))
-                listModel.row1 = Engine.getModelArrayWithString(keyString: Engine.subString(str:_STR_CIVIL_PVS, start: 1, length: 11))
-                listModel.row2 = Engine.getModelArrayWithString(keyString: Engine.subString(str:_STR_CIVIL_PVS, start: 12, length: 11))
-                listModel.row3 = Engine.getModelArrayWithString(keyString: Engine.subString(str:_STR_CIVIL_PVS, start: 22, length: 8) + _STR_DEL_OK)
+            if !isMoreType {
+                listModel = Engine.defaultProvinces()
             } else {
                 listModel.row0 = Engine.getModelArrayWithString(keyString: _STR_NUM)
-                listModel.row1 = Engine.getModelArrayWithString(keyString:_STR_Q_P + _STR_HK_MACAO)
-                listModel.row2 = Engine.getModelArrayWithString(keyString:_STR_A_L + _CHAR_XUE)
-                listModel.row3 = Engine.getModelArrayWithString(keyString:_STR_Z_M + _STR_DEL_OK)
+                listModel.row1 = Engine.getModelArrayWithString(keyString:_STR_Q_N)
+                listModel.row2 = Engine.getModelArrayWithString(keyString:_STR_A_L)
+                listModel.row3 = Engine.getModelArrayWithString(keyString:_STR_ZX + _CHAR_MIN + _CHAR_SHI + _STR_BACK + _STR_DEL_OK)
             }
-           
+            
+        case 1:
+            if presetNumber == _CHAR_MIN {
+                listModel = Engine.defaultSpecial()
+            } else {
+                listModel = Engine.defaultNumbersAndLetters()
+            }
+        case 2, 3, 4, 5:
+            if inputIndex == 2 && Engine.subString(str: presetNumber, start: 0, length: 2) == (_CHAR_W + _CHAR_J) {
+                listModel = Engine.defaultProvinces()
+            } else {
+                listModel = Engine.defaultNumbersAndLetters()
+            }
+        case 6:
+            if numberType == .newEnergy {
+                listModel = Engine.defaultNumbersAndLetters()
+            } else {
+                if !isMoreType {
+                    listModel.row0 = Engine.getModelArrayWithString(keyString: _STR_NUM)
+                    listModel.row1 = Engine.getModelArrayWithString(keyString:_STR_Q_N)
+                    listModel.row2 = Engine.getModelArrayWithString(keyString:_STR_A_B)
+                    listModel.row3 = Engine.getModelArrayWithString(keyString:_STR_Z_V + _STR_MORE + _STR_DEL_OK)
+                }else {
+                    listModel = Engine.defaultSpecial()
+                }
+            }
+        case 7:
+            listModel = Engine.defaultNumbersAndLetters()
         default: break
         }
         return listModel
@@ -146,6 +171,33 @@ class Engine: NSObject {
         return modelArray
     }
     
+    static func defaultNumbersAndLetters() ->PWListModel{
+        let listModel = PWListModel()
+        listModel.row0 = Engine.getModelArrayWithString(keyString: _STR_NUM)
+        listModel.row1 = Engine.getModelArrayWithString(keyString:_STR_Q_OP)
+        listModel.row2 = Engine.getModelArrayWithString(keyString:_STR_A_M)
+        listModel.row3 = Engine.getModelArrayWithString(keyString:_STR_Z_N + _STR_DEL_OK)
+        return listModel
+    }
+    
+    static func defaultSpecial() ->PWListModel{
+        let listModel = PWListModel()
+        listModel.row0 = Engine.getModelArrayWithString(keyString: _CHAR_SPECIAL)
+        listModel.row1 = Engine.getModelArrayWithString(keyString:_STR_NUM)
+        listModel.row2 = Engine.getModelArrayWithString(keyString:_STR_A_K)
+        listModel.row3 = Engine.getModelArrayWithString(keyString:_STR_W_Z + _STR_BACK + _STR_DEL_OK)
+        return listModel
+    }
+    
+    static func defaultProvinces() ->PWListModel{
+        let listModel = PWListModel()
+        listModel.row0 = Engine.getModelArrayWithString(keyString:Engine.subString(str: _STR_CIVIL_PVS, start: 0, length: 10))
+        listModel.row1 = Engine.getModelArrayWithString(keyString:Engine.subString(str: _STR_CIVIL_PVS, start: 10, length: 10))
+        listModel.row2 = Engine.getModelArrayWithString(keyString:Engine.subString(str: _STR_CIVIL_PVS, start: 20, length: 8))
+        listModel.row3 = Engine.getModelArrayWithString(keyString:Engine.subString(str: _STR_CIVIL_PVS, start: 28, length: 4) + _STR_MORE  + _STR_DEL_OK)
+        return listModel
+    }
+    
     static func disEnabledKey(keyString: [String], listModel: PWListModel,reverseModel:Bool) ->PWListModel {
         let list = listModel
         list.row0 = Engine.disEnableKey(keyString: keyString, row: list.row0!,reverseModel:reverseModel)
@@ -154,6 +206,8 @@ class Engine: NSObject {
         list.row3 = Engine.disEnableKey(keyString: keyString, row: list.row3!,reverseModel:reverseModel)
         return list
     }
+    
+    
     
     static func disEnableKey(keyString: [String],row:Array<PWModel>,reverseModel:Bool) -> Array<PWModel> {
         for model in row {
@@ -169,6 +223,10 @@ class Engine: NSObject {
             } else if model.text == "-" {
                 model.text = "删除"
                 model.keyCode = 1
+            } else if model.text == ">" {
+                model.text = "更多"
+            } else if model.text == "<" {
+                model.text = "返回"
             }
         }
         return row
@@ -183,6 +241,15 @@ class Engine: NSObject {
     }
     
     static func detectNumberTypeOf(presetNumber: String) -> PWKeyboardNumType {
+        if presetNumber.count >= 1 {
+            if Engine.subString(str: presetNumber, start: 0, length: 1) == _CHAR_W{
+                return .wuJing
+            }else if Engine.subString(str: presetNumber, start: 0, length: 1) == _CHAR_MIN {
+                return .airport
+            }else if Engine.subString(str: presetNumber, start: 0, length: 1) == _CHAR_SHI {
+                return .embassy
+            }
+        }
         if presetNumber.count == 8 {
             return PWKeyboardNumType.newEnergy
         }

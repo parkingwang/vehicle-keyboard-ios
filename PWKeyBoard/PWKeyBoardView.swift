@@ -20,22 +20,25 @@ let kItemSpacing : CGFloat = 1
 let kItemHeight : CGFloat = 52
 
 protocol PWKeyBoardViewDeleagte {
-    func selectComplete(char:String)
+    func selectComplete(char:String,inputIndex:Int)
 }
 
 
 class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource {
     
-    
     var collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: PWScreenWidth, height: PWkeybordHeight),collectionViewLayout: UICollectionViewLayout())
 
-    var listModel = Engine.update(keyboardType: PWKeyboardType.civilAndArmy, inputIndex: 0, presetNumber: "", numberType: PWKeyboardNumType.auto);
+    var listModel : PWListModel!
     
+    var numType = PWKeyboardNumType.auto
+    var inputIndex = 0;
     var delegate :PWKeyBoardViewDeleagte?
     
     let identifier = "PWKeyBoardCollectionViewCell"
     
     let promptView = Bundle.main.loadNibNamed("PWPromptView", owner: nil, options: nil)?.last as! PWPromptView
+    
+    
     
     override init(frame: CGRect) {
         super.init(frame: CGRect(x:0 , y: PWScreenHeight - PWkeybordHeight, width: PWScreenWidth, height: PWkeybordHeight))
@@ -58,6 +61,7 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
         collectionView.dataSource = self
         collectionView.delaysContentTouches = false;
         collectionView.canCancelContentTouches = true;
+        listModel =  Engine.update(keyboardType: PWKeyboardType.civilAndArmy, inputIndex: 0, presetNumber: "", numberType:numType,isMoreType:false);
         collectionView.reloadData()
         let lineView = UIView(frame: CGRect(x: 0, y: 0, width: PWScreenWidth, height: 0.5))
         lineView.backgroundColor = UIColor(red: 204/256.0, green: 204/256.0, blue: 204/256.0, alpha: 1)
@@ -75,8 +79,9 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
         
     }
     
-    func updateText(text:String){
-        listModel = Engine.update(keyboardType: PWKeyboardType.civilAndArmy, inputIndex: text.count, presetNumber: text, numberType: PWKeyboardNumType.auto);
+    func updateText(text:String,isMoreType:Bool,inputIndex:Int){
+        self.inputIndex = inputIndex
+        listModel = Engine.update(keyboardType: PWKeyboardType.civilAndArmy, inputIndex: inputIndex, presetNumber: text, numberType: numType,isMoreType:isMoreType);
         collectionView.reloadData()
     }
     
@@ -155,7 +160,7 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
             collectionView.reloadData()
             return
         }
-        self.delegate?.selectComplete(char: listModel.rowArray()[indexPath.section][indexPath.row].text!)
+        self.delegate?.selectComplete(char: listModel.rowArray()[indexPath.section][indexPath.row].text!,inputIndex:inputIndex)
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {

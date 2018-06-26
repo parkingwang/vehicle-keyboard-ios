@@ -13,7 +13,7 @@ enum PWKeyboardType: Int{
 }
 
 enum PWKeyboardNumType: Int {
-    case auto = 0,civil,wuJing,wuJingLocal,army,newEnergy;
+    case auto = 0,airport,wuJing,police,embassy,newEnergy;
 }
 
 enum PWKeyboardButtonType: Int {

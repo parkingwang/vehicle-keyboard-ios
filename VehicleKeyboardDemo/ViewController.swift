@@ -18,6 +18,13 @@ class ViewController: UIViewController {
 //        let coview = PWKeyBoardView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
 //        view.addSubview(coview)
     }
+    
+
+    @IBAction func changeModeButtonAction(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected
+        myTextField.changeInputType(isNewEnergy:sender.isSelected)
+    }
+    
 
     @IBAction func buttonAction(_ sender: UIButton) {
         self.view.endEditing(false)
