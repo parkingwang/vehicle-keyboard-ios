@@ -27,7 +27,7 @@ extension UITextField :PWKeyBoardViewDeleagte{
         if !hasText {
             text = ""
         }
-        if char != "删除" , inputIndex == text!.count - 1 {
+        if char != "删除" ,char != "确定" ,inputIndex == text!.count - 1 {
             text = Engine.subString(str: text!, start: 0, length: text!.count - 1)
         }
         var isMoreType = false

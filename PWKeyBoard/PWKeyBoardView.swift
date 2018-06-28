@@ -38,8 +38,6 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     
     let promptView = Bundle.main.loadNibNamed("PWPromptView", owner: nil, options: nil)?.last as! PWPromptView
     
-    
-    
     override init(frame: CGRect) {
         super.init(frame: CGRect(x:0 , y: PWScreenHeight - PWkeybordHeight, width: PWScreenWidth, height: PWkeybordHeight))
         setUI()
