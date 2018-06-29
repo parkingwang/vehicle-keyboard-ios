@@ -10,19 +10,30 @@ import UIKit
 
 class ViewController: UIViewController {
     var count = 0
+    let handler = PWHandler()
 
+    @IBOutlet weak var collectionView: UICollectionView!
+    
+    
+    
     @IBOutlet weak var myTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        //uitextField绑定车牌键盘
         self.myTextField.changeInputView()
-//        let coview = PWKeyBoardView(frame: CGRect(x: 0, y: 0, width: 300, height: 300))
-//        view.addSubview(coview)
+        
+        //uicollectionView绑定车牌键盘
+       handler.setKeyBoardView(collectionView: collectionView)
     }
     
 
     @IBAction func changeModeButtonAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
+        //uitextField输入框改变新能源
         myTextField.changeInputType(isNewEnergy:sender.isSelected)
+        
+        //格子输入框改变新能源
+        handler.changeInputType(isNewEnergy: sender.isSelected)
     }
     
 
@@ -31,6 +42,9 @@ class ViewController: UIViewController {
     }
     
     @IBAction func testButtonAction(_ sender: UIButton) {
+        if !myTextField.isFirstResponder {
+            myTextField.becomeFirstResponder()
+        }
         count += 1
         print("点击了最下面的按钮\(count)");
     }

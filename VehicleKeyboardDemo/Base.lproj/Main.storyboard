@@ -77,15 +77,41 @@
                                     <action selector="changeModeButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MCm-B9-t9J"/>
                                 </connections>
                             </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Buc-VJ-eet">
+                                <rect key="frame" x="10" y="28" width="355" height="62"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="62" id="r7q-Td-vjT"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Ffb-Ex-vAn">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="4cn-xz-Rn2">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="s7Q-0M-GPi" firstAttribute="top" secondItem="fmk-qv-1Vo" secondAttribute="bottom" constant="103" id="4mg-A6-Qat"/>
+                            <constraint firstAttribute="trailing" secondItem="Buc-VJ-eet" secondAttribute="trailing" constant="10" id="5kv-OD-4Vi"/>
+                            <constraint firstItem="Buc-VJ-eet" firstAttribute="top" secondItem="fmk-qv-1Vo" secondAttribute="bottom" constant="8" id="A49-gL-SQp"/>
                             <constraint firstItem="jfk-Cs-o4N" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="DZC-zp-y4P"/>
                             <constraint firstItem="wcS-XL-Ras" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Dwe-qD-5CC"/>
                             <constraint firstItem="wcS-XL-Ras" firstAttribute="top" secondItem="s7Q-0M-GPi" secondAttribute="bottom" constant="12" id="Fhe-5V-evW"/>
                             <constraint firstItem="s7Q-0M-GPi" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="PwI-JN-N0p"/>
                             <constraint firstItem="Zaw-is-AA6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="QZk-cn-dMR"/>
+                            <constraint firstItem="Buc-VJ-eet" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="Qti-e5-Ase"/>
                             <constraint firstItem="aQ3-XX-jqj" firstAttribute="top" secondItem="Zaw-is-AA6" secondAttribute="bottom" constant="107" id="UEP-Bz-xUw"/>
                             <constraint firstItem="3zC-u4-0rC" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="obk-4q-Bjd"/>
                             <constraint firstItem="jfk-Cs-o4N" firstAttribute="top" secondItem="s7Q-0M-GPi" secondAttribute="bottom" constant="100" id="smr-GS-aSE"/>
@@ -93,11 +119,13 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="collectionView" destination="Buc-VJ-eet" id="XZh-Lk-4xt"/>
                         <outlet property="myTextField" destination="s7Q-0M-GPi" id="VmH-Tj-YCM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="101.19940029985008"/>
         </scene>
     </scenes>
 </document>

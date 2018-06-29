@@ -45,6 +45,7 @@ class Engine: NSObject {
     static let _CHAR_SPECIAL = "学警港澳航挂试超使领"
     static let _STR_HK_MACAO = _CHAR_HK + _CHAR_MACAO;
     
+    
     class func update(keyboardType: PWKeyboardType ,inputIndex: Int,presetNumber: String,numberType: PWKeyboardNumType,isMoreType:Bool) -> PWListModel {
         var detectedNumberType = numberType
         if  numberType == PWKeyboardNumType.auto{
