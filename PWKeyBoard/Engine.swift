@@ -239,8 +239,10 @@ class Engine: NSObject {
                 model.text = "删除"
                 model.keyCode = 1
             } else if model.text == ">" {
+                model.keyCode = 3
                 model.text = "更多"
             } else if model.text == "<" {
+                model.keyCode = 4
                 model.text = "返回"
             }
         }

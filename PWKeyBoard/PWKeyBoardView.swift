@@ -166,7 +166,9 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
             
          } else if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3![listModel.row3!.count - 2]){
             
-         }else if listModel.rowArray()[indexPath.section][indexPath.row].enabled {
+         } else if listModel.rowArray()[indexPath.section][indexPath.row].keyCode != nil ,listModel.rowArray()[indexPath.section][indexPath.row].keyCode! > 2 {
+            
+         } else if listModel.rowArray()[indexPath.section][indexPath.row].enabled {
             let item = collectionView.cellForItem(at: indexPath) as! PWKeyBoardCollectionViewCell
             showPrompt(item: item)
         }
