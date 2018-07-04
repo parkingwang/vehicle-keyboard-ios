@@ -21,6 +21,16 @@
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="jcw-Iz-YDc">
                         <rect key="frame" x="0.0" y="0.0" width="89" height="102"/>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="whi-ZT-WmT">
+                        <rect key="frame" x="2" y="0.0" width="85" height="98"/>
+                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="3"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        </userDefinedRuntimeAttributes>
+                    </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="B" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qgg-pl-hBp">
                         <rect key="frame" x="37.5" y="37.5" width="13.5" height="21"/>
                         <constraints>
@@ -40,13 +50,17 @@
                 </subviews>
             </view>
             <constraints>
+                <constraint firstItem="whi-ZT-WmT" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="2" id="1nW-3X-Sor"/>
                 <constraint firstItem="Qgg-pl-hBp" firstAttribute="centerX" secondItem="jcw-Iz-YDc" secondAttribute="centerX" id="8Cm-eq-Lc6"/>
                 <constraint firstItem="jcw-Iz-YDc" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="9SY-zn-Ur9"/>
                 <constraint firstItem="jcw-Iz-YDc" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="ELt-NT-XAT"/>
                 <constraint firstItem="Qgg-pl-hBp" firstAttribute="centerY" secondItem="jcw-Iz-YDc" secondAttribute="centerY" constant="-3" id="ZhE-rf-15f"/>
+                <constraint firstAttribute="bottom" secondItem="whi-ZT-WmT" secondAttribute="bottom" constant="4" id="cpa-4O-FTN"/>
+                <constraint firstAttribute="trailing" secondItem="whi-ZT-WmT" secondAttribute="trailing" constant="2" id="hJ7-p7-6cJ"/>
                 <constraint firstAttribute="trailing" secondItem="jcw-Iz-YDc" secondAttribute="trailing" id="hua-kZ-em2"/>
                 <constraint firstItem="J3d-Bg-qIV" firstAttribute="centerY" secondItem="jcw-Iz-YDc" secondAttribute="centerY" id="qWd-Yx-LmI"/>
                 <constraint firstAttribute="bottom" secondItem="jcw-Iz-YDc" secondAttribute="bottom" id="tTP-5g-5c0"/>
+                <constraint firstItem="whi-ZT-WmT" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="ueo-c1-dPb"/>
                 <constraint firstItem="J3d-Bg-qIV" firstAttribute="centerX" secondItem="jcw-Iz-YDc" secondAttribute="centerX" id="w9v-7D-dSC"/>
             </constraints>
             <size key="customSize" width="89" height="102"/>
@@ -55,6 +69,7 @@
                 <outlet property="iconImageView" destination="J3d-Bg-qIV" id="GpN-N0-LuY"/>
                 <outlet property="imageViewLeftConstraint" destination="9SY-zn-Ur9" id="KYI-LV-Xla"/>
                 <outlet property="shadowImageVIew" destination="jcw-Iz-YDc" id="fph-lB-n0z"/>
+                <outlet property="submitBackgroundView" destination="whi-ZT-WmT" id="0uJ-Cb-OcQ"/>
             </connections>
             <point key="canvasLocation" x="53.5" y="157"/>
         </collectionViewCell>

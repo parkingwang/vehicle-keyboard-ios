@@ -226,7 +226,8 @@ class Engine: NSObject {
     
     static func disEnableKey(keyString: [String],row:Array<PWModel>,reverseModel:Bool) -> Array<PWModel> {
         for model in row {
-             model.enabled = !reverseModel
+            model.enabled = !reverseModel
+            model.keyCode = 0
             for str in keyString {
                 if model.text == str {
                     model.enabled = reverseModel

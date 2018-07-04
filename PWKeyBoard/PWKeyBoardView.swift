@@ -95,8 +95,21 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     }
     
     func delegateItemWidth() -> CGFloat{
-        //删除按钮的大小还需要加上左边的间距
+        //在没有更多的情况下删除按钮的大小还需要加上左边的间距
+        if listModel.row3![listModel.row3!.count - 3].keyCode! > 2 {
+            return specialButtonWidth()
+        }
         let width = (PWScreenWidth - 8 - submitItemWidth() - normalItemWith() * CGFloat(listModel.rowArray()[3].count - 2) - CGFloat(listModel.rowArray()[3].count - 1) * kItemSpacing) - 0.1
+        return width
+    }
+    
+    func moreItemWIdth() -> CGFloat {
+        let width = (PWScreenWidth - 8 - submitItemWidth() - normalItemWith() * CGFloat(listModel.rowArray()[3].count - 3) - CGFloat(listModel.rowArray()[3].count - 1) * kItemSpacing) - 0.1 - delegateItemWidth()
+        return width
+    }
+    
+    func specialButtonWidth() -> CGFloat {
+        let width = (normalItemWith() - 5) / 40 * 80 + 5
         return width
     }
     
@@ -123,19 +136,35 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
         cell.resetUI()
         cell.centerLabel.text = listModel.rowArray()[indexPath.section][indexPath.row].text
         if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3![listModel.row3!.count - 2]){
-            let  left = delegateItemWidth() - (normalItemWith() - 5) / 40 * 42 - 5
+            //给加宽的删除键左边留间隙
+            let  left = delegateItemWidth() - specialButtonWidth()
             cell.setDeleteButton(left:left)
         }
+        if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3![listModel.row3!.count - 3]) , (listModel.row3![listModel.row3!.count - 3].keyCode! > 2){
+            //给加宽的更多键左边留间隙
+            let  left = moreItemWIdth() - specialButtonWidth()
+            cell.setMoreButton(left: left)
+        }
         cell.isEnabledStatus = listModel.rowArray()[indexPath.section][indexPath.row].enabled
+        if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3?.last) {
+            //确定键颜色特殊处理
+            cell.setSubmitBUtton(isEnabled: listModel.rowArray()[indexPath.section][indexPath.row].enabled)
+        }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = normalItemWith()
+        //更多键的宽度需要加上左边空出来的宽度，没有更多时删除键加上
         if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3![listModel.row3!.count - 2]){
             return CGSize(width: delegateItemWidth(), height: kItemHeight)
         } else if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3?.last){
             return CGSize(width: submitItemWidth(), height: kItemHeight)
+        } else if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3![listModel.row3!.count - 3]){
+            //有更多的时候加长
+            if listModel.row3![listModel.row3!.count - 3].keyCode! > 2 {
+                return CGSize(width:moreItemWIdth(), height: kItemHeight)
+            }
         }
         return CGSize(width: width, height: 51)
     }
