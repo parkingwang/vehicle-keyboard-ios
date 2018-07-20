@@ -19,10 +19,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var myTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-        //uitextField绑定车牌键盘
-        self.myTextField.changeInputView()
+        //UITextField绑定车牌键盘(输入框形式)
+        self.myTextField.changeToPlatePWKeyBoardInpurView()
         
-        //uicollectionView绑定车牌键盘
+        //UICollectionView绑定车牌键盘(格子形式)
        handler.setKeyBoardView(collectionView: collectionView)
     }
     
@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     @IBAction func changeModeButtonAction(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
         //uitextField输入框改变新能源
-        myTextField.changeInputType(isNewEnergy:sender.isSelected)
+        myTextField.changePlateInputType(isNewEnergy:sender.isSelected)
         
         //格子输入框改变新能源
         handler.changeInputType(isNewEnergy: sender.isSelected)
@@ -47,6 +47,15 @@ class ViewController: UIViewController {
         }
         count += 1
         print("点击了最下面的按钮\(count)");
+    }
+    
+    @IBAction func setCollectionInputButtonAction(_ sender: UIButton) {
+        self.handler.setPlate(plate: "湘JR0001", type: .auto)
+    }
+    
+    @IBAction func setTextFieldPlateButtonAction(_ sender: UIButton) {
+        myTextField.setPlate(plate: "粤BR0001", type: .auto)
+        
     }
 }
 

@@ -32,7 +32,8 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jfk-Cs-o4N">
-                                <rect key="frame" x="156" y="253" width="62" height="30"/>
+                                <rect key="frame" x="156" y="213" width="62" height="30"/>
+                                <color key="backgroundColor" red="0.5093470982142857" green="0.69115513392857142" blue="0.55917968750000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="eYi-Ab-RBP"/>
                                 </constraints>
@@ -100,6 +101,30 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="75r-N1-lUA">
+                                <rect key="frame" x="118.5" y="255" width="138" height="30"/>
+                                <color key="backgroundColor" red="0.5093470982142857" green="0.91847098214285716" blue="0.55917968750000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="LNh-5y-1eX"/>
+                                    <constraint firstAttribute="width" constant="138" id="eZM-Ua-ikw"/>
+                                </constraints>
+                                <state key="normal" title="填充格子输入框内容"/>
+                                <connections>
+                                    <action selector="setCollectionInputButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ThN-gB-Ycc"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bAw-un-FYN">
+                                <rect key="frame" x="118" y="298" width="138" height="30"/>
+                                <color key="backgroundColor" red="0.50934709820000001" green="0.9184709821" blue="0.55917968750000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="138" id="6hY-5I-hjt"/>
+                                    <constraint firstAttribute="height" constant="30" id="Y7w-si-ZUf"/>
+                                </constraints>
+                                <state key="normal" title="填充UITextfield内容"/>
+                                <connections>
+                                    <action selector="setTextFieldPlateButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3Df-el-OS8"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -112,9 +137,13 @@
                             <constraint firstItem="s7Q-0M-GPi" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="PwI-JN-N0p"/>
                             <constraint firstItem="Zaw-is-AA6" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="QZk-cn-dMR"/>
                             <constraint firstItem="Buc-VJ-eet" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="10" id="Qti-e5-Ase"/>
+                            <constraint firstItem="bAw-un-FYN" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Tfc-S2-Cok"/>
                             <constraint firstItem="aQ3-XX-jqj" firstAttribute="top" secondItem="Zaw-is-AA6" secondAttribute="bottom" constant="107" id="UEP-Bz-xUw"/>
+                            <constraint firstItem="75r-N1-lUA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bQc-jj-VVw"/>
+                            <constraint firstItem="bAw-un-FYN" firstAttribute="top" secondItem="75r-N1-lUA" secondAttribute="bottom" constant="13" id="lGh-Q0-Q85"/>
                             <constraint firstItem="3zC-u4-0rC" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="obk-4q-Bjd"/>
-                            <constraint firstItem="jfk-Cs-o4N" firstAttribute="top" secondItem="s7Q-0M-GPi" secondAttribute="bottom" constant="100" id="smr-GS-aSE"/>
+                            <constraint firstItem="75r-N1-lUA" firstAttribute="top" secondItem="jfk-Cs-o4N" secondAttribute="bottom" constant="12" id="r8b-7z-YSx"/>
+                            <constraint firstItem="jfk-Cs-o4N" firstAttribute="top" secondItem="s7Q-0M-GPi" secondAttribute="bottom" constant="60" id="smr-GS-aSE"/>
                             <constraint firstItem="3zC-u4-0rC" firstAttribute="bottom" secondItem="aQ3-XX-jqj" secondAttribute="top" id="tK4-ic-Nqn"/>
                         </constraints>
                     </view>

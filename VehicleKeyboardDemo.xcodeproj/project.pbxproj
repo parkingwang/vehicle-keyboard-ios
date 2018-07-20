@@ -20,6 +20,7 @@
 		270C7739207A1112009688AF /* PWKeyBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270C7738207A1112009688AF /* PWKeyBoardView.swift */; };
 		272A32C420BE49AC002735DA /* PWBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 272A32C320BE49AC002735DA /* PWBundle.bundle */; };
 		272A32CA20BE4DD5002735DA /* PWKeyBoardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 272A32C820BE4DD5002735DA /* PWKeyBoardCollectionViewCell.xib */; };
+		2766AF9220EF47B500B8EA77 /* UIView+PWCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2766AF9120EF47B400B8EA77 /* UIView+PWCorners.swift */; };
 		277C960E20E486E600CCD45D /* PWHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C960D20E486E600CCD45D /* PWHandler.swift */; };
 		277C961020E4E56D00CCD45D /* PWKeyBoardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C960F20E4E56D00CCD45D /* PWKeyBoardCollectionViewCell.swift */; };
 		277C961320E4E5B800CCD45D /* PWInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 277C961120E4E5B800CCD45D /* PWInputCollectionViewCell.swift */; };
@@ -65,6 +66,7 @@
 		270C7738207A1112009688AF /* PWKeyBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWKeyBoardView.swift; sourceTree = "<group>"; };
 		272A32C320BE49AC002735DA /* PWBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PWBundle.bundle; sourceTree = "<group>"; };
 		272A32C820BE4DD5002735DA /* PWKeyBoardCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PWKeyBoardCollectionViewCell.xib; sourceTree = "<group>"; };
+		2766AF9120EF47B400B8EA77 /* UIView+PWCorners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+PWCorners.swift"; sourceTree = "<group>"; };
 		277C960D20E486E600CCD45D /* PWHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWHandler.swift; sourceTree = "<group>"; };
 		277C960F20E4E56D00CCD45D /* PWKeyBoardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWKeyBoardCollectionViewCell.swift; sourceTree = "<group>"; };
 		277C961120E4E5B800CCD45D /* PWInputCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWInputCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 				27B07CE920BFD03100AF80A4 /* PWPromptView.swift */,
 				27B07CEB20BFD04A00AF80A4 /* PWPromptView.xib */,
 				277C960D20E486E600CCD45D /* PWHandler.swift */,
+				2766AF9120EF47B400B8EA77 /* UIView+PWCorners.swift */,
 			);
 			path = PWKeyBoard;
 			sourceTree = SOURCE_ROOT;
@@ -313,6 +316,7 @@
 				270C77352079F97A009688AF /* Engine.swift in Sources */,
 				270C7739207A1112009688AF /* PWKeyBoardView.swift in Sources */,
 				27B07CEA20BFD03100AF80A4 /* PWPromptView.swift in Sources */,
+				2766AF9220EF47B500B8EA77 /* UIView+PWCorners.swift in Sources */,
 				277C960E20E486E600CCD45D /* PWHandler.swift in Sources */,
 				270C77372079FA59009688AF /* PWModel.swift in Sources */,
 				270C77062079F16F009688AF /* ViewController.swift in Sources */,
