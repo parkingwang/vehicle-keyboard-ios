@@ -15,8 +15,6 @@ class ViewController: UIViewController,PWHandlerDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
-    
-    
     @IBOutlet weak var myTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
