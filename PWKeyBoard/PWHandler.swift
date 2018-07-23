@@ -17,6 +17,13 @@ import UIKit
 
 class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,PWKeyBoardViewDeleagte {
     
+    //格子中字体的颜色
+    var textColor = UIColor.black
+    //格子中字体的大小
+    var textFontSize:CGFloat = 17
+    //设置主题色（会影响格子的边框颜色、按下去时提示栏颜色、确定按钮可用时的颜色）
+    var mainColor = UIColor(red: 65 / 256.0, green: 138 / 256.0, blue: 249 / 256.0, alpha: 1)
+    
     let identifier = "PWInputCollectionViewCell"
     var inputCollectionView :UICollectionView!
     var maxCount = 7
@@ -37,6 +44,7 @@ class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelegateFlowL
         inputTextfield = UITextField(frame: CGRect.zero)
         collectionView.addSubview(inputTextfield)
         keyboardView.delegate = self
+        keyboardView.mainColor = mainColor
         inputTextfield.inputView = keyboardView
         
         //因为直接切给collectionView加边框 会盖住蓝色的选中边框   所以加一个和collectionView一样大的view再切边框
@@ -93,10 +101,12 @@ class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelegateFlowL
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! PWInputCollectionViewCell
         cell.charLabel.text = getPaletChar(index: indexPath.row)
+        cell.charLabel.textColor = textColor
+        cell.charLabel.font = UIFont.systemFont(ofSize: textFontSize)
         if indexPath.row == selectIndex {
             //给cell加上选中的边框
             selectView.layer.borderWidth = 2
-            selectView.layer.borderColor = UIColor.blue.cgColor
+            selectView.layer.borderColor = mainColor.cgColor
             selectView.frame = cell.frame
             corners(view: selectView, index: selectIndex)
         }

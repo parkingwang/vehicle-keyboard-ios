@@ -37,6 +37,7 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     let identifier = "PWKeyBoardCollectionViewCell"
     
     let promptView = Bundle.main.loadNibNamed("PWPromptView", owner: nil, options: nil)?.last as! PWPromptView
+    var mainColor = UIColor(red: 65 / 256.0, green: 138 / 256.0, blue: 249 / 256.0, alpha: 1)
     
     override init(frame: CGRect) {
         super.init(frame: CGRect(x:0 , y: PWScreenHeight - PWkeybordHeight, width: PWScreenWidth, height: PWkeybordHeight))
@@ -116,6 +117,7 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     func showPrompt(item:PWKeyBoardCollectionViewCell){
         promptView.center = CGPoint(x: item.center.x, y: item.center.y - kItemHeight / 2 - 21)
         promptView.centerTextLabel.text = item.centerLabel.text
+        promptView.centerTextLabel.textColor = mainColor
         promptView.isHidden = false
     }
     
@@ -134,6 +136,7 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! PWKeyBoardCollectionViewCell
         cell.resetUI()
+        cell.mainColor = mainColor
         cell.centerLabel.text = listModel.rowArray()[indexPath.section][indexPath.row].text
         if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3![listModel.row3!.count - 2]){
             //给加宽的删除键左边留间隙

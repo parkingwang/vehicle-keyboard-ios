@@ -21,6 +21,7 @@ class ViewController: UIViewController,PWHandlerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         handler.delegate = self
+        handler.mainColor = UIColor.red
         //UITextField绑定车牌键盘(输入框形式)
         self.myTextField.changeToPlatePWKeyBoardInpurView()
         
@@ -60,7 +61,7 @@ class ViewController: UIViewController,PWHandlerDelegate {
         myTextField.setPlate(plate: "粤BR0001", type: .auto)
     }
     
-    //MARK:车牌键盘代理方法
+    //MARK:车牌键盘代理方法-格子输入框专用
     func plateInputComplete(plate: String) {
         print("输入完成车牌号为:" + plate)
     }
