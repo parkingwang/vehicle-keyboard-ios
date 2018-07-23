@@ -14,7 +14,7 @@ extension UITextField :PWKeyBoardViewDeleagte{
     func changeToPlatePWKeyBoardInpurView(){
         let keyboardView = PWKeyBoardView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         inputView = keyboardView
-        keyboardView.delegate = self                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+        keyboardView.delegate = self
     }
     
     func changePlateInputType(isNewEnergy:Bool){
@@ -52,10 +52,25 @@ extension UITextField :PWKeyBoardViewDeleagte{
         }
         refreshKeyboard(isMoreType:isMoreType)
     }
+    
+    func checkPlateComplete() -> Bool{
+        if text == nil {
+            return false
+        }
+        let keyboardView = inputView as! PWKeyBoardView
+        var complete = false
+        if keyboardView.numType == .newEnergy || keyboardView.numType == .wuJing {
+            complete = text!.count == 8
+        }else {
+            complete = text!.count == 7
+        }
+        return complete
+    }
+    
     private func refreshKeyboard(isMoreType:Bool){
         //当输入框处于填满状态时，输入的下标往前移动一位数
         let keyboardView = inputView as! PWKeyBoardView
-        var numType = keyboardView.numType == .newEnergy ? PWKeyboardNumType.newEnergy : Engine.detectNumberTypeOf(presetNumber: text!)
+        let numType = keyboardView.numType == .newEnergy ? PWKeyboardNumType.newEnergy : Engine.detectNumberTypeOf(presetNumber: text!)
         let maxCount = (numType == .newEnergy || numType == .wuJing) ? 8 : 7
         let inpuntIndex = maxCount <= text!.count  ? (text!.count - 1) : text!.count
         keyboardView.updateText(text: text!,isMoreType:isMoreType,inputIndex:inpuntIndex)
