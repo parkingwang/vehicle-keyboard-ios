@@ -8,7 +8,8 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,PWHandlerDelegate {
+    
     var count = 0
     let handler = PWHandler()
 
@@ -19,6 +20,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var myTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        handler.delegate = self
         //UITextField绑定车牌键盘(输入框形式)
         self.myTextField.changeToPlatePWKeyBoardInpurView()
         
@@ -37,8 +39,9 @@ class ViewController: UIViewController {
     }
     
 
+    //隐藏键盘
     @IBAction func buttonAction(_ sender: UIButton) {
-        self.view.endEditing(false)
+        UIApplication.shared.keyWindow?.endEditing(true)
     }
     
     @IBAction func testButtonAction(_ sender: UIButton) {
@@ -55,7 +58,21 @@ class ViewController: UIViewController {
     
     @IBAction func setTextFieldPlateButtonAction(_ sender: UIButton) {
         myTextField.setPlate(plate: "粤BR0001", type: .auto)
-        
+    }
+    
+    //MARK:车牌键盘代理方法
+    func plateInputComplete(plate: String) {
+        print("输入完成车牌号为:" + plate)
+    }
+    
+    func palteDidChnage(plate:String,complete:Bool) {
+        print("输入完成车牌号为:" + plate + "\n输入是否完整？:" + (complete ? "完整" : "不完整"))
+    }
+    func plateKeyBoardShow() {
+        print("车牌键盘显示")
+    }
+    func plateKeyBoardHidden() {
+        print("车牌键盘隐藏")
     }
 }
 

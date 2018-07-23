@@ -8,6 +8,13 @@
 
 import UIKit
 
+@objc protocol PWHandlerDelegate{
+    @objc  func plateInputComplete(plate: String)
+    @objc optional func palteDidChnage(plate:String,complete:Bool)
+    @objc optional func plateKeyBoardShow()
+    @objc optional func plateKeyBoardHidden()
+}
+
 class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,PWKeyBoardViewDeleagte {
     
     let identifier = "PWInputCollectionViewCell"
@@ -18,6 +25,9 @@ class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelegateFlowL
     let keyboardView = PWKeyBoardView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     var paletNumber = ""
     var selectView = UIView()
+    var collectionViewResponder = false
+    
+    weak var  delegate : PWHandlerDelegate?
     
     func setKeyBoardView(collectionView:UICollectionView){
         collectionView.delegate = self
@@ -37,11 +47,24 @@ class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelegateFlowL
         backgroundView.isUserInteractionEnabled = false
         backgroundView.layer.masksToBounds = true
         backgroundView.layer.cornerRadius = 2
-        
-        
-        
         selectView.isUserInteractionEnabled = false
         collectionView.addSubview(selectView)
+        
+        //监听键盘
+        NotificationCenter.default.addObserver(self, selector: #selector(plateKeyBoardShow), name:NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(plateKeyBoardHidden), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    @objc func plateKeyBoardShow(){
+        if inputTextfield.isFirstResponder , !collectionViewResponder {
+            delegate?.plateKeyBoardShow?()
+        }
+    }
+    
+    @objc func plateKeyBoardHidden(){
+        if inputTextfield.isFirstResponder , !collectionViewResponder{
+            delegate?.plateKeyBoardHidden?()
+        }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -84,10 +107,12 @@ class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelegateFlowL
     
     
     func updateCollection(){
+        collectionViewResponder = true
         inputCollectionView.reloadData()
         if !inputTextfield.isFirstResponder {
             inputTextfield.becomeFirstResponder()
         }
+        collectionViewResponder = false
     }
     
     func selectComplete(char: String, inputIndex: Int) {
@@ -97,7 +122,9 @@ class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelegateFlowL
             paletNumber = Engine.subString(str: paletNumber, start: 0, length: paletNumber.count - 1)
             selectIndex = paletNumber.count
         }else  if char == "确定"{
-            inputTextfield.resignFirstResponder()
+            UIApplication.shared.keyWindow?.endEditing(true)
+            delegate?.plateInputComplete(plate: paletNumber)
+            return
         }else if char == "更多" {
             isMoreType = true
         } else if char == "返回" {
@@ -117,14 +144,21 @@ class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelegateFlowL
                 selectIndex += 1;
             }
         }
+        delegate?.palteDidChnage?(plate:paletNumber,complete:paletNumber.count == maxCount)
         keyboardView.updateText(text: paletNumber, isMoreType: isMoreType, inputIndex: selectIndex)
         updateCollection()
     }
     
     func setPlate(plate:String,type:PWKeyboardNumType){
         paletNumber = plate;
-        keyboardView.numType = type
         let isNewEnergy = type == .newEnergy
+        var numType = type;
+        if  numType == .auto,paletNumber.count > 0,Engine.subString(str: paletNumber, start: 0, length: 1) == "W" {
+            numType = .wuJing
+        } else if numType == .auto,paletNumber.count == 8 {
+            numType = .newEnergy
+        }
+        keyboardView.numType = numType
         changeInputType(isNewEnergy: isNewEnergy)
     }
     
@@ -143,8 +177,6 @@ class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelegateFlowL
         var numType = keyboardView.numType
         if  paletNumber.count > 0,Engine.subString(str: paletNumber, start: 0, length: 1) == "W" {
             numType = .wuJing
-        } else if paletNumber.count == 8 {
-            numType = .newEnergy
         }
         maxCount = (numType == .newEnergy || numType == .wuJing) ? 8 : 7
         if paletNumber.count > maxCount {
@@ -167,4 +199,5 @@ class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelegateFlowL
             view.addRounded(cornevrs: UIRectCorner(rawValue: UIRectCorner.RawValue(UInt8(UIRectCorner.topRight.rawValue) | UInt8(UIRectCorner.bottomRight.rawValue))), radii: CGSize(width: 2, height: 2))
         }
     }
+    
 }

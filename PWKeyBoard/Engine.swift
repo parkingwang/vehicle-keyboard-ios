@@ -108,55 +108,59 @@ class Engine: NSObject {
     
     //键位注册
     static func keyRegist(keyString:String , inputIndex: Int , listModel: PWListModel ,numberType :PWKeyboardNumType) -> PWListModel {
-        var list = listModel;
+        var list = listModel
+        var okString = ""
+        if numberType == .newEnergy || numberType == .wuJing {
+            okString = keyString.count == 8 ? _STR_OK : ""
+        }else {
+            okString = keyString.count == 7 ? _STR_OK : ""
+        }
+        let disOkString = okString == "" ? _STR_OK : ""
         switch inputIndex {
         case 0:
             if numberType == PWKeyboardNumType.newEnergy {
-                list = Engine.disEnabledKey(keyString: [_STR_MORE,_STR_OK,_CHAR_TAI], listModel: list,reverseModel:false)
+                list = Engine.disEnabledKey(keyString: [_STR_MORE,disOkString,_CHAR_TAI], listModel: list,reverseModel:false)
             } else {
-                list = Engine.disEnabledKey(keyString: [_STR_OK,_CHAR_TAI], listModel: list,reverseModel:false)
+                list = Engine.disEnabledKey(keyString: [disOkString,_CHAR_TAI], listModel: list,reverseModel:false)
             }
         case 1:
             if numberType == .wuJing {
-                list = Engine.disEnabledKey(keyString:[_CHAR_J,_CHAR_DEL], listModel: list,reverseModel:true)
+                list = Engine.disEnabledKey(keyString:[_CHAR_J,_CHAR_DEL,okString], listModel: list,reverseModel:true)
             } else if numberType == .embassy {
                 let stringArray = _STR_NUM1_3.map({ (a) -> String in
                     return String(a)
                 })
-                list = Engine.disEnabledKey(keyString:[_CHAR_DEL] + stringArray, listModel: list,reverseModel:true)
+                list = Engine.disEnabledKey(keyString:[_CHAR_DEL,okString] + stringArray, listModel: list,reverseModel:true)
             } else if numberType == .airport {
-                list = Engine.disEnabledKey(keyString:[_CHAR_HANG,_CHAR_DEL], listModel: list,reverseModel:true)
+                list = Engine.disEnabledKey(keyString:[_CHAR_HANG,_CHAR_DEL,okString], listModel: list,reverseModel:true)
             } else {
-                list = Engine.disEnabledKey(keyString:Engine.chStringArray(string: _STR_NUM4_0 + _CHAR_I + _STR_OK), listModel: list,reverseModel:false)
+                list = Engine.disEnabledKey(keyString:Engine.chStringArray(string: _STR_NUM4_0 + _CHAR_I + disOkString), listModel: list,reverseModel:false)
             }
         case 2:
             if numberType == PWKeyboardNumType.newEnergy {
-                list = Engine.disEnabledKey(keyString:Engine.chStringArray(string: _STR_NUM + _CHAR_DEL + _STR_DF), listModel: list,reverseModel:true)
+                list = Engine.disEnabledKey(keyString:Engine.chStringArray(string: _STR_NUM + _CHAR_DEL + _STR_DF + okString), listModel: list,reverseModel:true)
             }else if numberType == .wuJing {
-                list = Engine.disEnabledKey(keyString:[_STR_OK,_STR_MORE,_CHAR_TAI] ,listModel: list,reverseModel:false)
+                list = Engine.disEnabledKey(keyString:[disOkString,_STR_MORE,_CHAR_TAI] ,listModel: list,reverseModel:false)
             } else if numberType == .embassy{
-                list = Engine.disEnabledKey(keyString:Engine.chStringArray(string: _STR_NUM + _CHAR_DEL) ,listModel: list,reverseModel:true)
+                list = Engine.disEnabledKey(keyString:Engine.chStringArray(string: _STR_NUM + _CHAR_DEL + okString) ,listModel: list,reverseModel:true)
             } else {
-                list = Engine.disEnabledKey(keyString:Engine.chStringArray(string: _CHAR_I + _CHAR_O + _STR_OK) ,listModel: list,reverseModel:false)
+                list = Engine.disEnabledKey(keyString:Engine.chStringArray(string: _CHAR_I + _CHAR_O + disOkString) ,listModel: list,reverseModel:false)
             }
         case 3:
             if numberType == .embassy{
-                list = Engine.disEnabledKey(keyString:Engine.chStringArray(string: _STR_NUM + _CHAR_DEL) ,listModel: list,reverseModel:true)
+                list = Engine.disEnabledKey(keyString:Engine.chStringArray(string: _STR_NUM + _CHAR_DEL + okString) ,listModel: list,reverseModel:true)
             }else {
-                list = Engine.disEnabledKey(keyString:Engine.chStringArray(string: _CHAR_I + _CHAR_O + _STR_OK) ,listModel: list,reverseModel:false)
+                list = Engine.disEnabledKey(keyString:Engine.chStringArray(string: _CHAR_I + _CHAR_O + disOkString) ,listModel: list,reverseModel:false)
             }
         case 4,5:
-            list = Engine.disEnabledKey(keyString:Engine.chStringArray(string: _CHAR_I + _CHAR_O + _STR_OK) ,listModel: list,reverseModel:false)
+            list = Engine.disEnabledKey(keyString:Engine.chStringArray(string: _CHAR_I + _CHAR_O + disOkString) ,listModel: list,reverseModel:false)
         case 6:
-            let complete = keyString.count == 7 ? "" : _STR_OK
             if Engine.subString(str: keyString, start: 0, length: 2) == "粤Z" {
-                //粤z尾号特殊处理
-                let complete = keyString.count == 7 ? _STR_OK : ""
-                list = Engine.disEnabledKey(keyString:Engine.chStringArray(string: _CHAR_MACAO + _CHAR_HK + _CHAR_DEL + complete), listModel: list,reverseModel:true)
+                list = Engine.disEnabledKey(keyString:Engine.chStringArray(string: _CHAR_MACAO + _CHAR_HK + _CHAR_DEL + okString), listModel: list,reverseModel:true)
             }else if numberType == .embassy || numberType == .airport || numberType == .newEnergy{
-                list = Engine.disEnabledKey(keyString:Engine.chStringArray(string: _STR_MORE + _STR_OK), listModel: list,reverseModel:false)
+                list = Engine.disEnabledKey(keyString:Engine.chStringArray(string: _STR_MORE + disOkString), listModel: list,reverseModel:false)
             }else{
-                list = Engine.disEnabledKey(keyString:Engine.chStringArray(string: _CHAR_MACAO + _CHAR_HK +  complete + _CHAR_HANG + _CHAR_SHI), listModel: list,reverseModel:false)
+                list = Engine.disEnabledKey(keyString:Engine.chStringArray(string: _CHAR_MACAO + _CHAR_HK +  disOkString + _CHAR_HANG + _CHAR_SHI), listModel: list,reverseModel:false)
             }
         case 7:
              let complete = keyString.count == 8 ? _STR_OK : ""
