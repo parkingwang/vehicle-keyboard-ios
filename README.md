@@ -7,8 +7,8 @@
 * 代码为swift编写，已支持oc调用，可以绑定collectionView使用格子输入或绑定UItextfield输入，键盘与系统键盘用法类似。
 
 
-![Alt text](https://github.com/parkingwang/vehicle-keyboard-ios-swift/tree/master/collectionViewgif.gif)
-![Alt text](https://github.com/parkingwang/vehicle-keyboard-ios-swift/tree/master/uitextfieldGIF.gif)
+![gif](./collectionViewgif.gif)
+![gif](./uitextfieldGIF.gif)
 
 `VehicleKeyboard`是停车王品牌的各端产品线的基础组件，专为提高中国车牌号码输入速度而定制开发的专用键盘组件，包括以下三个项目：
 
