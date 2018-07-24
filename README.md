@@ -25,13 +25,13 @@ pod 'VehicleKeyboard-swift',
 
 oc引用pod中的库
 
-```
+```objective-c
 #import "VehicleKeyboard_swift-Swift.h"
 ```
 
 ### 直接作为inputView使用
 
-```
+```objective-c
 [self.myTextField changeToPlatePWKeyBoardInpurView];
 ```
 直接作为inputView使用时，回调于取值都与系统方法一直，直接当做系统UItextfiel使用即可
@@ -41,7 +41,7 @@ oc引用pod中的库
 首先在需要显示的位置摆放一个刚实例化的collectionView，
 然后创建一个PWHandler对象将collectionView于格子车牌输入框进行绑定
 
-```
+```objective-c
 
 @property (strong,nonatomic) PWHandler *handler;
 
@@ -58,7 +58,7 @@ self.handler.textColor = [UIColor greenColor];
 ```
 
 格子输入框的各种回调方法
-```
+```objective-c
 //输入完成点击确定后的回调
 - (void)palteDidChnageWithPlate:(NSString *)plate complete:(BOOL)complete{
 NSLog(@"输入车牌号为:%@ \n 是否完整：%@",plate,complete ? @"完整" : @"不完整");
@@ -85,13 +85,13 @@ NSLog(@"键盘隐藏了");
 
 引用pod中的库
 
-```
+```swift
 import VehicleKeyboard_swift
 ```
 
 ### 直接作为inputView使用
 
-```
+```swift
 myTextField.changeToPlatePWKeyBoardInpurView()
 ```
 直接作为inputView使用时，回调于取值都与系统方法一直，直接当做系统UItextfiel使用即可
@@ -101,7 +101,7 @@ myTextField.changeToPlatePWKeyBoardInpurView()
 首先在需要显示的位置摆放一个刚实例化的collectionView，
 然后创建一个PWHandler对象将collectionView于格子车牌输入框进行绑定
 
-```
+```swift
 
 let handler = PWHandler()
 
@@ -116,7 +116,7 @@ handler.textColor = UIColor.blue
 ```
 
 格子输入框的各种回调方法
-```
+```swift
 //输入完成点击确定后的回调
 func plateInputComplete(plate: String) {
 print("输入完成车牌号为:" + plate)
