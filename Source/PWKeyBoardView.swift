@@ -36,7 +36,7 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     
     let identifier = "PWKeyBoardCollectionViewCell"
     
-    let promptView = Bundle.main.loadNibNamed("PWPromptView", owner: nil, options: nil)?.last as! PWPromptView
+    let promptView = Bundle(for: PWKeyBoardView.self).loadNibNamed("PWPromptView", owner: nil, options: nil)?.last as! PWPromptView
     var mainColor = UIColor(red: 65 / 256.0, green: 138 / 256.0, blue: 249 / 256.0, alpha: 1)
     
     override init(frame: CGRect) {
@@ -53,7 +53,7 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
         layout.itemSize = CGSize(width: 30, height: 30)
         collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: PWScreenWidth, height: PWkeybordHeight),collectionViewLayout:layout)
         collectionView.backgroundColor = UIColor(red: 238 / 256.0, green: 238 / 256.0, blue: 238 / 256.0, alpha: 0)
-        collectionView.register(UINib(nibName: identifier, bundle: nil), forCellWithReuseIdentifier: identifier)
+        collectionView.register(UINib(nibName: identifier, bundle: Bundle(for: PWKeyBoardView.self)), forCellWithReuseIdentifier: identifier)
         self.addSubview(collectionView)
         collectionView.bounces = false
         collectionView.delegate = self
@@ -68,14 +68,6 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
         promptView.isHidden = true
         promptView.frame = CGRect(x: 0, y: 0, width: 55, height: 74)
         addSubview(promptView)
-    }
-    
-    func show() {
-        
-    }
-    
-    func hidden()  {
-        
     }
     
     func updateText(text:String,isMoreType:Bool,inputIndex:Int){

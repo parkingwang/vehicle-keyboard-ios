@@ -8,21 +8,21 @@
 
 import UIKit
 
-@objc protocol PWHandlerDelegate{
+@objc public protocol PWHandlerDelegate{
     @objc  func plateInputComplete(plate: String)
-    @objc optional func palteDidChnage(plate:String,complete:Bool)
-    @objc optional func plateKeyBoardShow()
-    @objc optional func plateKeyBoardHidden()
+    @objc  optional func palteDidChnage(plate:String,complete:Bool)
+    @objc  optional func plateKeyBoardShow()
+    @objc  optional func plateKeyBoardHidden()
 }
 
-class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,PWKeyBoardViewDeleagte {
+public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,PWKeyBoardViewDeleagte {
     
     //格子中字体的颜色
-    var textColor = UIColor.black
+    public var textColor = UIColor.black
     //格子中字体的大小
-    var textFontSize:CGFloat = 17
+    public var textFontSize:CGFloat = 17
     //设置主题色（会影响格子的边框颜色、按下去时提示栏颜色、确定按钮可用时的颜色）
-    var mainColor = UIColor(red: 65 / 256.0, green: 138 / 256.0, blue: 249 / 256.0, alpha: 1)
+    public var mainColor = UIColor(red: 65 / 256.0, green: 138 / 256.0, blue: 249 / 256.0, alpha: 1)
     
     let identifier = "PWInputCollectionViewCell"
     var inputCollectionView :UICollectionView!
@@ -34,12 +34,12 @@ class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelegateFlowL
     var selectView = UIView()
     var collectionViewResponder = false
     
-    weak var  delegate : PWHandlerDelegate?
+    public weak var  delegate : PWHandlerDelegate?
     
-    func setKeyBoardView(collectionView:UICollectionView){
+    public func setKeyBoardView(collectionView:UICollectionView){
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(UINib(nibName: identifier, bundle: nil), forCellWithReuseIdentifier: identifier)
+        collectionView.register(UINib(nibName: identifier, bundle: Bundle(for: PWHandler.self)), forCellWithReuseIdentifier: identifier)
         inputCollectionView = collectionView
         inputTextfield = UITextField(frame: CGRect.zero)
         collectionView.addSubview(inputTextfield)
@@ -75,30 +75,30 @@ class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelegateFlowL
         }
     }
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    public func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         selectIndex = indexPath.row > paletNumber.count ? paletNumber.count : indexPath.row
         keyboardView.updateText(text: paletNumber, isMoreType: false, inputIndex: selectIndex)
         updateCollection()
     }
     
-    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+    public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return maxCount
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         return CGSize(width: (collectionView.bounds.size.width / CGFloat(maxCount)), height: collectionView.bounds.height)
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! PWInputCollectionViewCell
         cell.charLabel.text = getPaletChar(index: indexPath.row)
         cell.charLabel.textColor = textColor
@@ -159,7 +159,7 @@ class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelegateFlowL
         updateCollection()
     }
     
-    func setPlate(plate:String,type:PWKeyboardNumType){
+    public func setPlate(plate:String,type:PWKeyboardNumType){
         paletNumber = plate;
         let isNewEnergy = type == .newEnergy
         var numType = type;
@@ -181,7 +181,7 @@ class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelegateFlowL
         return ""
     }
     
-    func changeInputType(isNewEnergy:Bool){
+    public func changeInputType(isNewEnergy:Bool){
         let keyboardView = inputTextfield.inputView as! PWKeyBoardView
         keyboardView.numType = isNewEnergy ? .newEnergy : .auto
         var numType = keyboardView.numType
@@ -210,4 +210,8 @@ class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelegateFlowL
         }
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
 }

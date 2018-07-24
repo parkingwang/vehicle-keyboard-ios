@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import VehicleKeyboard_swift
 
 class ViewController: UIViewController,PWHandlerDelegate {
     
@@ -16,10 +17,13 @@ class ViewController: UIViewController,PWHandlerDelegate {
     @IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var myTextField: UITextField!
+    
+    @IBOutlet weak var newEnergyButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         handler.delegate = self
-        handler.mainColor = UIColor.red
+        //改变主题色
+//     handler.mainColor = UIColor.red
         //UITextField绑定车牌键盘(输入框形式)
         self.myTextField.changeToPlatePWKeyBoardInpurView()
         
@@ -37,25 +41,20 @@ class ViewController: UIViewController,PWHandlerDelegate {
         handler.changeInputType(isNewEnergy: sender.isSelected)
     }
     
-
     //隐藏键盘
     @IBAction func buttonAction(_ sender: UIButton) {
         UIApplication.shared.keyWindow?.endEditing(true)
     }
     
-    @IBAction func testButtonAction(_ sender: UIButton) {
-        if !myTextField.isFirstResponder {
-            myTextField.becomeFirstResponder()
-        }
-        count += 1
-        print("点击了最下面的按钮\(count)");
-    }
-    
+    //填充格子输入框的值
     @IBAction func setCollectionInputButtonAction(_ sender: UIButton) {
+        newEnergyButton.isSelected = false
         self.handler.setPlate(plate: "湘JR0001", type: .auto)
     }
     
+    //填充uitextfield的值
     @IBAction func setTextFieldPlateButtonAction(_ sender: UIButton) {
+        newEnergyButton.isSelected = false
         myTextField.setPlate(plate: "粤BR0001", type: .auto)
     }
     

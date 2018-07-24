@@ -8,9 +8,10 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/parkingwang/vehicle-keyboard-ios-swift"
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.author       = { "yzh" => "yzhtracy@163.com" }
- s.platform      = :ios, "8.0"
+  s.platform      = :ios, "8.0"
   s.source       = { :git => "https://github.com/parkingwang/vehicle-keyboard-ios-swift.git", :tag => "0.9.1" }
-  s.source_files  = "PWKeyBoard/*"
-  s.resource  = "PWKeyBoard/PWBundle.bundle"
+  s.source_files  = "Source/*"
+  s.resource  = "Source/PWBundle.bundle"
   s.requires_arc = true
+  s.swift_version = "4.0"
 end

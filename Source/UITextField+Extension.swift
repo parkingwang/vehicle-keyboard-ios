@@ -11,19 +11,19 @@ import UIKit
 
 extension UITextField :PWKeyBoardViewDeleagte{
     
-    func changeToPlatePWKeyBoardInpurView(){
+    public func changeToPlatePWKeyBoardInpurView(){
         let keyboardView = PWKeyBoardView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         inputView = keyboardView
         keyboardView.delegate = self
     }
     
-    func changePlateInputType(isNewEnergy:Bool){
+    public func changePlateInputType(isNewEnergy:Bool){
         let keyboardView = self.inputView as! PWKeyBoardView
         keyboardView.numType = isNewEnergy ? .newEnergy : .auto
         refreshKeyboard(isMoreType:false)
     }
     
-    func setPlate(plate:String,type:PWKeyboardNumType){
+    public func setPlate(plate:String,type:PWKeyboardNumType){
         let keyboardView = self.inputView as! PWKeyBoardView
         text = plate;
         keyboardView.numType = type
