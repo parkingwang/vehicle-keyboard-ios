@@ -1,0 +1,6 @@
+framework module VehicleKeyboard_swift {
+  umbrella header "VehicleKeyboard-swift-umbrella.h"
+
+  export *
+  module * { export * }
+}

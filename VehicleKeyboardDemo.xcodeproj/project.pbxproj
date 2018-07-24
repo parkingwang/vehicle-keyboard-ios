@@ -14,6 +14,7 @@
 		270C770E2079F16F009688AF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 270C770C2079F16F009688AF /* LaunchScreen.storyboard */; };
 		270C77192079F16F009688AF /* VehicleKeyboardDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270C77182079F16F009688AF /* VehicleKeyboardDemoTests.swift */; };
 		270C77242079F16F009688AF /* VehicleKeyboardDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270C77232079F16F009688AF /* VehicleKeyboardDemoUITests.swift */; };
+		2780CB122106C94E002591F5 /* OCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2780CB112106C94E002591F5 /* OCViewController.m */; };
 		F137ECE3AFC2BE9C1EE47D2E /* Pods_VehicleKeyboardDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28999919A8F5AD875807AC4A /* Pods_VehicleKeyboardDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +49,9 @@
 		270C771F2079F16F009688AF /* VehicleKeyboardDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VehicleKeyboardDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		270C77232079F16F009688AF /* VehicleKeyboardDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleKeyboardDemoUITests.swift; sourceTree = "<group>"; };
 		270C77252079F16F009688AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2780CB0F2106C94D002591F5 /* VehicleKeyboardDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VehicleKeyboardDemo-Bridging-Header.h"; sourceTree = "<group>"; };
+		2780CB102106C94E002591F5 /* OCViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OCViewController.h; sourceTree = "<group>"; };
+		2780CB112106C94E002591F5 /* OCViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OCViewController.m; sourceTree = "<group>"; };
 		28999919A8F5AD875807AC4A /* Pods_VehicleKeyboardDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VehicleKeyboardDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA7C6EDC7DDC5A19F799F2AF /* Pods-VehicleKeyboardDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VehicleKeyboardDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-VehicleKeyboardDemo/Pods-VehicleKeyboardDemo.release.xcconfig"; sourceTree = "<group>"; };
 		F4C91AB7B20383F19B1026A0 /* Pods-VehicleKeyboardDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VehicleKeyboardDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VehicleKeyboardDemo/Pods-VehicleKeyboardDemo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -106,10 +110,13 @@
 			children = (
 				270C77032079F16F009688AF /* AppDelegate.swift */,
 				270C77052079F16F009688AF /* ViewController.swift */,
+				2780CB102106C94E002591F5 /* OCViewController.h */,
+				2780CB112106C94E002591F5 /* OCViewController.m */,
 				270C77072079F16F009688AF /* Main.storyboard */,
 				270C770A2079F16F009688AF /* Assets.xcassets */,
 				270C770C2079F16F009688AF /* LaunchScreen.storyboard */,
 				270C770F2079F16F009688AF /* Info.plist */,
+				2780CB0F2106C94D002591F5 /* VehicleKeyboardDemo-Bridging-Header.h */,
 			);
 			path = VehicleKeyboardDemo;
 			sourceTree = "<group>";
@@ -220,6 +227,7 @@
 				TargetAttributes = {
 					270C76FF2079F16E009688AF = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 					270C77132079F16F009688AF = {
@@ -342,6 +350,7 @@
 			files = (
 				270C77062079F16F009688AF /* ViewController.swift in Sources */,
 				270C77042079F16F009688AF /* AppDelegate.swift in Sources */,
+				2780CB122106C94E002591F5 /* OCViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -508,6 +517,7 @@
 			baseConfigurationReference = F4C91AB7B20383F19B1026A0 /* Pods-VehicleKeyboardDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6RP578AZND;
 				INFOPLIST_FILE = VehicleKeyboardDemo/Info.plist;
@@ -515,6 +525,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yzh.VehicleKeyboardDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "VehicleKeyboardDemo/VehicleKeyboardDemo-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -525,6 +537,7 @@
 			baseConfigurationReference = DA7C6EDC7DDC5A19F799F2AF /* Pods-VehicleKeyboardDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6RP578AZND;
 				INFOPLIST_FILE = VehicleKeyboardDemo/Info.plist;
@@ -532,6 +545,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yzh.VehicleKeyboardDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "VehicleKeyboardDemo/VehicleKeyboardDemo-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

@@ -1,0 +1,16 @@
+PODS:
+  - VehicleKeyboard-swift (0.9.1)
+
+DEPENDENCIES:
+  - VehicleKeyboard-swift (from `./`)
+
+EXTERNAL SOURCES:
+  VehicleKeyboard-swift:
+    :path: ./
+
+SPEC CHECKSUMS:
+  VehicleKeyboard-swift: 3c2587dc6db3697ed0259005e36070a6e595e0b8
+
+PODFILE CHECKSUM: 061f66e1d132b3fb7f6467aabb78ae3780a784dc
+
+COCOAPODS: 1.4.0

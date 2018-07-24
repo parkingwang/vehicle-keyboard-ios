@@ -18,25 +18,25 @@ import UIKit
 public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,PWKeyBoardViewDeleagte {
     
     //格子中字体的颜色
-    public var textColor = UIColor.black
+    @objc public var textColor = UIColor.black
     //格子中字体的大小
-    public var textFontSize:CGFloat = 17
+    @objc public var textFontSize:CGFloat = 17
     //设置主题色（会影响格子的边框颜色、按下去时提示栏颜色、确定按钮可用时的颜色）
-    public var mainColor = UIColor(red: 65 / 256.0, green: 138 / 256.0, blue: 249 / 256.0, alpha: 1)
+    @objc public var mainColor = UIColor(red: 65 / 256.0, green: 138 / 256.0, blue: 249 / 256.0, alpha: 1)
     
     let identifier = "PWInputCollectionViewCell"
     var inputCollectionView :UICollectionView!
     var maxCount = 7
     var selectIndex = 0
     var inputTextfield :UITextField!
-    let keyboardView = PWKeyBoardView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+     let keyboardView = PWKeyBoardView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     var paletNumber = ""
     var selectView = UIView()
     var collectionViewResponder = false
     
-    public weak var  delegate : PWHandlerDelegate?
+    @objc public weak var  delegate : PWHandlerDelegate?
     
-    public func setKeyBoardView(collectionView:UICollectionView){
+    @objc public func setKeyBoardView(collectionView:UICollectionView){
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: identifier, bundle: Bundle(for: PWHandler.self)), forCellWithReuseIdentifier: identifier)
@@ -159,7 +159,7 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         updateCollection()
     }
     
-    public func setPlate(plate:String,type:PWKeyboardNumType){
+    @objc public func setPlate(plate:String,type:PWKeyboardNumType){
         paletNumber = plate;
         let isNewEnergy = type == .newEnergy
         var numType = type;
@@ -181,7 +181,7 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         return ""
     }
     
-    public func changeInputType(isNewEnergy:Bool){
+   @objc  public func changeInputType(isNewEnergy:Bool){
         let keyboardView = inputTextfield.inputView as! PWKeyBoardView
         keyboardView.numType = isNewEnergy ? .newEnergy : .auto
         var numType = keyboardView.numType

@@ -11,7 +11,6 @@ import VehicleKeyboard_swift
 
 class ViewController: UIViewController,PWHandlerDelegate {
     
-    var count = 0
     let handler = PWHandler()
 
     @IBOutlet weak var collectionView: UICollectionView!
@@ -25,7 +24,7 @@ class ViewController: UIViewController,PWHandlerDelegate {
         //改变主题色
 //     handler.mainColor = UIColor.red
         //UITextField绑定车牌键盘(输入框形式)
-        self.myTextField.changeToPlatePWKeyBoardInpurView()
+        myTextField.changeToPlatePWKeyBoardInpurView()
         
         //UICollectionView绑定车牌键盘(格子形式)
        handler.setKeyBoardView(collectionView: collectionView)
@@ -64,7 +63,7 @@ class ViewController: UIViewController,PWHandlerDelegate {
     }
     
     func palteDidChnage(plate:String,complete:Bool) {
-        print("输入完成车牌号为:" + plate + "\n输入是否完整？:" + (complete ? "完整" : "不完整"))
+        print("输入车牌号为:" + plate + "\n输入是否完整？:" + (complete ? "完整" : "不完整"))
     }
     func plateKeyBoardShow() {
         print("车牌键盘显示")
