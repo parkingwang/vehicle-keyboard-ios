@@ -26,7 +26,7 @@ pod 'VehicleKeyboard-swift',
 oc引用pod中的库
 
 ```
-#import "PWPlateKeyBoardWindow.h"
+#import "VehicleKeyboard_swift-Swift.h"
 ```
 
 ### 直接作为inputView使用
