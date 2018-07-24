@@ -25,16 +25,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.handler = [PWHandler new];
     
-    self.handler.delegate = self;
-    //改变主题色
-//    self.handler.mainColor = [UIColor redColor];
     //UITextField绑定车牌键盘(输入框形式)
     [self.myTextField changeToPlatePWKeyBoardInpurView];
     
     //UICollectionView绑定车牌键盘(格子形式)
+    self.handler = [PWHandler new];
     [self.handler setKeyBoardViewWithCollectionView:self.collectionView];
+    
+    self.handler.delegate = self;
+    //改变主题色
+//    self.handler.mainColor = [UIColor redColor];
+    //改变文字大小
+//    self.handler.textFontSize = 18;
+    //改变文字颜色
+//    self.handler.textColor = [UIColor greenColor];
+    
+    
 }
 
 //隐藏键盘
@@ -64,18 +71,22 @@
 }
 
 #pragma mark - PWHandlerDelegate
+//输入完成点击确定后的回调
 - (void)palteDidChnageWithPlate:(NSString *)plate complete:(BOOL)complete{
     NSLog(@"输入车牌号为:%@ \n 是否完整：%@",plate,complete ? @"完整" : @"不完整");
 }
 
+//车牌输入发生变化时的回调
 - (void)plateInputCompleteWithPlate:(NSString *)plate{
     NSLog(@"输入完成。车牌号为:%@",plate);
 }
 
+//车牌键盘出现的回调
 - (void)plateKeyBoardShow{
     NSLog(@"键盘显示了");
 }
 
+//车牌键盘消失的回调
 - (void) plateKeyBoardHidden{
     NSLog(@"键盘隐藏了");
 }

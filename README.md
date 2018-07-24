@@ -1,6 +1,15 @@
 
 # 停车王车牌号码专用键盘 VehicleKeyboard - iOS
 
+## 概述
+
+* 停车王车牌号码专用键盘ios版，支持新能源、武警、领事馆等多项专用格式车牌。
+* 代码为swift编写，已支持oc调用，可以绑定collectionView使用格子输入或绑定UItextfield输入，键盘与系统键盘用法类似。
+
+
+![Alt text](https://github.com/parkingwang/vehicle-keyboard-ios-swift/tree/master/collectionViewgif.gif)
+![Alt text](https://github.com/parkingwang/vehicle-keyboard-ios-swift/tree/master/uitextfieldGIF.gif)
+
 `VehicleKeyboard`是停车王品牌的各端产品线的基础组件，专为提高中国车牌号码输入速度而定制开发的专用键盘组件，包括以下三个项目：
 
 - `VehicleKeyboard-Android` Android项目，为Android客户端定制包括输入组件、键盘组件及相关控制逻辑实现；
@@ -16,65 +25,129 @@
 - VehicleKeyboard-JS GitHub项目主页： [https://github.com/parkingwang/vehicle-keyboard-js](https://github.com/parkingwang/vehicle-keyboard-js)
 - VehicleKeyboard-JS OSChina项目主页： [https://gitee.com/iRainIoT/vehicle-keyboard-js](https://gitee.com/iRainIoT/vehicle-keyboard-js)
 
-## 概述
-
-#### 键盘作为inputView使用
-
-* 可直接赋给textField或textView，使用方式和常规键盘一致
-* 提供包含自定义输入框的使用方式，逻辑已实现，使用者需自行修改样式
-
-#### 已适配横竖屏、iPhone X
 
 
-## 使用组件
+## cocoaPods
 
-### 直接作为inputView使用
+在podfile中添加
 
-![](./PWK_TEXTFIELD.png)
+```
+pod 'VehicleKeyboard-swift',
+```
+然后pod install一下
+
+## OC调用
+
+oc引用pod中的库
 
 ```
 #import "PWPlateKeyBoardWindow.h"
-
-__weak typeof (self)weakSelf = self;
-self.textField.inputView = [PWPlateKeyBoardWindow shareInstance];
-[PWPlateKeyBoardWindow shareInstance].buttonClickBlock = ^(PWPlteKeyBoardButtonType buttonType, NSString *text) {
-    switch (buttonType) {
-        //当键位类型为确定时，收回键盘
-        case PWPlteKeyBoardButtonTypeDone:
-            [weakSelf.textField resignFirstResponder];
-            break;
-        default:
-            //改变textField的text
-            [weakSelf.textField changetext:text];
-            //将对应的改动传递给js，使键盘的刷新获取对应的键位
-            [[PWPlateKeyBoardWindow shareInstance] setPlate:weakSelf.textField.text type:[PWPlateKeyBoardWindow shareInstance].type index:[weakSelf.textField offsetFromPosition:weakSelf.textField.beginningOfDocument toPosition:weakSelf.textField.selectedTextRange.start]];
-            break;
-    }
-};
 ```
 
-### 自定义输入框
-
-![](./PWK_CUSTOMVIEW.png)
+### 直接作为inputView使用
 
 ```
-#import "PWHandler.h"
+[self.myTextField changeToPlatePWKeyBoardInpurView];
+```
+直接作为inputView使用时，回调于取值都与系统方法一直，直接当做系统UItextfiel使用即可
 
-//实例化PWHandler，同时注册UICollectionViewCell，此cell需要继承PWSegmentCollectionViewCell，供使用者自定义样式
-self.handler = [[PWHandler alloc] initWithReuseIdentifier:NSStringFromClass(TestCollectionViewCell.class)];
+### 格子式车牌专用输入框调用
 
-//设置PWHandler中UICollectionView的应用，在PWHandler实现中用于UICollectionView的相关操作
-self.handler.collectionView = self.collectionView;
+首先在需要显示的位置摆放一个刚实例化的collectionView，
+然后创建一个PWHandler对象将collectionView于格子车牌输入框进行绑定
 
-//PWHandler中(NSString *)plate提供车牌号的主动设置，可也用此属性过去当前的车牌号
-//self.handler.plate = @"京A23456";
+```
 
-//使用者自己提供的UICollectionView，仅需注册UICollectionViewCell，同时将代理引用与PWHandler关联
-[self.collectionView registerClass:TestCollectionViewCell.class forCellWithReuseIdentifier:NSStringFromClass(TestCollectionViewCell.class)];
-self.collectionView.delegate = self.handler;
-self.collectionView.dataSource = self.handler;
-self.collectionView.clipsToBounds = NO;
+@property (strong,nonatomic) PWHandler *handler;
 
+self.handler = [PWHandler new];
+[self.handler setKeyBoardViewWithCollectionView:self.collectionView];
+
+self.handler.delegate = self;
+//改变主题色
+self.handler.mainColor = [UIColor redColor];
+//改变文字大小
+self.handler.textFontSize = 18;
+//改变文字颜色
+self.handler.textColor = [UIColor greenColor];
+```
+
+格子输入框的各种回调方法
+```
+//输入完成点击确定后的回调
+- (void)palteDidChnageWithPlate:(NSString *)plate complete:(BOOL)complete{
+NSLog(@"输入车牌号为:%@ \n 是否完整：%@",plate,complete ? @"完整" : @"不完整");
+}
+
+//车牌输入发生变化时的回调
+- (void)plateInputCompleteWithPlate:(NSString *)plate{
+NSLog(@"输入完成。车牌号为:%@",plate);
+}
+
+//车牌键盘出现的回调
+- (void)plateKeyBoardShow{
+NSLog(@"键盘显示了");
+}
+
+//车牌键盘消失的回调
+- (void) plateKeyBoardHidden{
+NSLog(@"键盘隐藏了");
+}
+```
+
+
+## Swift调用
+
+引用pod中的库
+
+```
+import VehicleKeyboard_swift
+```
+
+### 直接作为inputView使用
+
+```
+myTextField.changeToPlatePWKeyBoardInpurView()
+```
+直接作为inputView使用时，回调于取值都与系统方法一直，直接当做系统UItextfiel使用即可
+
+### 格子式车牌专用输入框调用
+
+首先在需要显示的位置摆放一个刚实例化的collectionView，
+然后创建一个PWHandler对象将collectionView于格子车牌输入框进行绑定
+
+```
+
+let handler = PWHandler()
+
+handler.delegate = self
+handler.setKeyBoardView(collectionView: collectionView)
+//改变主题色
+handler.mainColor = UIColor.red
+//改变字体大小
+handler.textFontSize = 18
+//改变字体颜色
+handler.textColor = UIColor.blue
+```
+
+格子输入框的各种回调方法
+```
+//输入完成点击确定后的回调
+func plateInputComplete(plate: String) {
+print("输入完成车牌号为:" + plate)
+}
+//车牌输入发生变化时的回调
+func palteDidChnage(plate:String,complete:Bool) {
+print("输入车牌号为:" + plate + "\n输入是否完整？:" + (complete ? "完整" : "不完整"))
+}
+//车牌键盘出现的回调
+func plateKeyBoardShow() {
+print("车牌键盘显示")
+}
+//车牌键盘消失的回调
+func plateKeyBoardHidden() {
+print("车牌键盘隐藏")
+}
 ```
 
 ## 主要类的介绍
@@ -83,26 +156,28 @@ self.collectionView.clipsToBounds = NO;
 
 * PWKeyboardView:核心类，主要实现键盘逻辑与布局;
 * PWHandler:自定义输入框的核心类，主要实现输入框逻辑，若使用者希望更好的调整布局，可继承此类重写layout的代理方法;
-* PWSegmentCollectionViewCell:自定义输入框cell，使用者可通过继承该类，对cell样式及各状态效果进行调整;
 
 
 ## 注意
 
-* 直接作为inputView使用时，当输入长度超过车牌规定长度时，键盘会自动收起
+* 直接作为inputView使用时，当输入长度超过车牌规定长度时，会默认更新最后一位输入内容
 * 键盘除了主题色外，其他样式暂不支持修改
 
-## cocoaPods
-
-> 会自动引入JSONModel
-
-```
-pod 'PWKeyboard'
-```
 
 ## 维护
 
+- [杨志豪](https://github.com/yzhtracy) 联系方式：yangzhihao@parkingwang.com
 - [陈永佳](https://github.com/yoojia) 联系方式：chenyongjia@parkingwang.com
-- [f2yu](https://github.com/f2yu) 联系方式：fengziyu@parkingwang.com
+
+## 疑问与交流
+
+如果你在使用此键盘时，出现一些问题，或者有相关疑问。可以添加以下微信技术群做讨论。
+
+![WxQRCode](./QrCode-Group.png)
+
+如果群二维码过期，可以通过以下微信加好友，注明“车牌键盘”，我会拉到专门技术群做讨论。
+
+![WxQRCode](./QrCode-Yoojia.png)
 
 ## License
 
