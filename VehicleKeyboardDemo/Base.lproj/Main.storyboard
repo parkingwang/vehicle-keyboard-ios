@@ -265,7 +265,6 @@
                                 </constraints>
                                 <state key="normal" title="隐藏键盘"/>
                                 <connections>
-                                    <action selector="buttonAction:" destination="gaL-76-sLt" eventType="touchUpInside" id="3aV-1A-AqT"/>
                                     <action selector="hiddenButtonAction:" destination="gaL-76-sLt" eventType="touchUpInside" id="Cad-nG-Rdg"/>
                                 </connections>
                             </button>
