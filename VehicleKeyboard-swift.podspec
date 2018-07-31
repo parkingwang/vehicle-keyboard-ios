@@ -3,13 +3,13 @@
 Pod::Spec.new do |s|
 
   s.name         = "VehicleKeyboard-swift"
-  s.version      = "0.9.2"
+  s.version      = “0.9.3”
   s.summary      = "停车王ios车牌键盘，支持原生输入框及格子样式输入框"
   s.homepage     = "https://github.com/parkingwang/vehicle-keyboard-ios-swift"
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.author       = { "yzh" => "yzhtracy@163.com" }
   s.platform      = :ios, "8.0"
-  s.source       = { :git => "https://github.com/parkingwang/vehicle-keyboard-ios-swift.git", :tag => "0.9.2" }
+  s.source       = { :git => "https://github.com/parkingwang/vehicle-keyboard-ios-swift.git", :tag => “0.9.3” }
   s.source_files  = "Source/*"
   s.resource  = "Source/PWBundle.bundle"
   s.requires_arc = true
