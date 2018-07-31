@@ -43,6 +43,8 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         inputCollectionView = collectionView
         inputTextfield = UITextField(frame: CGRect.zero)
         collectionView.addSubview(inputTextfield)
+        collectionView.backgroundColor = UIColor.white
+        collectionView.isScrollEnabled = false
         keyboardView.delegate = self
         keyboardView.mainColor = mainColor
         inputTextfield.inputView = keyboardView
@@ -108,6 +110,8 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
             selectView.layer.borderWidth = 2
             selectView.layer.borderColor = mainColor.cgColor
             selectView.frame = cell.frame
+            let rightSpace :CGFloat = (maxCount - 1) == selectIndex ? 0 : 0.5
+            selectView.center = CGPoint(x: cell.center.x + rightSpace, y: cell.center.y)
             corners(view: selectView, index: selectIndex)
         }
         corners(view: cell, index: indexPath.row)

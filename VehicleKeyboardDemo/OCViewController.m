@@ -34,11 +34,11 @@
     [self.handler setKeyBoardViewWithCollectionView:self.collectionView];
     
     self.handler.delegate = self;
-    //改变主题色
+//    改变主题色
 //    self.handler.mainColor = [UIColor redColor];
-    //改变文字大小
+//    改变文字大小
 //    self.handler.textFontSize = 18;
-    //改变文字颜色
+//    改变文字颜色
 //    self.handler.textColor = [UIColor greenColor];
     
     
@@ -71,12 +71,13 @@
 }
 
 #pragma mark - PWHandlerDelegate
-//输入完成点击确定后的回调
+
+//车牌输入发生变化时的回调
 - (void)palteDidChnageWithPlate:(NSString *)plate complete:(BOOL)complete{
     NSLog(@"输入车牌号为:%@ \n 是否完整：%@",plate,complete ? @"完整" : @"不完整");
 }
 
-//车牌输入发生变化时的回调
+//输入完成点击确定后的回调
 - (void)plateInputCompleteWithPlate:(NSString *)plate{
     NSLog(@"输入完成。车牌号为:%@",plate);
 }

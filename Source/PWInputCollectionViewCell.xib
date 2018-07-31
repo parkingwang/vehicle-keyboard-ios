@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="PWInputCollectionViewCell" customModule="VehicleKeyboardDemo" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="PWInputCollectionViewCell" customModule="VehicleKeyboard_swift" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -27,30 +27,20 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PDg-GY-uay">
-                        <rect key="frame" x="49" y="0.0" width="1" height="50"/>
-                        <color key="backgroundColor" red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="0.5" id="14a-WV-xlW"/>
-                        </constraints>
-                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fTk-Ry-7yf">
                         <rect key="frame" x="0.0" y="0.0" width="0.5" height="50"/>
                         <color key="backgroundColor" red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="0.5" id="cLC-xo-Tlg"/>
+                            <constraint firstAttribute="width" constant="1" id="cLC-xo-Tlg"/>
                         </constraints>
                     </view>
                 </subviews>
             </view>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="fTk-Ry-7yf" secondAttribute="bottom" id="2Hw-G7-AMQ"/>
-                <constraint firstAttribute="bottom" secondItem="PDg-GY-uay" secondAttribute="bottom" id="4bG-sX-5nH"/>
                 <constraint firstItem="g5c-DQ-Rqh" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="AxA-Gw-JSF"/>
-                <constraint firstItem="PDg-GY-uay" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="kGE-Yd-Juw"/>
                 <constraint firstItem="fTk-Ry-7yf" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="lFF-qq-uAy"/>
                 <constraint firstItem="fTk-Ry-7yf" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="qbd-Zn-RMX"/>
-                <constraint firstAttribute="trailing" secondItem="PDg-GY-uay" secondAttribute="trailing" id="rwy-QC-kqH"/>
                 <constraint firstItem="g5c-DQ-Rqh" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="suI-We-L7s"/>
             </constraints>
             <connections>
