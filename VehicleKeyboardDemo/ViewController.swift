@@ -24,7 +24,7 @@ class ViewController: UIViewController,PWHandlerDelegate {
         //UITextField绑定车牌键盘(输入框形式)
         myTextField.changeToPlatePWKeyBoardInpurView()
         
-        //UICollectionView绑定车牌键盘(格子形式)
+        //将自己创建的UIView绑定车牌键盘(格子形式)
         handler.delegate = self
         handler.setKeyBoardView(view: plateInputVIew)
         //改变主题色

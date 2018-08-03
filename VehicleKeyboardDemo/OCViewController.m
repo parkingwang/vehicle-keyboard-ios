@@ -30,10 +30,9 @@
     //UITextField绑定车牌键盘(输入框形式)
     [self.myTextField changeToPlatePWKeyBoardInpurView];
     
-    //UICollectionView绑定车牌键盘(格子形式)
+    //将自己创建的UIView绑定车牌键盘(格子形式)
     self.handler = [PWHandler new];
     [self.handler setKeyBoardViewWithView:self.plateInputView];
-    
     self.handler.delegate = self;
 //    改变主题色
 //    self.handler.mainColor = [UIColor redColor];

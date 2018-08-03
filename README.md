@@ -4,7 +4,7 @@
 ## 概述
 
 * 停车王车牌号码专用键盘ios版，支持新能源、武警、领事馆等多项专用格式车牌。
-* 代码为swift编写，已支持oc调用，可以绑定collectionView使用格子输入或绑定UItextfield输入，键盘与系统键盘用法类似。
+* 代码为swift编写，已支持oc调用，可以绑定UIview使用格子输入或绑定UItextfield输入，键盘与系统键盘用法类似。
 
 
 ![gif](./collectionViewgif.gif)
@@ -34,19 +34,20 @@ oc引用pod中的库
 ```objective-c
 [self.myTextField changeToPlatePWKeyBoardInpurView];
 ```
-直接作为inputView使用时，回调于取值都与系统方法一直，直接当做系统UItextfiel使用即可
+直接作为inputView使用时，回调于取值都与系统方法一直，直接当做系统UItextfield使用即可
 
 ### 格子式车牌专用输入框调用
 
-首先在需要显示的位置摆放一个刚实例化的collectionView，
-然后创建一个PWHandler对象将collectionView于格子车牌输入框进行绑定
+首先在需要显示的位置摆放一个刚实例化的UIView，
+然后创建一个PWHandler对象将UIView于格子车牌输入框进行绑定
 
 ```objective-c
 
 @property (strong,nonatomic) PWHandler *handler;
+@property (weak, nonatomic) IBOutlet UIView *plateInputView;
 
 self.handler = [PWHandler new];
-[self.handler setKeyBoardViewWithCollectionView:self.collectionView];
+[self.handler setKeyBoardViewWithView:self.plateInputView];
 
 self.handler.delegate = self;
 //改变主题色
@@ -59,12 +60,13 @@ self.handler.textColor = [UIColor greenColor];
 
 格子输入框的各种回调方法
 ```objective-c
-//输入完成点击确定后的回调
+
+//车牌输入发生变化时的回调
 - (void)palteDidChnageWithPlate:(NSString *)plate complete:(BOOL)complete{
 NSLog(@"输入车牌号为:%@ \n 是否完整：%@",plate,complete ? @"完整" : @"不完整");
 }
 
-//车牌输入发生变化时的回调
+//输入完成点击确定后的回调
 - (void)plateInputCompleteWithPlate:(NSString *)plate{
 NSLog(@"输入完成。车牌号为:%@",plate);
 }
@@ -94,19 +96,20 @@ import VehicleKeyboard_swift
 ```swift
 myTextField.changeToPlatePWKeyBoardInpurView()
 ```
-直接作为inputView使用时，回调于取值都与系统方法一直，直接当做系统UItextfiel使用即可
+直接作为inputView使用时，回调于取值都与系统方法一直，直接当做系统UItextfield使用即可
 
 ### 格子式车牌专用输入框调用
 
-首先在需要显示的位置摆放一个刚实例化的collectionView，
-然后创建一个PWHandler对象将collectionView于格子车牌输入框进行绑定
+首先在需要显示的位置摆放一个刚实例化的UIView，
+然后创建一个PWHandler对象将UIView于格子车牌输入框进行绑定
 
 ```swift
 
 let handler = PWHandler()
+@IBOutlet weak var plateInputVIew: UIView!
 
 handler.delegate = self
-handler.setKeyBoardView(collectionView: collectionView)
+handler.setKeyBoardView(view: plateInputVIew)
 //改变主题色
 handler.mainColor = UIColor.red
 //改变字体大小
@@ -141,6 +144,7 @@ print("车牌键盘隐藏")
 
 * PWKeyboardView:核心类，主要实现键盘逻辑与布局;
 * PWHandler:自定义输入框的核心类，主要实现输入框逻辑，若使用者希望更好的调整布局，可继承此类重写layout的代理方法;
+* Engine:键盘逻辑的核心类，实现键位的布局和注册。
 
 
 ## 注意
