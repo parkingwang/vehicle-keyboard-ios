@@ -11,7 +11,8 @@
 
 @interface OCViewController ()<PWHandlerDelegate>
 
-@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+
+@property (weak, nonatomic) IBOutlet UIView *plateInputView;
 
 @property (weak, nonatomic) IBOutlet UITextField *myTextField;
 
@@ -31,7 +32,7 @@
     
     //UICollectionView绑定车牌键盘(格子形式)
     self.handler = [PWHandler new];
-    [self.handler setKeyBoardViewWithCollectionView:self.collectionView];
+    [self.handler setKeyBoardViewWithView:self.plateInputView];
     
     self.handler.delegate = self;
 //    改变主题色

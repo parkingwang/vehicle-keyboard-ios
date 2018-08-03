@@ -32,47 +32,64 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
      let keyboardView = PWKeyBoardView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     var paletNumber = ""
     var selectView = UIView()
-    var collectionViewResponder = false
     
     @objc public weak var  delegate : PWHandlerDelegate?
     
-    @objc public func setKeyBoardView(collectionView:UICollectionView){
+    @objc public func setKeyBoardView(view: UIView){
+        
+        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: identifier, bundle: Bundle(for: PWHandler.self)), forCellWithReuseIdentifier: identifier)
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(collectionView)
+        let topCos = NSLayoutConstraint(item: collectionView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0)
+        let leftCos = NSLayoutConstraint(item: collectionView, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.left, multiplier: 1, constant: 0)
+        let rightCos = NSLayoutConstraint(item: collectionView, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.right, multiplier: 1, constant: 0)
+        let bottomCos = NSLayoutConstraint(item: collectionView, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0)
+        
+        view.addConstraints([topCos,leftCos,rightCos,bottomCos])
+
         inputCollectionView = collectionView
         inputTextfield = UITextField(frame: CGRect.zero)
-        collectionView.addSubview(inputTextfield)
+        view.addSubview(inputTextfield)
         collectionView.backgroundColor = UIColor.white
-        collectionView.isScrollEnabled = false
+//        collectionView.isScrollEnabled = false
         keyboardView.delegate = self
         keyboardView.mainColor = mainColor
         inputTextfield.inputView = keyboardView
-        
+    
         //因为直接切给collectionView加边框 会盖住蓝色的选中边框   所以加一个和collectionView一样大的view再切边框
-        let backgroundView = UIView(frame: collectionView.bounds)
-        collectionView.backgroundView = backgroundView
+        setBackgroundView()
+        
+        //监听键盘
+        NotificationCenter.default.addObserver(self, selector: #selector(plateKeyBoardShow), name:NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(plateKeyBoardHidden), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+    }
+    
+    private func setBackgroundView(){
+        let backgroundView = UIView(frame: inputCollectionView.bounds)
+        inputCollectionView.backgroundView = backgroundView
         backgroundView.layer.borderWidth = 1
         backgroundView.layer.borderColor = UIColor(red: 216/255.0, green: 216/255.0, blue: 216/255.0, alpha: 1).cgColor
         backgroundView.isUserInteractionEnabled = false
         backgroundView.layer.masksToBounds = true
         backgroundView.layer.cornerRadius = 2
         selectView.isUserInteractionEnabled = false
-        collectionView.addSubview(selectView)
-        
-        //监听键盘
-        NotificationCenter.default.addObserver(self, selector: #selector(plateKeyBoardShow), name:NSNotification.Name.UIKeyboardDidShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(plateKeyBoardHidden), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
+        inputCollectionView.addSubview(selectView)
     }
     
     @objc func plateKeyBoardShow(){
-        if inputTextfield.isFirstResponder , !collectionViewResponder {
+        if inputTextfield.isFirstResponder {
             delegate?.plateKeyBoardShow?()
         }
     }
     
     @objc func plateKeyBoardHidden(){
-        if inputTextfield.isFirstResponder , !collectionViewResponder{
+        if inputTextfield.isFirstResponder {
             delegate?.plateKeyBoardHidden?()
         }
     }
@@ -85,6 +102,8 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         selectIndex = indexPath.row > paletNumber.count ? paletNumber.count : indexPath.row
         keyboardView.updateText(text: paletNumber, isMoreType: false, inputIndex: selectIndex)
         updateCollection()
+        print(collectionView.frame)
+        print(collectionView.superview?.frame ?? "")
     }
     
     public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
@@ -97,7 +116,7 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: (collectionView.bounds.size.width / CGFloat(maxCount)), height: collectionView.bounds.height)
+        return CGSize(width: (collectionView.frame.size.width / CGFloat(maxCount)) - 0.01, height: collectionView.frame.height)
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -129,12 +148,10 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     
     
     func updateCollection(){
-        collectionViewResponder = true
         inputCollectionView.reloadData()
         if !inputTextfield.isFirstResponder {
             inputTextfield.becomeFirstResponder()
         }
-        collectionViewResponder = false
     }
     
     func selectComplete(char: String, inputIndex: Int) {

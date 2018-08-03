@@ -13,7 +13,8 @@ class ViewController: UIViewController,PWHandlerDelegate {
     
     let handler = PWHandler()
 
-    @IBOutlet weak var collectionView: UICollectionView!
+
+    @IBOutlet weak var plateInputVIew: UIView!
     
     @IBOutlet weak var myTextField: UITextField!
     
@@ -25,7 +26,7 @@ class ViewController: UIViewController,PWHandlerDelegate {
         
         //UICollectionView绑定车牌键盘(格子形式)
         handler.delegate = self
-       handler.setKeyBoardView(collectionView: collectionView)
+        handler.setKeyBoardView(view: plateInputVIew)
         //改变主题色
 //        handler.mainColor = UIColor.red
         //改变字体大小
