@@ -23,14 +23,15 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     @objc public var textFontSize:CGFloat = 17
     //设置主题色（会影响格子的边框颜色、按下去时提示栏颜色、确定按钮可用时的颜色）
     @objc public var mainColor = UIColor(red: 65 / 256.0, green: 138 / 256.0, blue: 249 / 256.0, alpha: 1)
+    //当前格子中的输入内容
+    @objc public  var paletNumber = ""
     
     let identifier = "PWInputCollectionViewCell"
     var inputCollectionView :UICollectionView!
     var maxCount = 7
     var selectIndex = 0
     var inputTextfield :UITextField!
-     let keyboardView = PWKeyBoardView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-    @objc public var paletNumber = ""
+    let keyboardView = PWKeyBoardView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     var selectView = UIView()
     var isSetKeyboard = false//预设值时不设置为第一响应对象
     
