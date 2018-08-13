@@ -37,7 +37,7 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     
     @objc public func setKeyBoardView(view: UIView){
         
-        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
+        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: identifier, bundle: Bundle(for: PWHandler.self)), forCellWithReuseIdentifier: identifier)
@@ -45,18 +45,18 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         view.translatesAutoresizingMaskIntoConstraints = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(collectionView)
-        let topCos = NSLayoutConstraint(item: collectionView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0)
-        let leftCos = NSLayoutConstraint(item: collectionView, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.left, multiplier: 1, constant: 0)
-        let rightCos = NSLayoutConstraint(item: collectionView, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.right, multiplier: 1, constant: 0)
-        let bottomCos = NSLayoutConstraint(item: collectionView, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0)
-        
-        view.addConstraints([topCos,leftCos,rightCos,bottomCos])
-
+        if (view.constraints.count > 0) {
+            let topCos = NSLayoutConstraint(item: collectionView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0)
+            let leftCos = NSLayoutConstraint(item: collectionView, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.left, multiplier: 1, constant: 0)
+            let rightCos = NSLayoutConstraint(item: collectionView, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.right, multiplier: 1, constant: 0)
+            let bottomCos = NSLayoutConstraint(item: collectionView, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0)
+            view.addConstraints([topCos,leftCos,rightCos,bottomCos])
+        }
         inputCollectionView = collectionView
         inputTextfield = UITextField(frame: CGRect.zero)
         view.addSubview(inputTextfield)
         collectionView.backgroundColor = UIColor.white
-//        collectionView.isScrollEnabled = false
+        collectionView.isScrollEnabled = false
         keyboardView.delegate = self
         keyboardView.mainColor = mainColor
         inputTextfield.inputView = keyboardView
