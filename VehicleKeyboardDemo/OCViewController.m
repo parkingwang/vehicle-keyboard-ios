@@ -34,15 +34,16 @@
     self.handler = [PWHandler new];
     [self.handler setKeyBoardViewWithView:self.plateInputView];
     self.handler.delegate = self;
+    
 //    改变主题色
 //    self.handler.mainColor = [UIColor redColor];
 //    改变文字大小
 //    self.handler.textFontSize = 18;
 //    改变文字颜色
 //    self.handler.textColor = [UIColor greenColor];
-    
-    
+    NSLog(@"%@",self.handler.paletNumber);//取这个值可以取到当前输入内容
 }
+
 
 //隐藏键盘
 - (IBAction)hiddenButtonAction:(UIButton *)sender {
@@ -63,6 +64,7 @@
 - (IBAction)setCollectionInputButtonAction:(UIButton *)sender {
     self.mynewEnergyButton.selected = NO;
     [self.handler setPlateWithPlate:@"湘JR0001" type:PWKeyboardNumTypeAuto];
+    [[UIApplication sharedApplication].keyWindow endEditing:YES];
 }
 
 - (IBAction)setTextFieldPlateButtonAction:(UIButton *)sender {

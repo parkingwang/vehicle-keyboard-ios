@@ -30,8 +30,9 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     var selectIndex = 0
     var inputTextfield :UITextField!
      let keyboardView = PWKeyBoardView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-    var paletNumber = ""
+    @objc public var paletNumber = ""
     var selectView = UIView()
+    var isSetKeyboard = false//预设值时不设置为第一响应对象
     
     @objc public weak var  delegate : PWHandlerDelegate?
     
@@ -149,9 +150,10 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     
     func updateCollection(){
         inputCollectionView.reloadData()
-        if !inputTextfield.isFirstResponder {
+        if !inputTextfield.isFirstResponder,!isSetKeyboard {
             inputTextfield.becomeFirstResponder()
         }
+        isSetKeyboard = false
     }
     
     func selectComplete(char: String, inputIndex: Int) {
@@ -198,6 +200,7 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
             numType = .newEnergy
         }
         keyboardView.numType = numType
+        isSetKeyboard = true
         changeInputType(isNewEnergy: isNewEnergy)
     }
     
