@@ -186,9 +186,9 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
                 selectIndex += 1;
             }
         }
-        delegate?.palteDidChnage?(plate:paletNumber,complete:paletNumber.count == maxCount)
         keyboardView.updateText(text: paletNumber, isMoreType: isMoreType, inputIndex: selectIndex)
         updateCollection()
+        delegate?.palteDidChnage?(plate:paletNumber,complete:paletNumber.count == maxCount)
     }
     
     @objc public func setPlate(plate:String,type:PWKeyboardNumType){
