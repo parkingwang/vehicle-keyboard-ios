@@ -195,6 +195,7 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         paletNumber = plate;
         let isNewEnergy = type == .newEnergy
         var numType = type;
+        selectIndex = plate.count == 0 ? 0 : plate.count - 1
         if  numType == .auto,paletNumber.count > 0,Engine.subString(str: paletNumber, start: 0, length: 1) == "W" {
             numType = .wuJing
         } else if numType == .auto,paletNumber.count == 8 {

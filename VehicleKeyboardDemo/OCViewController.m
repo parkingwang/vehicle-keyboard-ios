@@ -42,6 +42,7 @@
 //    改变文字颜色
 //    self.handler.textColor = [UIColor greenColor];
     NSLog(@"%@",self.handler.paletNumber);//取这个值可以取到当前输入内容
+    [self.handler setPlateWithPlate:@"湘JR0001" type:PWKeyboardNumTypeAuto];
 }
 
 
@@ -63,8 +64,8 @@
 
 - (IBAction)setCollectionInputButtonAction:(UIButton *)sender {
     self.mynewEnergyButton.selected = NO;
-    [self.handler setPlateWithPlate:@"湘JR0001" type:PWKeyboardNumTypeAuto];
     [[UIApplication sharedApplication].keyWindow endEditing:YES];
+    [self.handler setPlateWithPlate:@"" type:PWKeyboardNumTypeAuto];
 }
 
 - (IBAction)setTextFieldPlateButtonAction:(UIButton *)sender {
