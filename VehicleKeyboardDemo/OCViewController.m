@@ -32,17 +32,19 @@
     
     //将自己创建的UIView绑定车牌键盘(格子形式)
     self.handler = [PWHandler new];
+    
+    //    改变主题色
+    //    self.handler.mainColor = [UIColor redColor];
+    //    改变文字大小
+    //    self.handler.textFontSize = 18;
+    //    改变文字颜色
+    //    self.handler.textColor = [UIColor greenColor];
+    
     [self.handler setKeyBoardViewWithView:self.plateInputView];
     self.handler.delegate = self;
     
-//    改变主题色
-//    self.handler.mainColor = [UIColor redColor];
-//    改变文字大小
-//    self.handler.textFontSize = 18;
-//    改变文字颜色
-//    self.handler.textColor = [UIColor greenColor];
-    NSLog(@"%@",self.handler.paletNumber);//取这个值可以取到当前输入内容
-    [self.handler setPlateWithPlate:@"湘JR0001" type:PWKeyboardNumTypeAuto];
+    NSLog(@"当前键盘的输入值%@",self.handler.paletNumber);//获取当前输入的值
+    NSLog([self.handler isComplete] ? @"输入完整" : @"不完整");//获取当前键盘的完整性
 }
 
 

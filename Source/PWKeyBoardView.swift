@@ -17,7 +17,8 @@ let PWkeybordHeight : CGFloat = 226
 
 let kItemSpacing : CGFloat = 1
 
-let kItemHeight : CGFloat = 52
+var kItemHeight : CGFloat = 51
+
 
 protocol PWKeyBoardViewDeleagte {
     func selectComplete(char:String,inputIndex:Int)
@@ -51,7 +52,7 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     func setUI() {
         let layout = UICollectionViewFlowLayout()
         layout.itemSize = CGSize(width: 30, height: 30)
-        collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: PWScreenWidth, height: PWkeybordHeight),collectionViewLayout:layout)
+        collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: PWScreenWidth , height:iphonxKeyBoardHeight()),collectionViewLayout:layout)
         collectionView.backgroundColor = UIColor(red: 238 / 256.0, green: 238 / 256.0, blue: 238 / 256.0, alpha: 0)
         collectionView.register(UINib(nibName: identifier, bundle: Bundle(for: PWKeyBoardView.self)), forCellWithReuseIdentifier: identifier)
         self.addSubview(collectionView)
@@ -68,6 +69,18 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
         promptView.isHidden = true
         promptView.frame = CGRect(x: 0, y: 0, width: 55, height: 74)
         addSubview(promptView)
+    }
+    
+    func isIphoneX() -> Bool {
+        return (CGSize.init(width: 375, height: 812) == UIScreen.main.bounds.size)
+    }
+    
+    func iphoneXtabHeight() -> CGFloat {
+        return self.isIphoneX() ? 34 : 0;
+    }
+    
+    func iphonxKeyBoardHeight() -> CGFloat{
+        return PWkeybordHeight + iphoneXtabHeight()
     }
     
     func updateText(text:String,isMoreType:Bool,inputIndex:Int){
@@ -150,6 +163,7 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = normalItemWith()
+        kItemHeight = isIphoneX() ? 45 : kItemHeight
         //更多键的宽度需要加上左边空出来的宽度，没有更多时删除键加上
         if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3![listModel.row3!.count - 2]){
             return CGSize(width: delegateItemWidth(), height: kItemHeight)
@@ -161,7 +175,7 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
                 return CGSize(width:moreItemWIdth(), height: kItemHeight)
             }
         }
-        return CGSize(width: width, height: 51)
+        return CGSize(width: width, height: kItemHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
