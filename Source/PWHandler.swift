@@ -72,6 +72,45 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         
     }
     
+    @objc public func isComplete()-> Bool{
+        return paletNumber.count == maxCount
+    }
+    
+    @objc public func setPlate(plate:String,type:PWKeyboardNumType){
+        paletNumber = plate;
+        let isNewEnergy = type == .newEnergy
+        var numType = type;
+        selectIndex = plate.count == 0 ? 0 : plate.count - 1
+        if  numType == .auto,paletNumber.count > 0,Engine.subString(str: paletNumber, start: 0, length: 1) == "W" {
+            numType = .wuJing
+        } else if numType == .auto,paletNumber.count == 8 {
+            numType = .newEnergy
+        }
+        keyboardView.numType = numType
+        isSetKeyboard = true
+        changeInputType(isNewEnergy: isNewEnergy)
+    }
+    
+    @objc  public func changeInputType(isNewEnergy:Bool){
+        let keyboardView = inputTextfield.inputView as! PWKeyBoardView
+        keyboardView.numType = isNewEnergy ? .newEnergy : .auto
+        var numType = keyboardView.numType
+        if  paletNumber.count > 0,Engine.subString(str: paletNumber, start: 0, length: 1) == "W" {
+            numType = .wuJing
+        }
+        maxCount = (numType == .newEnergy || numType == .wuJing) ? 8 : 7
+        if paletNumber.count > maxCount {
+            paletNumber = Engine.subString(str: paletNumber, start: 0, length: paletNumber.count - 1)
+        } else if maxCount == 8,paletNumber.count == 7 {
+            selectIndex = 7
+        }
+        if selectIndex > (maxCount - 1) {
+            selectIndex = maxCount - 1
+        }
+        keyboardView.updateText(text: paletNumber, isMoreType: false, inputIndex: selectIndex)
+        updateCollection()
+    }
+    
     private func setBackgroundView(){
         let backgroundView = UIView(frame: inputCollectionView.bounds)
         inputCollectionView.backgroundView = backgroundView
@@ -191,20 +230,7 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         delegate?.palteDidChnage?(plate:paletNumber,complete:paletNumber.count == maxCount)
     }
     
-    @objc public func setPlate(plate:String,type:PWKeyboardNumType){
-        paletNumber = plate;
-        let isNewEnergy = type == .newEnergy
-        var numType = type;
-        selectIndex = plate.count == 0 ? 0 : plate.count - 1
-        if  numType == .auto,paletNumber.count > 0,Engine.subString(str: paletNumber, start: 0, length: 1) == "W" {
-            numType = .wuJing
-        } else if numType == .auto,paletNumber.count == 8 {
-            numType = .newEnergy
-        }
-        keyboardView.numType = numType
-        isSetKeyboard = true
-        changeInputType(isNewEnergy: isNewEnergy)
-    }
+   
     
     func getPaletChar(index:Int) -> String{
         if paletNumber.count > index {
@@ -215,25 +241,7 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         return ""
     }
     
-   @objc  public func changeInputType(isNewEnergy:Bool){
-        let keyboardView = inputTextfield.inputView as! PWKeyBoardView
-        keyboardView.numType = isNewEnergy ? .newEnergy : .auto
-        var numType = keyboardView.numType
-        if  paletNumber.count > 0,Engine.subString(str: paletNumber, start: 0, length: 1) == "W" {
-            numType = .wuJing
-        }
-        maxCount = (numType == .newEnergy || numType == .wuJing) ? 8 : 7
-        if paletNumber.count > maxCount {
-            paletNumber = Engine.subString(str: paletNumber, start: 0, length: paletNumber.count - 1)
-        } else if maxCount == 8,paletNumber.count == 7 {
-            selectIndex = 7
-        }
-        if selectIndex > (maxCount - 1) {
-            selectIndex = maxCount - 1
-        }
-        keyboardView.updateText(text: paletNumber, isMoreType: false, inputIndex: selectIndex)
-        updateCollection()
-    }
+   
     
     func corners(view:UIView, index :Int){
         view.addRounded(cornevrs: UIRectCorner.allCorners, radii: CGSize(width: 0, height: 0))

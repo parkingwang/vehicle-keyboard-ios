@@ -26,13 +26,18 @@ class ViewController: UIViewController,PWHandlerDelegate {
         
         //将自己创建的UIView绑定车牌键盘(格子形式)
         handler.delegate = self
-        handler.setKeyBoardView(view: plateInputVIew)
+        
         //改变主题色
-//        handler.mainColor = UIColor.red
+        //        handler.mainColor = UIColor.red
         //改变字体大小
-//        handler.textFontSize = 18
+        //        handler.textFontSize = 18
         //改变字体颜色
-//        handler.textColor = UIColor.blue
+        //        handler.textColor = UIColor.blue
+        
+        handler.setKeyBoardView(view: plateInputVIew)
+        
+        print("当前键盘的输入值\(self.handler.paletNumber)");//获取当前输入的值
+        print(self.handler.isComplete() ? "输入完整" : "不完整");//获取当前键盘的完整性
     }
     
 
