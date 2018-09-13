@@ -86,9 +86,9 @@
 		270C76F72079F16E009688AF = {
 			isa = PBXGroup;
 			children = (
-				270C77022079F16E009688AF /* VehicleKeyboardDemo */,
-				270C77172079F16F009688AF /* VehicleKeyboardDemoTests */,
-				270C77222079F16F009688AF /* VehicleKeyboardDemoUITests */,
+				270C77022079F16E009688AF /* VehicleKeyboard */,
+				270C77172079F16F009688AF /* VehicleKeyboardTests */,
+				270C77222079F16F009688AF /* VehicleKeyboardUITests */,
 				270C77012079F16E009688AF /* Products */,
 				A31E0F0BE9A372D11D1A7E88 /* Pods */,
 				42F6E502CD5355B617B62ECE /* Frameworks */,
@@ -105,7 +105,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		270C77022079F16E009688AF /* VehicleKeyboardDemo */ = {
+		270C77022079F16E009688AF /* VehicleKeyboard */ = {
 			isa = PBXGroup;
 			children = (
 				270C77032079F16F009688AF /* AppDelegate.swift */,
@@ -118,25 +118,25 @@
 				270C770F2079F16F009688AF /* Info.plist */,
 				2780CB0F2106C94D002591F5 /* VehicleKeyboardDemo-Bridging-Header.h */,
 			);
-			path = VehicleKeyboardDemo;
+			path = VehicleKeyboard;
 			sourceTree = "<group>";
 		};
-		270C77172079F16F009688AF /* VehicleKeyboardDemoTests */ = {
+		270C77172079F16F009688AF /* VehicleKeyboardTests */ = {
 			isa = PBXGroup;
 			children = (
 				270C77182079F16F009688AF /* VehicleKeyboardDemoTests.swift */,
 				270C771A2079F16F009688AF /* Info.plist */,
 			);
-			path = VehicleKeyboardDemoTests;
+			path = VehicleKeyboardTests;
 			sourceTree = "<group>";
 		};
-		270C77222079F16F009688AF /* VehicleKeyboardDemoUITests */ = {
+		270C77222079F16F009688AF /* VehicleKeyboardUITests */ = {
 			isa = PBXGroup;
 			children = (
 				270C77232079F16F009688AF /* VehicleKeyboardDemoUITests.swift */,
 				270C77252079F16F009688AF /* Info.plist */,
 			);
-			path = VehicleKeyboardDemoUITests;
+			path = VehicleKeyboardUITests;
 			sourceTree = "<group>";
 		};
 		42F6E502CD5355B617B62ECE /* Frameworks */ = {
