@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_VehicleKeyboardDemoVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_VehicleKeyboardDemoVersionString[];
+FOUNDATION_EXPORT double Pods_VehicleKeyboardVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_VehicleKeyboardVersionString[];
 

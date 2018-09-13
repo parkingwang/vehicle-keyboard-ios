@@ -34,7 +34,7 @@ class PWListModel: NSObject {
     var row3 :Array<PWModel>?
     var keys :Array<PWModel>?
     
-    //index 当前键盘所处的键盘类型；
+    //index 当前键盘所处的键盘位置；
     var index = 0
     //presetNumber 当前预设的车牌号码；
     var presetNumber :String?
