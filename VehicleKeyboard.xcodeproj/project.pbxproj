@@ -36,17 +36,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		270C77002079F16E009688AF /* VehicleKeyboardDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VehicleKeyboardDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		270C77002079F16E009688AF /* VehicleKeyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VehicleKeyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		270C77032079F16F009688AF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		270C77052079F16F009688AF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		270C77082079F16F009688AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		270C770A2079F16F009688AF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		270C770D2079F16F009688AF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		270C770F2079F16F009688AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		270C77142079F16F009688AF /* VehicleKeyboardDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VehicleKeyboardDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		270C77142079F16F009688AF /* VehicleKeyboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VehicleKeyboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		270C77182079F16F009688AF /* VehicleKeyboardDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleKeyboardDemoTests.swift; sourceTree = "<group>"; };
 		270C771A2079F16F009688AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		270C771F2079F16F009688AF /* VehicleKeyboardDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VehicleKeyboardDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		270C771F2079F16F009688AF /* VehicleKeyboardUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VehicleKeyboardUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		270C77232079F16F009688AF /* VehicleKeyboardDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleKeyboardDemoUITests.swift; sourceTree = "<group>"; };
 		270C77252079F16F009688AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2780CB0F2106C94D002591F5 /* VehicleKeyboardDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VehicleKeyboardDemo-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -98,9 +98,9 @@
 		270C77012079F16E009688AF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				270C77002079F16E009688AF /* VehicleKeyboardDemo.app */,
-				270C77142079F16F009688AF /* VehicleKeyboardDemoTests.xctest */,
-				270C771F2079F16F009688AF /* VehicleKeyboardDemoUITests.xctest */,
+				270C77002079F16E009688AF /* VehicleKeyboard.app */,
+				270C77142079F16F009688AF /* VehicleKeyboardTests.xctest */,
+				270C771F2079F16F009688AF /* VehicleKeyboardUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -159,9 +159,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		270C76FF2079F16E009688AF /* VehicleKeyboardDemo */ = {
+		270C76FF2079F16E009688AF /* VehicleKeyboard */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 270C77282079F16F009688AF /* Build configuration list for PBXNativeTarget "VehicleKeyboardDemo" */;
+			buildConfigurationList = 270C77282079F16F009688AF /* Build configuration list for PBXNativeTarget "VehicleKeyboard" */;
 			buildPhases = (
 				E15ED3AD0BD8B322B16B39F6 /* [CP] Check Pods Manifest.lock */,
 				270C76FC2079F16E009688AF /* Sources */,
@@ -174,14 +174,14 @@
 			);
 			dependencies = (
 			);
-			name = VehicleKeyboardDemo;
+			name = VehicleKeyboard;
 			productName = VehicleKeyboardDemo;
-			productReference = 270C77002079F16E009688AF /* VehicleKeyboardDemo.app */;
+			productReference = 270C77002079F16E009688AF /* VehicleKeyboard.app */;
 			productType = "com.apple.product-type.application";
 		};
-		270C77132079F16F009688AF /* VehicleKeyboardDemoTests */ = {
+		270C77132079F16F009688AF /* VehicleKeyboardTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 270C772B2079F16F009688AF /* Build configuration list for PBXNativeTarget "VehicleKeyboardDemoTests" */;
+			buildConfigurationList = 270C772B2079F16F009688AF /* Build configuration list for PBXNativeTarget "VehicleKeyboardTests" */;
 			buildPhases = (
 				270C77102079F16F009688AF /* Sources */,
 				270C77112079F16F009688AF /* Frameworks */,
@@ -192,14 +192,14 @@
 			dependencies = (
 				270C77162079F16F009688AF /* PBXTargetDependency */,
 			);
-			name = VehicleKeyboardDemoTests;
+			name = VehicleKeyboardTests;
 			productName = VehicleKeyboardDemoTests;
-			productReference = 270C77142079F16F009688AF /* VehicleKeyboardDemoTests.xctest */;
+			productReference = 270C77142079F16F009688AF /* VehicleKeyboardTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		270C771E2079F16F009688AF /* VehicleKeyboardDemoUITests */ = {
+		270C771E2079F16F009688AF /* VehicleKeyboardUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 270C772E2079F16F009688AF /* Build configuration list for PBXNativeTarget "VehicleKeyboardDemoUITests" */;
+			buildConfigurationList = 270C772E2079F16F009688AF /* Build configuration list for PBXNativeTarget "VehicleKeyboardUITests" */;
 			buildPhases = (
 				270C771B2079F16F009688AF /* Sources */,
 				270C771C2079F16F009688AF /* Frameworks */,
@@ -210,9 +210,9 @@
 			dependencies = (
 				270C77212079F16F009688AF /* PBXTargetDependency */,
 			);
-			name = VehicleKeyboardDemoUITests;
+			name = VehicleKeyboardUITests;
 			productName = VehicleKeyboardDemoUITests;
-			productReference = 270C771F2079F16F009688AF /* VehicleKeyboardDemoUITests.xctest */;
+			productReference = 270C771F2079F16F009688AF /* VehicleKeyboardUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -242,7 +242,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 270C76FB2079F16E009688AF /* Build configuration list for PBXProject "VehicleKeyboardDemo" */;
+			buildConfigurationList = 270C76FB2079F16E009688AF /* Build configuration list for PBXProject "VehicleKeyboard" */;
 			compatibilityVersion = "Xcode 8.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -255,9 +255,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				270C76FF2079F16E009688AF /* VehicleKeyboardDemo */,
-				270C77132079F16F009688AF /* VehicleKeyboardDemoTests */,
-				270C771E2079F16F009688AF /* VehicleKeyboardDemoUITests */,
+				270C76FF2079F16E009688AF /* VehicleKeyboard */,
+				270C77132079F16F009688AF /* VehicleKeyboardTests */,
+				270C771E2079F16F009688AF /* VehicleKeyboardUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -375,12 +375,12 @@
 /* Begin PBXTargetDependency section */
 		270C77162079F16F009688AF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 270C76FF2079F16E009688AF /* VehicleKeyboardDemo */;
+			target = 270C76FF2079F16E009688AF /* VehicleKeyboard */;
 			targetProxy = 270C77152079F16F009688AF /* PBXContainerItemProxy */;
 		};
 		270C77212079F16F009688AF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 270C76FF2079F16E009688AF /* VehicleKeyboardDemo */;
+			target = 270C76FF2079F16E009688AF /* VehicleKeyboard */;
 			targetProxy = 270C77202079F16F009688AF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -563,7 +563,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VehicleKeyboardDemo.app/VehicleKeyboardDemo";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VehicleKeyboard.app/VehicleKeyboard";
 			};
 			name = Debug;
 		};
@@ -579,7 +579,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VehicleKeyboardDemo.app/VehicleKeyboardDemo";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VehicleKeyboard.app/VehicleKeyboard";
 			};
 			name = Release;
 		};
@@ -616,7 +616,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		270C76FB2079F16E009688AF /* Build configuration list for PBXProject "VehicleKeyboardDemo" */ = {
+		270C76FB2079F16E009688AF /* Build configuration list for PBXProject "VehicleKeyboard" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				270C77262079F16F009688AF /* Debug */,
@@ -625,7 +625,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		270C77282079F16F009688AF /* Build configuration list for PBXNativeTarget "VehicleKeyboardDemo" */ = {
+		270C77282079F16F009688AF /* Build configuration list for PBXNativeTarget "VehicleKeyboard" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				270C77292079F16F009688AF /* Debug */,
@@ -634,7 +634,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		270C772B2079F16F009688AF /* Build configuration list for PBXNativeTarget "VehicleKeyboardDemoTests" */ = {
+		270C772B2079F16F009688AF /* Build configuration list for PBXNativeTarget "VehicleKeyboardTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				270C772C2079F16F009688AF /* Debug */,
@@ -643,7 +643,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		270C772E2079F16F009688AF /* Build configuration list for PBXNativeTarget "VehicleKeyboardDemoUITests" */ = {
+		270C772E2079F16F009688AF /* Build configuration list for PBXNativeTarget "VehicleKeyboardUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				270C772F2079F16F009688AF /* Debug */,
