@@ -46,7 +46,7 @@ class KeyboardEngine: NSObject {
     static let _STR_HK_MACAO = _CHAR_HK + _CHAR_MACAO;
     
     
-    class func update(keyboardType: PWKeyboardType ,inputIndex: Int,presetNumber: String,numberType: PWKeyboardNumType,isMoreType:Bool) -> PWListModel {
+    class func update(keyboardType: PWKeyboardType ,inputIndex: Int,presetNumber: String,numberType: PWKeyboardNumType,isMoreType:Bool) -> KeyboardLayout {
         var detectedNumberType = numberType
         if  numberType == PWKeyboardNumType.auto{
            detectedNumberType = KeyboardEngine.detectNumberTypeOf(presetNumber: presetNumber)
@@ -68,8 +68,8 @@ class KeyboardEngine: NSObject {
     }
     
     //键位布局
-    static func getKeyProvider(inputIndex: Int ,presetNumber: String,isMoreType:Bool,numberType: PWKeyboardNumType) -> PWListModel{
-        var listModel = PWListModel()
+    static func getKeyProvider(inputIndex: Int ,presetNumber: String,isMoreType:Bool,numberType: PWKeyboardNumType) -> KeyboardLayout{
+        var listModel = KeyboardLayout()
         switch inputIndex {
         case 0:
             if !isMoreType {
@@ -107,7 +107,7 @@ class KeyboardEngine: NSObject {
     }
     
     //键位注册
-    static func keyRegist(keyString:String , inputIndex: Int , listModel: PWListModel ,numberType :PWKeyboardNumType) -> PWListModel {
+    static func keyRegist(keyString:String , inputIndex: Int , listModel: KeyboardLayout ,numberType :PWKeyboardNumType) -> KeyboardLayout {
         var list = listModel
         var okString = ""
         if numberType == .newEnergy || numberType == .wuJing {
@@ -170,10 +170,10 @@ class KeyboardEngine: NSObject {
         return listModel
     }
     
-    static func getModelArrayWithString(keyString :String) -> Array<PWModel> {
-        var modelArray = Array<PWModel>()
+    static func getModelArrayWithString(keyString :String) -> Array<Key> {
+        var modelArray = Array<Key>()
         for ch in keyString{
-            let model = PWModel()
+            let model = Key()
             model.enabled = true
             model.text = String(ch)
             modelArray.append(model)
@@ -181,8 +181,8 @@ class KeyboardEngine: NSObject {
         return modelArray
     }
     
-    static func defaultNumbersAndLetters() ->PWListModel{
-        let listModel = PWListModel()
+    static func defaultNumbersAndLetters() ->KeyboardLayout{
+        let listModel = KeyboardLayout()
         listModel.row0 = KeyboardEngine.getModelArrayWithString(keyString: _STR_NUM)
         listModel.row1 = KeyboardEngine.getModelArrayWithString(keyString:_STR_Q_OP)
         listModel.row2 = KeyboardEngine.getModelArrayWithString(keyString:_STR_A_M)
@@ -190,8 +190,8 @@ class KeyboardEngine: NSObject {
         return listModel
     }
     
-    static func defaultSpecial() ->PWListModel{
-        let listModel = PWListModel()
+    static func defaultSpecial() ->KeyboardLayout{
+        let listModel = KeyboardLayout()
         listModel.row0 = KeyboardEngine.getModelArrayWithString(keyString: _CHAR_SPECIAL)
         listModel.row1 = KeyboardEngine.getModelArrayWithString(keyString:_STR_NUM)
         listModel.row2 = KeyboardEngine.getModelArrayWithString(keyString:_STR_A_K)
@@ -199,8 +199,8 @@ class KeyboardEngine: NSObject {
         return listModel
     }
     
-    static func defaultLast() -> PWListModel{
-        let listModel = PWListModel()
+    static func defaultLast() -> KeyboardLayout{
+        let listModel = KeyboardLayout()
         listModel.row0 = KeyboardEngine.getModelArrayWithString(keyString: _STR_NUM)
         listModel.row1 = KeyboardEngine.getModelArrayWithString(keyString:_STR_Q_N)
         listModel.row2 = KeyboardEngine.getModelArrayWithString(keyString:_STR_A_B)
@@ -208,8 +208,8 @@ class KeyboardEngine: NSObject {
         return listModel
     }
     
-    static func defaultProvinces() ->PWListModel{
-        let listModel = PWListModel()
+    static func defaultProvinces() ->KeyboardLayout{
+        let listModel = KeyboardLayout()
         listModel.row0 = KeyboardEngine.getModelArrayWithString(keyString:KeyboardEngine.subString(str: _STR_CIVIL_PVS, start: 0, length: 10))
         listModel.row1 = KeyboardEngine.getModelArrayWithString(keyString:KeyboardEngine.subString(str: _STR_CIVIL_PVS, start: 10, length: 10))
         listModel.row2 = KeyboardEngine.getModelArrayWithString(keyString:KeyboardEngine.subString(str: _STR_CIVIL_PVS, start: 20, length: 8))
@@ -217,7 +217,7 @@ class KeyboardEngine: NSObject {
         return listModel
     }
     
-    static func disEnabledKey(keyString: [String], listModel: PWListModel,reverseModel:Bool) ->PWListModel {
+    static func disEnabledKey(keyString: [String], listModel: KeyboardLayout,reverseModel:Bool) ->KeyboardLayout {
         let list = listModel
         list.row0 = KeyboardEngine.disEnableKey(keyString: keyString, row: list.row0!,reverseModel:reverseModel)
         list.row1 = KeyboardEngine.disEnableKey(keyString: keyString, row: list.row1!,reverseModel:reverseModel)
@@ -228,7 +228,7 @@ class KeyboardEngine: NSObject {
     
     
     
-    static func disEnableKey(keyString: [String],row:Array<PWModel>,reverseModel:Bool) -> Array<PWModel> {
+    static func disEnableKey(keyString: [String],row:Array<Key>,reverseModel:Bool) -> Array<Key> {
         for model in row {
             model.enabled = !reverseModel
             model.keyCode = 0

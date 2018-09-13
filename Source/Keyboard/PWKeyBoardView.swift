@@ -29,7 +29,7 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     
     var collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: PWScreenWidth, height: PWkeybordHeight),collectionViewLayout: UICollectionViewLayout())
 
-    var listModel : PWListModel!
+    var listModel : KeyboardLayout!
     
     var numType = PWKeyboardNumType.auto
     var inputIndex = 0;
