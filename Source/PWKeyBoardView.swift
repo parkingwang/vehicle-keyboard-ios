@@ -127,23 +127,30 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! PWKeyBoardCollectionViewCell
+        
+        let currentKey = listModel.rowArray()[indexPath.section][indexPath.row]
+        
         cell.resetUI()
         cell.mainColor = mainColor
-        cell.centerLabel.text = listModel.rowArray()[indexPath.section][indexPath.row].text
-        if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3![listModel.row3!.count - 2]){
+        cell.centerLabel.text = currentKey.text
+        cell.isEnabledStatus = currentKey.enabled
+        
+        if (currentKey == listModel.row3![listModel.row3!.count - 2]){
             //给加宽的删除键左边留间隙
             let  left = deleteItemWidth() - specialButtonWidth()
             cell.setDeleteButton(left:left)
         }
-        if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3![listModel.row3!.count - 3]) , (listModel.row3![listModel.row3!.count - 3].keyCode! > 2){
+        
+        if currentKey == listModel.row3![listModel.row3!.count - 3] ,
+            listModel.row3![listModel.row3!.count - 3].keyCode! > 2 {
             //给加宽的更多键左边留间隙
             let  left = moreItemWIdth() - specialButtonWidth()
             cell.setMoreButton(left: left)
         }
-        cell.isEnabledStatus = listModel.rowArray()[indexPath.section][indexPath.row].enabled
-        if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3?.last) {
+        
+        if (currentKey == listModel.row3?.last) {
             //确定键颜色特殊处理
-            cell.setSubmitBUtton(isEnabled: listModel.rowArray()[indexPath.section][indexPath.row].enabled)
+            cell.setSubmitBUtton(isEnabled: currentKey.enabled)
         }
         return cell
     }
