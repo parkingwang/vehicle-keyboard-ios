@@ -70,7 +70,7 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
         addSubview(promptView)
     }
     
-    func updateText(text:String,isMoreType:Bool,inputIndex:Int){
+    func updateText(text: String, isMoreType: Bool, inputIndex: Int){
         self.inputIndex = inputIndex
         listModel = Engine.update(keyboardType: PWKeyboardType.civilAndArmy, inputIndex: inputIndex, presetNumber: text, numberType: numType,isMoreType:isMoreType);
         collectionView.reloadData()
@@ -87,7 +87,7 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
         return width
     }
     
-    func delegateItemWidth() -> CGFloat{
+    func deleteItemWidth() -> CGFloat{
         //在没有更多的情况下删除按钮的大小还需要加上左边的间距
         if listModel.row3![listModel.row3!.count - 3].keyCode! > 2 {
             return specialButtonWidth()
@@ -97,7 +97,7 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     }
     
     func moreItemWIdth() -> CGFloat {
-        let width = (PWScreenWidth - 8 - submitItemWidth() - normalItemWith() * CGFloat(listModel.rowArray()[3].count - 3) - CGFloat(listModel.rowArray()[3].count - 1) * kItemSpacing) - 0.1 - delegateItemWidth()
+        let width = (PWScreenWidth - 8 - submitItemWidth() - normalItemWith() * CGFloat(listModel.rowArray()[3].count - 3) - CGFloat(listModel.rowArray()[3].count - 1) * kItemSpacing) - 0.1 - deleteItemWidth()
         return width
     }
     
@@ -132,7 +132,7 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
         cell.centerLabel.text = listModel.rowArray()[indexPath.section][indexPath.row].text
         if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3![listModel.row3!.count - 2]){
             //给加宽的删除键左边留间隙
-            let  left = delegateItemWidth() - specialButtonWidth()
+            let  left = deleteItemWidth() - specialButtonWidth()
             cell.setDeleteButton(left:left)
         }
         if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3![listModel.row3!.count - 3]) , (listModel.row3![listModel.row3!.count - 3].keyCode! > 2){
@@ -152,7 +152,7 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
         let width = normalItemWith()
         //更多键的宽度需要加上左边空出来的宽度，没有更多时删除键加上
         if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3![listModel.row3!.count - 2]){
-            return CGSize(width: delegateItemWidth(), height: kItemHeight)
+            return CGSize(width: deleteItemWidth(), height: kItemHeight)
         } else if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3?.last){
             return CGSize(width: submitItemWidth(), height: kItemHeight)
         } else if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3![listModel.row3!.count - 3]){
@@ -178,7 +178,11 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         //没有值时点击删除键有点击效果但是不做处理
-        if  listModel.presetNumber != nil,listModel.presetNumber!.count < 1 ,indexPath.section == 3, indexPath.row == listModel.rowArray()[indexPath.section].count - 2 {
+        if  listModel.presetNumber != nil,
+            listModel.presetNumber!.count < 1 ,
+            indexPath.section == 3,
+            indexPath.row == listModel.rowArray()[indexPath.section].count - 2 {
+            
             collectionView.reloadData()
             return
         }
@@ -186,17 +190,20 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-         if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3?.last){
+        let currentKey = listModel.rowArray()[indexPath.section][indexPath.row]
+        
+         if (currentKey == listModel.row3?.last){
             
-         } else if (listModel.rowArray()[indexPath.section][indexPath.row] == listModel.row3![listModel.row3!.count - 2]){
+         } else if (currentKey == listModel.row3![listModel.row3!.count - 2]){
             
-         } else if listModel.rowArray()[indexPath.section][indexPath.row].keyCode != nil ,listModel.rowArray()[indexPath.section][indexPath.row].keyCode! > 2 {
+         } else if currentKey.keyCode != nil ,
+            currentKey.keyCode! > 2 {
             
-         } else if listModel.rowArray()[indexPath.section][indexPath.row].enabled {
+         } else if currentKey.enabled {
             let item = collectionView.cellForItem(at: indexPath) as! PWKeyBoardCollectionViewCell
             showPrompt(item: item)
         }
-        return listModel.rowArray()[indexPath.section][indexPath.row].enabled
+        return currentKey.enabled
     }
     
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
