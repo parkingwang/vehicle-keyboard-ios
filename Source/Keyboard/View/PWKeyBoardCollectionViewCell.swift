@@ -59,6 +59,7 @@ class PWKeyBoardCollectionViewCell: UICollectionViewCell {
         let pwBundle = Bundle(path: path!)
         iconImageView.image =  UIImage(contentsOfFile: (pwBundle?.path(forResource: "delete@2x", ofType: "png", inDirectory: "Image"))!)?.resizableImage(withCapInsets: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
     }
+    
     func setMoreButton(left:CGFloat) {
         imageViewLeftConstraint.constant = left
     }

@@ -181,21 +181,61 @@
 		4788C196214A17BD00FEB3FA /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				4788C197214A17BD00FEB3FA /* UIView+PWCorners.swift */,
-				4788C198214A17BD00FEB3FA /* Engine.swift */,
-				4788C199214A17BD00FEB3FA /* PWKeyBoardCollectionViewCell.swift */,
-				4788C19A214A17BD00FEB3FA /* PWInputCollectionViewCell.xib */,
-				4788C19B214A17BD00FEB3FA /* PWHandler.swift */,
-				4788C19C214A17BD00FEB3FA /* PWInputCollectionViewCell.swift */,
-				4788C19D214A17BD00FEB3FA /* PWKeyBoardView.swift */,
-				4788C19E214A17BD00FEB3FA /* PWPromptView.swift */,
-				4788C19F214A17BD00FEB3FA /* PWKeyBoardCollectionViewCell.xib */,
-				4788C1A0214A17BD00FEB3FA /* PWModel.swift */,
-				4788C1A1214A17BD00FEB3FA /* UITextField+Extension.swift */,
-				4788C1A2214A17BD00FEB3FA /* PWBundle.bundle */,
-				4788C1A3214A17BD00FEB3FA /* PWPromptView.xib */,
+				47C9DDD7214A5A8F001502AE /* Keyboard */,
+				47C9DDD6214A5A87001502AE /* InputView */,
+				47C9DDD5214A5A68001502AE /* Source */,
+				47C9DDD4214A5A5A001502AE /* Extension */,
 			);
 			path = Source;
+			sourceTree = "<group>";
+		};
+		47C9DDD4214A5A5A001502AE /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				4788C197214A17BD00FEB3FA /* UIView+PWCorners.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		47C9DDD5214A5A68001502AE /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				4788C1A2214A17BD00FEB3FA /* PWBundle.bundle */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		47C9DDD6214A5A87001502AE /* InputView */ = {
+			isa = PBXGroup;
+			children = (
+				4788C19B214A17BD00FEB3FA /* PWHandler.swift */,
+				4788C1A1214A17BD00FEB3FA /* UITextField+Extension.swift */,
+				4788C19C214A17BD00FEB3FA /* PWInputCollectionViewCell.swift */,
+				4788C19A214A17BD00FEB3FA /* PWInputCollectionViewCell.xib */,
+			);
+			path = InputView;
+			sourceTree = "<group>";
+		};
+		47C9DDD7214A5A8F001502AE /* Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				47C9DDD8214A5AE3001502AE /* View */,
+				4788C1A0214A17BD00FEB3FA /* PWModel.swift */,
+				4788C19D214A17BD00FEB3FA /* PWKeyBoardView.swift */,
+				4788C198214A17BD00FEB3FA /* Engine.swift */,
+			);
+			path = Keyboard;
+			sourceTree = "<group>";
+		};
+		47C9DDD8214A5AE3001502AE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4788C1A3214A17BD00FEB3FA /* PWPromptView.xib */,
+				4788C19E214A17BD00FEB3FA /* PWPromptView.swift */,
+				4788C199214A17BD00FEB3FA /* PWKeyBoardCollectionViewCell.swift */,
+				4788C19F214A17BD00FEB3FA /* PWKeyBoardCollectionViewCell.xib */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		A31E0F0BE9A372D11D1A7E88 /* Pods */ = {
