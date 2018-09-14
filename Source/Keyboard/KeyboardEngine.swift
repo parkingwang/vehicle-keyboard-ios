@@ -90,7 +90,7 @@ class KeyboardEngine: NSObject {
             }
             
         case 1:
-            if presetNumber == _CHAR_MIN {
+            if KeyboardEngine.subString(str: presetNumber, start: 0, length: 1) == _CHAR_MIN {
                 layout = KeyboardEngine.defaultSpecial()
             } else {
                 layout = KeyboardEngine.defaultNumbersAndLetters()
