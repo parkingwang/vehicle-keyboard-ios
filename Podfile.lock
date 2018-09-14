@@ -1,5 +1,5 @@
 PODS:
-  - VehicleKeyboard-swift (0.9.2)
+  - VehicleKeyboard-swift (0.9.11)
 
 DEPENDENCIES:
   - VehicleKeyboard-swift (from `./`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: ./
 
 SPEC CHECKSUMS:
-  VehicleKeyboard-swift: 7543bd7a217db45471a113551f7422daeca7f19f
+  VehicleKeyboard-swift: 25edf71b5a7b10c725327157e9ded4a0860d8b30
 
 PODFILE CHECKSUM: 061f66e1d132b3fb7f6467aabb78ae3780a784dc
 
