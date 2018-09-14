@@ -45,24 +45,24 @@ class KeyboardEngine: NSObject {
     static let _CHAR_SPECIAL = "学警港澳航挂试超使领"
     static let _STR_HK_MACAO = _CHAR_HK + _CHAR_MACAO;
     
-    class func generateLayout(inputIndex: Int,
-                              presetNumber: String,
+    class func generateLayout(at inputIndex: Int,
+                              vpl: String,
                               numberType: PWKeyboardNumType,
                               isMoreType: Bool) -> KeyboardLayout {
         
         var detectedNumberType = numberType
         if  numberType == PWKeyboardNumType.auto {
-           detectedNumberType = KeyboardEngine.detectNumberTypeOf(presetNumber: presetNumber)
+           detectedNumberType = KeyboardEngine.detectNumberTypeOf(presetNumber: vpl)
         }
         
         //获取键位布局
-        var layoutLout = KeyboardEngine.getKeyProvider(inputIndex: inputIndex, presetNumber: presetNumber,isMoreType:isMoreType)
+        var layoutLout = KeyboardEngine.getKeyProvider(inputIndex: inputIndex, presetNumber: vpl,isMoreType:isMoreType)
         
         //注册键位
-        layoutLout = KeyboardEngine.keyRegist(keyString: presetNumber, inputIndex: inputIndex, listModel: layoutLout, numberType: detectedNumberType)
+        layoutLout = KeyboardEngine.keyRegist(keyString: vpl, inputIndex: inputIndex, listModel: layoutLout, numberType: detectedNumberType)
     
-        layoutLout.presetNumber = presetNumber
-        layoutLout.numberType = numberType
+        layoutLout.presetNumber = vpl
+//        layoutLout.numberType = numberType
         layoutLout.index = inputIndex
         
         var keysArray = layoutLout.row1! + layoutLout.row0!
