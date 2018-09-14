@@ -227,7 +227,9 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         }
         keyboardView.updateText(text: paletNumber, isMoreType: isMoreType, inputIndex: selectIndex)
         updateCollection()
-        delegate?.palteDidChnage?(plate:paletNumber,complete:paletNumber.count == maxCount)
+        if (!isMoreType){
+            delegate?.palteDidChnage?(plate:paletNumber,complete:paletNumber.count == maxCount)
+        }
     }
     
    
