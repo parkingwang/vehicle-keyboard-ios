@@ -186,17 +186,17 @@
 				47C9DDD7214A5A8F001502AE /* Keyboard */,
 				47C9DDD6214A5A87001502AE /* InputView */,
 				47C9DDD5214A5A68001502AE /* Source */,
-				47C9DDD4214A5A5A001502AE /* Extension */,
+				47C9DDD4214A5A5A001502AE /* Helper */,
 			);
 			path = Source;
 			sourceTree = "<group>";
 		};
-		47C9DDD4214A5A5A001502AE /* Extension */ = {
+		47C9DDD4214A5A5A001502AE /* Helper */ = {
 			isa = PBXGroup;
 			children = (
 				4788C197214A17BD00FEB3FA /* UIView+PWCorners.swift */,
 			);
-			path = Extension;
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		47C9DDD5214A5A68001502AE /* Source */ = {
