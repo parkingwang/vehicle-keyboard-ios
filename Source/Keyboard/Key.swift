@@ -8,10 +8,6 @@
 
 import UIKit
 
-public enum PWKeyboardType: Int{
-    case full = 0,civil,civilAndArmy;
-}
-
 @objc public enum PWKeyboardNumType: Int {
     case auto = 0,airport,wuJing,police,embassy,newEnergy;
 }

@@ -20,8 +20,6 @@ class KeyboardLayout: NSObject {
     var index = 0
     //presetNumber 当前预设的车牌号码；
     var presetNumber :String?
-    //keyboardType 当前键盘所处的键盘类型；
-    var keyboardType :PWKeyboardType?
     //numberType 当前预设的车牌号码类型（废弃参数）；
     var numberType :PWKeyboardNumType?
     //presetNumberType 同numberType；

@@ -45,8 +45,7 @@ class KeyboardEngine: NSObject {
     static let _CHAR_SPECIAL = "学警港澳航挂试超使领"
     static let _STR_HK_MACAO = _CHAR_HK + _CHAR_MACAO;
     
-    class func generateLayout(keyboardType: PWKeyboardType,
-                              inputIndex: Int,
+    class func generateLayout(inputIndex: Int,
                               presetNumber: String,
                               numberType: PWKeyboardNumType,
                               isMoreType: Bool) -> KeyboardLayout {
@@ -65,7 +64,6 @@ class KeyboardEngine: NSObject {
         layoutLout.presetNumber = presetNumber
         layoutLout.numberType = numberType
         layoutLout.index = inputIndex
-        layoutLout.keyboardType = keyboardType
         
         var keysArray = layoutLout.row1! + layoutLout.row0!
         keysArray += layoutLout.row2!
