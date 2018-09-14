@@ -17,7 +17,7 @@
 		2780CB122106C94E002591F5 /* OCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2780CB112106C94E002591F5 /* OCViewController.m */; };
 		471E6B3437B3A7EE2474F7E3 /* Pods_VehicleKeyboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E233B4BA5BCCD207009035E /* Pods_VehicleKeyboard.framework */; };
 		4788C1A4214A17BD00FEB3FA /* UIView+PWCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788C197214A17BD00FEB3FA /* UIView+PWCorners.swift */; };
-		4788C1A5214A17BD00FEB3FA /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788C198214A17BD00FEB3FA /* Engine.swift */; };
+		4788C1A5214A17BD00FEB3FA /* KeyboardEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788C198214A17BD00FEB3FA /* KeyboardEngine.swift */; };
 		4788C1A6214A17BD00FEB3FA /* PWKeyBoardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788C199214A17BD00FEB3FA /* PWKeyBoardCollectionViewCell.swift */; };
 		4788C1A7214A17BD00FEB3FA /* PWInputCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4788C19A214A17BD00FEB3FA /* PWInputCollectionViewCell.xib */; };
 		4788C1A8214A17BD00FEB3FA /* PWHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788C19B214A17BD00FEB3FA /* PWHandler.swift */; };
@@ -25,10 +25,11 @@
 		4788C1AA214A17BD00FEB3FA /* PWKeyBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788C19D214A17BD00FEB3FA /* PWKeyBoardView.swift */; };
 		4788C1AB214A17BD00FEB3FA /* PWPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788C19E214A17BD00FEB3FA /* PWPromptView.swift */; };
 		4788C1AC214A17BD00FEB3FA /* PWKeyBoardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4788C19F214A17BD00FEB3FA /* PWKeyBoardCollectionViewCell.xib */; };
-		4788C1AD214A17BD00FEB3FA /* PWModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788C1A0214A17BD00FEB3FA /* PWModel.swift */; };
 		4788C1AE214A17BD00FEB3FA /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788C1A1214A17BD00FEB3FA /* UITextField+Extension.swift */; };
 		4788C1AF214A17BD00FEB3FA /* PWBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4788C1A2214A17BD00FEB3FA /* PWBundle.bundle */; };
 		4788C1B0214A17BD00FEB3FA /* PWPromptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4788C1A3214A17BD00FEB3FA /* PWPromptView.xib */; };
+		47DCE152214A6AFD005E7490 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DCE151214A6AFD005E7490 /* Key.swift */; };
+		47DCE155214A6B56005E7490 /* KeyboardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DCE154214A6B56005E7490 /* KeyboardLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,7 +69,7 @@
 		28999919A8F5AD875807AC4A /* Pods_VehicleKeyboardDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VehicleKeyboardDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3148504CC0949BD0A7648FF8 /* Pods-VehicleKeyboard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VehicleKeyboard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VehicleKeyboard/Pods-VehicleKeyboard.debug.xcconfig"; sourceTree = "<group>"; };
 		4788C197214A17BD00FEB3FA /* UIView+PWCorners.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+PWCorners.swift"; sourceTree = "<group>"; };
-		4788C198214A17BD00FEB3FA /* Engine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
+		4788C198214A17BD00FEB3FA /* KeyboardEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardEngine.swift; sourceTree = "<group>"; };
 		4788C199214A17BD00FEB3FA /* PWKeyBoardCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWKeyBoardCollectionViewCell.swift; sourceTree = "<group>"; };
 		4788C19A214A17BD00FEB3FA /* PWInputCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PWInputCollectionViewCell.xib; sourceTree = "<group>"; };
 		4788C19B214A17BD00FEB3FA /* PWHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWHandler.swift; sourceTree = "<group>"; };
@@ -76,10 +77,11 @@
 		4788C19D214A17BD00FEB3FA /* PWKeyBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWKeyBoardView.swift; sourceTree = "<group>"; };
 		4788C19E214A17BD00FEB3FA /* PWPromptView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWPromptView.swift; sourceTree = "<group>"; };
 		4788C19F214A17BD00FEB3FA /* PWKeyBoardCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PWKeyBoardCollectionViewCell.xib; sourceTree = "<group>"; };
-		4788C1A0214A17BD00FEB3FA /* PWModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWModel.swift; sourceTree = "<group>"; };
 		4788C1A1214A17BD00FEB3FA /* UITextField+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		4788C1A2214A17BD00FEB3FA /* PWBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PWBundle.bundle; sourceTree = "<group>"; };
 		4788C1A3214A17BD00FEB3FA /* PWPromptView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PWPromptView.xib; sourceTree = "<group>"; };
+		47DCE151214A6AFD005E7490 /* Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
+		47DCE154214A6B56005E7490 /* KeyboardLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardLayout.swift; sourceTree = "<group>"; };
 		5E233B4BA5BCCD207009035E /* Pods_VehicleKeyboard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VehicleKeyboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95B2FFB4EB4BED267DC45D72 /* Pods-VehicleKeyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VehicleKeyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-VehicleKeyboard/Pods-VehicleKeyboard.release.xcconfig"; sourceTree = "<group>"; };
 		DA7C6EDC7DDC5A19F799F2AF /* Pods-VehicleKeyboardDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VehicleKeyboardDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-VehicleKeyboardDemo/Pods-VehicleKeyboardDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -220,9 +222,10 @@
 			isa = PBXGroup;
 			children = (
 				47C9DDD8214A5AE3001502AE /* View */,
-				4788C1A0214A17BD00FEB3FA /* PWModel.swift */,
+				47DCE151214A6AFD005E7490 /* Key.swift */,
 				4788C19D214A17BD00FEB3FA /* PWKeyBoardView.swift */,
-				4788C198214A17BD00FEB3FA /* Engine.swift */,
+				4788C198214A17BD00FEB3FA /* KeyboardEngine.swift */,
+				47DCE154214A6B56005E7490 /* KeyboardLayout.swift */,
 			);
 			path = Keyboard;
 			sourceTree = "<group>";
@@ -316,7 +319,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
 				LastUpgradeCheck = 0940;
-				ORGANIZATIONNAME = yangzhihao;
+				ORGANIZATIONNAME = "Xi'an iRain IoT. Technology Service CO., Ltd. ";
 				TargetAttributes = {
 					270C76FF2079F16E009688AF = {
 						CreatedOnToolsVersion = 9.2;
@@ -446,16 +449,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				4788C1A9214A17BD00FEB3FA /* PWInputCollectionViewCell.swift in Sources */,
-				4788C1AD214A17BD00FEB3FA /* PWModel.swift in Sources */,
+				47DCE152214A6AFD005E7490 /* Key.swift in Sources */,
 				4788C1AB214A17BD00FEB3FA /* PWPromptView.swift in Sources */,
 				4788C1A8214A17BD00FEB3FA /* PWHandler.swift in Sources */,
 				4788C1A6214A17BD00FEB3FA /* PWKeyBoardCollectionViewCell.swift in Sources */,
 				4788C1A4214A17BD00FEB3FA /* UIView+PWCorners.swift in Sources */,
 				270C77062079F16F009688AF /* ViewController.swift in Sources */,
 				270C77042079F16F009688AF /* AppDelegate.swift in Sources */,
+				47DCE155214A6B56005E7490 /* KeyboardLayout.swift in Sources */,
 				2780CB122106C94E002591F5 /* OCViewController.m in Sources */,
 				4788C1AE214A17BD00FEB3FA /* UITextField+Extension.swift in Sources */,
-				4788C1A5214A17BD00FEB3FA /* Engine.swift in Sources */,
+				4788C1A5214A17BD00FEB3FA /* KeyboardEngine.swift in Sources */,
 				4788C1AA214A17BD00FEB3FA /* PWKeyBoardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

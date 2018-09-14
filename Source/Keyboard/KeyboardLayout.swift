@@ -1,38 +1,20 @@
 //
-//  PWModel.swift
-//  VehicleKeyboardDemo
+//  KeyboardLayout.swift
+//  VehicleKeyboard
 //
-//  Created by 杨志豪 on 2018/4/8.
-//  Copyright © 2018年 yangzhihao. All rights reserved.
+//  Created by cjz on 2018/9/13.
+//  Copyright © 2018年 Xi'an iRain IoT. Technology Service CO., Ltd. All rights reserved.
 //
 
 import UIKit
 
-public enum PWKeyboardType: Int{
-    case full = 0,civil,civilAndArmy;
-}
-
-@objc public enum PWKeyboardNumType: Int {
-    case auto = 0,airport,wuJing,police,embassy,newEnergy;
-}
-
-enum PWKeyboardButtonType: Int {
-    case output = 0,delete,done;
-}
-
-class PWModel: NSObject {
-    var text :String?
-    var keyCode :Int?
-    var enabled = false
-    var isFunKey = false
-}
-
-class PWListModel: NSObject {
-    var row0 :Array<PWModel>?
-    var row1 :Array<PWModel>?
-    var row2 :Array<PWModel>?
-    var row3 :Array<PWModel>?
-    var keys :Array<PWModel>?
+class KeyboardLayout: NSObject {
+    
+    var row0: Array<Key>?
+    var row1: Array<Key>?
+    var row2: Array<Key>?
+    var row3: Array<Key>?
+    var keys: Array<Key>?
     
     //index 当前键盘所处的键盘位置；
     var index = 0
@@ -51,7 +33,7 @@ class PWListModel: NSObject {
     //numberLimitLength 当前车牌号码的最大长度；
     var numberLimitLength :Int?
     
-    func rowArray() -> [[PWModel]] {
+    func rowArray() -> [[Key]] {
         return [self.row0!,self.row1!,self.row2!,self.row3!]
     }
 }
