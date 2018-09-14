@@ -34,18 +34,23 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     let keyboardView = PWKeyBoardView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     var selectView = UIView()
     var isSetKeyboard = false//预设值时不设置为第一响应对象
+    var view = UIView()
+    var collectionView :UICollectionView!
     
     @objc public weak var  delegate : PWHandlerDelegate?
     
     @objc public func setKeyBoardView(view: UIView){
         
-        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UICollectionViewFlowLayout())
+        self.view = view
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: identifier, bundle: Bundle(for: PWHandler.self)), forCellWithReuseIdentifier: identifier)
         
         view.translatesAutoresizingMaskIntoConstraints = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction(tap:)))
+        view.addGestureRecognizer(tap)
         view.addSubview(collectionView)
         if (view.constraints.count > 0) {
             let topCos = NSLayoutConstraint(item: collectionView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0)
@@ -55,10 +60,11 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
             view.addConstraints([topCos,leftCos,rightCos,bottomCos])
         }
         inputCollectionView = collectionView
-        inputTextfield = UITextField(frame: CGRect.zero)
+        inputTextfield = UITextField(frame: CGRect(x: 0, y: 0, width: 0, height: view.frame.height))
         view.addSubview(inputTextfield)
         collectionView.backgroundColor = UIColor.white
         collectionView.isScrollEnabled = false
+        tap.delegate = self
         keyboardView.delegate = self
         keyboardView.mainColor = mainColor
         inputTextfield.inputView = keyboardView
@@ -71,6 +77,9 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         NotificationCenter.default.addObserver(self, selector: #selector(plateKeyBoardHidden), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
         
     }
+    
+ 
+    
     
     @objc public func isComplete()-> Bool{
         return paletNumber.count == maxCount
@@ -135,6 +144,12 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         }
     }
     
+    @objc func tapAction(tap:UILongPressGestureRecognizer){
+        let tapPoint = tap.location(in: view)
+        let indexPath = collectionView.indexPathForItem(at: tapPoint)
+        collectionView(collectionView, didSelectItemAt: indexPath!)
+    }
+    
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -143,8 +158,6 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         selectIndex = indexPath.row > paletNumber.count ? paletNumber.count : indexPath.row
         keyboardView.updateText(text: paletNumber, isMoreType: false, inputIndex: selectIndex)
         updateCollection()
-        print(collectionView.frame)
-        print(collectionView.superview?.frame ?? "")
     }
     
     public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
