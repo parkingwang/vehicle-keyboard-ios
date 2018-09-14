@@ -20,4 +20,5 @@ DerivedData
 !default.xcworkspace
 build/
 
-#CocoaPods
+# CocoaPods
+# Pods/

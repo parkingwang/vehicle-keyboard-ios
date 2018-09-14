@@ -81,7 +81,7 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         let isNewEnergy = type == .newEnergy
         var numType = type;
         selectIndex = plate.count == 0 ? 0 : plate.count - 1
-        if  numType == .auto,paletNumber.count > 0,Engine.subString(str: paletNumber, start: 0, length: 1) == "W" {
+        if  numType == .auto,paletNumber.count > 0,KeyboardEngine.subString(str: paletNumber, start: 0, length: 1) == "W" {
             numType = .wuJing
         } else if numType == .auto,paletNumber.count == 8 {
             numType = .newEnergy
@@ -95,12 +95,12 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         let keyboardView = inputTextfield.inputView as! PWKeyBoardView
         keyboardView.numType = isNewEnergy ? .newEnergy : .auto
         var numType = keyboardView.numType
-        if  paletNumber.count > 0,Engine.subString(str: paletNumber, start: 0, length: 1) == "W" {
+        if  paletNumber.count > 0,KeyboardEngine.subString(str: paletNumber, start: 0, length: 1) == "W" {
             numType = .wuJing
         }
         maxCount = (numType == .newEnergy || numType == .wuJing) ? 8 : 7
         if paletNumber.count > maxCount {
-            paletNumber = Engine.subString(str: paletNumber, start: 0, length: paletNumber.count - 1)
+            paletNumber = KeyboardEngine.subString(str: paletNumber, start: 0, length: paletNumber.count - 1)
         } else if maxCount == 8,paletNumber.count == 7 {
             selectIndex = 7
         }
@@ -200,7 +200,7 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         
         var isMoreType = false
         if char == "删除" , paletNumber.count >= 1 {
-            paletNumber = Engine.subString(str: paletNumber, start: 0, length: paletNumber.count - 1)
+            paletNumber = KeyboardEngine.subString(str: paletNumber, start: 0, length: paletNumber.count - 1)
             selectIndex = paletNumber.count
         }else  if char == "确定"{
             UIApplication.shared.keyWindow?.endEditing(true)
@@ -219,7 +219,7 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
                 paletNumber = NSString.init(format: "%@", NSPalet) as String
             }
             let keyboardView = inputTextfield.inputView as! PWKeyBoardView
-            let numType = keyboardView.numType == .newEnergy ? PWKeyboardNumType.newEnergy : Engine.detectNumberTypeOf(presetNumber: paletNumber)
+            let numType = keyboardView.numType == .newEnergy ? PWKeyboardNumType.newEnergy : KeyboardEngine.detectNumberTypeOf(presetNumber: paletNumber)
             maxCount = (numType == .newEnergy || numType == .wuJing) ? 8 : 7
             if maxCount > paletNumber.count || selectIndex < paletNumber.count - 1 {
                 selectIndex += 1;

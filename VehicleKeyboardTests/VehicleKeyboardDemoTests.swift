@@ -7,9 +7,9 @@
 //
 
 import XCTest
-@testable import VehicleKeyboardDemo
+@testable import VehicleKeyboard
 
-class VehicleKeyboardDemoTests: XCTestCase {
+class VehicleKeyboardTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
