@@ -9,11 +9,12 @@
 import UIKit
 
 class KeyboardLayout: NSObject {
-    var row0 :Array<Key>?
-    var row1 :Array<Key>?
-    var row2 :Array<Key>?
-    var row3 :Array<Key>?
-    var keys :Array<Key>?
+    
+    var row0: Array<Key>?
+    var row1: Array<Key>?
+    var row2: Array<Key>?
+    var row3: Array<Key>?
+    var keys: Array<Key>?
     
     //index 当前键盘所处的键盘位置；
     var index = 0

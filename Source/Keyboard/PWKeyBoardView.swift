@@ -50,9 +50,9 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     }
     
     func setUI() {
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 30, height: 30)
-        collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: PWScreenWidth , height:iphonxKeyBoardHeight()),collectionViewLayout:layout)
+        let flowLayout = UICollectionViewFlowLayout()
+        flowLayout.itemSize = CGSize(width: 30, height: 30)
+        collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: PWScreenWidth , height:iphonxKeyBoardHeight()),collectionViewLayout:flowLayout)
         collectionView.backgroundColor = UIColor(red: 238 / 256.0, green: 238 / 256.0, blue: 238 / 256.0, alpha: 0)
         collectionView.register(UINib(nibName: identifier, bundle: Bundle(for: PWKeyBoardView.self)), forCellWithReuseIdentifier: identifier)
         self.addSubview(collectionView)
@@ -61,7 +61,7 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
         collectionView.dataSource = self
         collectionView.delaysContentTouches = false;
         collectionView.canCancelContentTouches = true;
-        listModel =  KeyboardEngine.update(keyboardType: PWKeyboardType.civilAndArmy, inputIndex: 0, presetNumber: "", numberType:numType,isMoreType:false);
+        listModel =  KeyboardEngine.generateLayout(keyboardType: PWKeyboardType.civilAndArmy, inputIndex: 0, presetNumber: "", numberType:numType,isMoreType:false);
         collectionView.reloadData()
         let lineView = UIView(frame: CGRect(x: 0, y: 0, width: PWScreenWidth, height: 0.5))
         lineView.backgroundColor = UIColor(red: 204/256.0, green: 204/256.0, blue: 204/256.0, alpha: 1)
@@ -76,7 +76,7 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     }
     
     func iphoneXtabHeight() -> CGFloat {
-        return self.isIphoneX() ? 34 : 0;
+        return isIphoneX() ? 34 : 0;
     }
     
     func iphonxKeyBoardHeight() -> CGFloat{
@@ -85,7 +85,7 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     
     func updateText(text: String, isMoreType: Bool, inputIndex: Int){
         self.inputIndex = inputIndex
-        listModel = KeyboardEngine.update(keyboardType: PWKeyboardType.civilAndArmy, inputIndex: inputIndex, presetNumber: text, numberType: numType,isMoreType:isMoreType);
+        listModel = KeyboardEngine.generateLayout(keyboardType: PWKeyboardType.civilAndArmy, inputIndex: inputIndex, presetNumber: text, numberType: numType,isMoreType:isMoreType);
         collectionView.reloadData()
     }
     

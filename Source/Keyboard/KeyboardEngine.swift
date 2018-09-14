@@ -45,65 +45,74 @@ class KeyboardEngine: NSObject {
     static let _CHAR_SPECIAL = "学警港澳航挂试超使领"
     static let _STR_HK_MACAO = _CHAR_HK + _CHAR_MACAO;
     
-    
-    class func update(keyboardType: PWKeyboardType ,inputIndex: Int,presetNumber: String,numberType: PWKeyboardNumType,isMoreType:Bool) -> KeyboardLayout {
+    class func generateLayout(keyboardType: PWKeyboardType,
+                              inputIndex: Int,
+                              presetNumber: String,
+                              numberType: PWKeyboardNumType,
+                              isMoreType: Bool) -> KeyboardLayout {
+        
         var detectedNumberType = numberType
-        if  numberType == PWKeyboardNumType.auto{
+        if  numberType == PWKeyboardNumType.auto {
            detectedNumberType = KeyboardEngine.detectNumberTypeOf(presetNumber: presetNumber)
         }
+        
         //获取键位布局
-        var listModel = KeyboardEngine.getKeyProvider(inputIndex: inputIndex, presetNumber: presetNumber,isMoreType:isMoreType, numberType: detectedNumberType)
+        var layoutLout = KeyboardEngine.getKeyProvider(inputIndex: inputIndex, presetNumber: presetNumber,isMoreType:isMoreType)
+        
         //注册键位
-        listModel = KeyboardEngine.keyRegist(keyString: presetNumber, inputIndex: inputIndex, listModel: listModel, numberType: detectedNumberType)
+        layoutLout = KeyboardEngine.keyRegist(keyString: presetNumber, inputIndex: inputIndex, listModel: layoutLout, numberType: detectedNumberType)
     
-        listModel.presetNumber = presetNumber
-        listModel.numberType = numberType
-        listModel.index = inputIndex
-        listModel.keyboardType = keyboardType
-        var keysArray = listModel.row1! + listModel.row0!
-        keysArray += listModel.row2!
-        keysArray += listModel.row3!
-        listModel.keys = keysArray
-        return listModel
+        layoutLout.presetNumber = presetNumber
+        layoutLout.numberType = numberType
+        layoutLout.index = inputIndex
+        layoutLout.keyboardType = keyboardType
+        
+        var keysArray = layoutLout.row1! + layoutLout.row0!
+        keysArray += layoutLout.row2!
+        keysArray += layoutLout.row3!
+        layoutLout.keys = keysArray
+        
+        return layoutLout
     }
     
     //键位布局
-    static func getKeyProvider(inputIndex: Int ,presetNumber: String,isMoreType:Bool,numberType: PWKeyboardNumType) -> KeyboardLayout{
-        var listModel = KeyboardLayout()
+    static func getKeyProvider(inputIndex: Int ,presetNumber: String, isMoreType: Bool) -> KeyboardLayout{
+        var layout = KeyboardLayout()
         switch inputIndex {
         case 0:
             if !isMoreType {
-                listModel = KeyboardEngine.defaultProvinces()
+                layout = KeyboardEngine.defaultProvinces()
             } else {
-                listModel.row0 = KeyboardEngine.getModelArrayWithString(keyString: _STR_NUM)
-                listModel.row1 = KeyboardEngine.getModelArrayWithString(keyString:_STR_Q_N)
-                listModel.row2 = KeyboardEngine.getModelArrayWithString(keyString:_STR_A_L)
-                listModel.row3 = KeyboardEngine.getModelArrayWithString(keyString:_STR_ZX + _CHAR_MIN + _CHAR_SHI + _STR_BACK + _STR_DEL_OK)
+                layout.row0 = KeyboardEngine.getModelArrayWithString(keyString: _STR_NUM)
+                layout.row1 = KeyboardEngine.getModelArrayWithString(keyString:_STR_Q_N)
+                layout.row2 = KeyboardEngine.getModelArrayWithString(keyString:_STR_A_L)
+                layout.row3 = KeyboardEngine.getModelArrayWithString(keyString:_STR_ZX + _CHAR_MIN + _CHAR_SHI + _STR_BACK + _STR_DEL_OK)
             }
             
         case 1:
             if presetNumber == _CHAR_MIN {
-                listModel = KeyboardEngine.defaultSpecial()
+                layout = KeyboardEngine.defaultSpecial()
             } else {
-                listModel = KeyboardEngine.defaultNumbersAndLetters()
+                layout = KeyboardEngine.defaultNumbersAndLetters()
             }
         case 2, 3, 4, 5:
             if inputIndex == 2 && KeyboardEngine.subString(str: presetNumber, start: 0, length: 2) == (_CHAR_W + _CHAR_J) {
-                listModel = KeyboardEngine.defaultProvinces()
+                layout = KeyboardEngine.defaultProvinces()
             } else {
-                listModel = KeyboardEngine.defaultNumbersAndLetters()
+                layout = KeyboardEngine.defaultNumbersAndLetters()
             }
         case 6:
             if !isMoreType {
-                    listModel = KeyboardEngine.defaultLast()
-            }else {
-                    listModel = KeyboardEngine.defaultSpecial()
+                layout = KeyboardEngine.defaultLast()
+            } else {
+                layout = KeyboardEngine.defaultSpecial()
             }
         case 7:
-            listModel = KeyboardEngine.defaultLast()
+            layout = KeyboardEngine.defaultLast()
+            
         default: break
         }
-        return listModel
+        return layout
     }
     
     //键位注册
@@ -228,7 +237,7 @@ class KeyboardEngine: NSObject {
     
     
     
-    static func disEnableKey(keyString: [String],row:Array<Key>,reverseModel:Bool) -> Array<Key> {
+    static func disEnableKey(keyString: [String], row: Array<Key>, reverseModel: Bool) -> Array<Key> {
         for model in row {
             model.enabled = !reverseModel
             model.keyCode = 0
@@ -266,9 +275,9 @@ class KeyboardEngine: NSObject {
         if presetNumber.count >= 1 {
             if KeyboardEngine.subString(str: presetNumber, start: 0, length: 1) == _CHAR_W{
                 return .wuJing
-            }else if KeyboardEngine.subString(str: presetNumber, start: 0, length: 1) == _CHAR_MIN {
+            } else if KeyboardEngine.subString(str: presetNumber, start: 0, length: 1) == _CHAR_MIN {
                 return .airport
-            }else if KeyboardEngine.subString(str: presetNumber, start: 0, length: 1) == _CHAR_SHI {
+            } else if KeyboardEngine.subString(str: presetNumber, start: 0, length: 1) == _CHAR_SHI {
                 return .embassy
             }
         }
