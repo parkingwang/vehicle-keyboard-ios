@@ -10,8 +10,8 @@ Pod::Spec.new do |s|
   s.author       = { "yzh" => "yzhtracy@163.com" }
   s.platform      = :ios, "8.0"
   s.source       = { :git => "https://github.com/parkingwang/vehicle-keyboard-ios.git", :tag => "0.9.11" }
-  s.source_files  = "Source/*.{h,m,swift}"
-  s.resource  = ["Source/*.{bundle,xib}"]
+  s.source_files  = ["Source/*/*.{h,m,swift}", "Source/*/*/*.{h,m,swift}"]
+  s.resource  = ["Source/*/*.{bundle,xib}","Source/*/*/*.{bundle,xib}"]
   s.requires_arc = true
   s.swift_version = "4.0"
 end
