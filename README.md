@@ -6,7 +6,7 @@
 * 停车王车牌号码专用键盘ios版，支持新能源、武警、领事馆等多项专用格式车牌。
 * 代码为swift编写，已支持oc调用，可以绑定UIview使用格子输入或绑定UItextfield输入，键盘与系统键盘用法类似。
 
-
+### demo需要pod install一下才能运行
 ![gif](./collectionViewgif.gif)
 ![gif](./uitextfieldGIF.gif)
 
@@ -15,8 +15,9 @@
 ### 使用cocoaPods导入
 
 在podfile中添加
-
 ```
+use_frameworks!
+
 pod 'VehicleKeyboard-swift',
 ```
 然后pod install一下
@@ -182,8 +183,8 @@ print("车牌键盘隐藏")
 ## 可能的Q&A
 * Q:   pod intall的时候失败提示找不到这个库？
 * A:   pod其实是找的本地缓存目录，新上传的库可能出现找不到的情况，删除本地的~/Library/Caches/CocoaPods/search_index.json 缓存目录，用pod repo update master这个命令更新了本地的索引库，再pod install 试试。
-* Q:  编译报错：xxx.nib This target might include its own product
-*A:   在podfile中加上use_frameworks!变更引用方式，加上之后 导入方式要变  例如 #import"SVProgressHUD.h" 改为   #import <SVProgressHUD/SVProgressHUD.h>
+* Q:  编译报错：xxx.nib This target might include its own product或是引用头文件时一直not find
+* A:   在podfile中加上use_frameworks!变更引用方式，加上之后 导入方式要变  例如 #import"SVProgressHUD.h" 改为   #import <SVProgressHUD/SVProgressHUD.h>
 
 ## 疑问与交流
 
