@@ -26,6 +26,8 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     //当前格子中的输入内容
     @objc public  var paletNumber = ""
     
+    @objc public weak var  delegate : PWHandlerDelegate?
+    
     let identifier = "PWInputCollectionViewCell"
     var inputCollectionView :UICollectionView!
     var maxCount = 7
@@ -37,8 +39,12 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     var view = UIView()
     var collectionView :UICollectionView!
     
-    @objc public weak var  delegate : PWHandlerDelegate?
     
+    
+    
+    /*
+     将车牌输入框绑定到一个你自己创建的UIview
+     **/
     @objc public func setKeyBoardView(view: UIView){
         
         self.view = view
@@ -64,7 +70,6 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         view.addSubview(inputTextfield)
         collectionView.backgroundColor = UIColor.white
         collectionView.isScrollEnabled = false
-        tap.delegate = self
         keyboardView.delegate = self
         keyboardView.mainColor = mainColor
         inputTextfield.inputView = keyboardView
@@ -78,9 +83,32 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         
     }
     
+    /*
+     检查是否是符合新能源车牌的规则
+     **/
+    @objc public func checkNewEnginePlate() ->Bool{
+        for i in 0..<paletNumber.count {
+            let listModel =  KeyboardEngine.generateLayout(keyboardType: PWKeyboardType.civilAndArmy, inputIndex: i, presetNumber: KeyboardEngine.subString(str: paletNumber, start: 0, length: i), numberType:.newEnergy,isMoreType:false);
+            var result = false
+            for j in 0..<listModel.rowArray().count {
+                for k in 0..<listModel.rowArray()[j].count{
+                    let key = listModel.rowArray()[j][k]
+                    if KeyboardEngine.subString(str: paletNumber, start: i, length: 1) == key.text,key.enabled {
+                        result = true
+                    }
+                }
+            }
+            if !result {
+                return false
+            }
+        }
+        return true
+    }
  
     
-    
+    /*
+     检查输入车牌的完整
+     **/
     @objc public func isComplete()-> Bool{
         return paletNumber.count == maxCount
     }
@@ -255,6 +283,8 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         }
         return ""
     }
+    
+   
     
    
     
