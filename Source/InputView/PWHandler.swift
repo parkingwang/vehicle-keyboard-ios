@@ -94,7 +94,8 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
             for j in 0..<listModel.rowArray().count {
                 for k in 0..<listModel.rowArray()[j].count{
                     let key = listModel.rowArray()[j][k]
-                    if KeyboardEngine.subString(str: paletNumber, start: i, length: 1) == key.text,key.enabled {
+
+                    if paletNumber.subString(i, length: 1) == key.text, key.enabled {
                         result = true
                     }
                 }

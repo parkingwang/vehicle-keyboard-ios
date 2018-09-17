@@ -287,15 +287,6 @@ class KeyboardEngine: NSObject {
         }
         return PWKeyboardNumType.auto
     }
-    
-    static func subString(str: String, start: Int ,length: Int) -> String {
-        if length == 0 {
-            return ""
-        }
-        let startIndex = str.index(str.startIndex, offsetBy:start)
-        let endIndex = str.index(startIndex, offsetBy:length)
-        return str.substring(with: startIndex..<endIndex)
-    }
 }
 
 
