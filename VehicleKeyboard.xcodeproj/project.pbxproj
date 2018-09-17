@@ -28,8 +28,10 @@
 		4788C1AE214A17BD00FEB3FA /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788C1A1214A17BD00FEB3FA /* UITextField+Extension.swift */; };
 		4788C1AF214A17BD00FEB3FA /* PWBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4788C1A2214A17BD00FEB3FA /* PWBundle.bundle */; };
 		4788C1B0214A17BD00FEB3FA /* PWPromptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4788C1A3214A17BD00FEB3FA /* PWPromptView.xib */; };
+		47A2495E214F97A900B189C1 /* KeyboardLayoutFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A2495D214F97A800B189C1 /* KeyboardLayoutFactory.swift */; };
 		47DCE152214A6AFD005E7490 /* Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DCE151214A6AFD005E7490 /* Key.swift */; };
 		47DCE155214A6B56005E7490 /* KeyboardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DCE154214A6B56005E7490 /* KeyboardLayout.swift */; };
+		47DCE159214F8BB9005E7490 /* String+SubString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47DCE158214F8BB9005E7490 /* String+SubString.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,8 +82,10 @@
 		4788C1A1214A17BD00FEB3FA /* UITextField+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		4788C1A2214A17BD00FEB3FA /* PWBundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PWBundle.bundle; sourceTree = "<group>"; };
 		4788C1A3214A17BD00FEB3FA /* PWPromptView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PWPromptView.xib; sourceTree = "<group>"; };
+		47A2495D214F97A800B189C1 /* KeyboardLayoutFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardLayoutFactory.swift; sourceTree = "<group>"; };
 		47DCE151214A6AFD005E7490 /* Key.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Key.swift; sourceTree = "<group>"; };
 		47DCE154214A6B56005E7490 /* KeyboardLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardLayout.swift; sourceTree = "<group>"; };
+		47DCE158214F8BB9005E7490 /* String+SubString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+SubString.swift"; sourceTree = "<group>"; };
 		5E233B4BA5BCCD207009035E /* Pods_VehicleKeyboard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VehicleKeyboard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95B2FFB4EB4BED267DC45D72 /* Pods-VehicleKeyboard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VehicleKeyboard.release.xcconfig"; path = "Pods/Target Support Files/Pods-VehicleKeyboard/Pods-VehicleKeyboard.release.xcconfig"; sourceTree = "<group>"; };
 		DA7C6EDC7DDC5A19F799F2AF /* Pods-VehicleKeyboardDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VehicleKeyboardDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-VehicleKeyboardDemo/Pods-VehicleKeyboardDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -186,17 +190,18 @@
 				47C9DDD7214A5A8F001502AE /* Keyboard */,
 				47C9DDD6214A5A87001502AE /* InputView */,
 				47C9DDD5214A5A68001502AE /* Source */,
-				47C9DDD4214A5A5A001502AE /* Extension */,
+				47C9DDD4214A5A5A001502AE /* Helper */,
 			);
 			path = Source;
 			sourceTree = "<group>";
 		};
-		47C9DDD4214A5A5A001502AE /* Extension */ = {
+		47C9DDD4214A5A5A001502AE /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				47DCE158214F8BB9005E7490 /* String+SubString.swift */,
 				4788C197214A17BD00FEB3FA /* UIView+PWCorners.swift */,
 			);
-			path = Extension;
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		47C9DDD5214A5A68001502AE /* Source */ = {
@@ -226,6 +231,7 @@
 				4788C19D214A17BD00FEB3FA /* PWKeyBoardView.swift */,
 				4788C198214A17BD00FEB3FA /* KeyboardEngine.swift */,
 				47DCE154214A6B56005E7490 /* KeyboardLayout.swift */,
+				47A2495D214F97A800B189C1 /* KeyboardLayoutFactory.swift */,
 			);
 			path = Keyboard;
 			sourceTree = "<group>";
@@ -448,8 +454,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47A2495E214F97A900B189C1 /* KeyboardLayoutFactory.swift in Sources */,
 				4788C1A9214A17BD00FEB3FA /* PWInputCollectionViewCell.swift in Sources */,
 				47DCE152214A6AFD005E7490 /* Key.swift in Sources */,
+				47DCE159214F8BB9005E7490 /* String+SubString.swift in Sources */,
 				4788C1AB214A17BD00FEB3FA /* PWPromptView.swift in Sources */,
 				4788C1A8214A17BD00FEB3FA /* PWHandler.swift in Sources */,
 				4788C1A6214A17BD00FEB3FA /* PWKeyBoardCollectionViewCell.swift in Sources */,
@@ -633,7 +641,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MKW6K38424;
+				DEVELOPMENT_TEAM = 6RP578AZND;
 				INFOPLIST_FILE = VehicleKeyboardDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -653,7 +661,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = MKW6K38424;
+				DEVELOPMENT_TEAM = 6RP578AZND;
 				INFOPLIST_FILE = VehicleKeyboardDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

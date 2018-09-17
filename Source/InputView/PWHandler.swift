@@ -26,6 +26,8 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     //当前格子中的输入内容
     @objc public  var paletNumber = ""
     
+    @objc public weak var  delegate : PWHandlerDelegate?
+    
     let identifier = "PWInputCollectionViewCell"
     var inputCollectionView :UICollectionView!
     var maxCount = 7
@@ -34,18 +36,27 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     let keyboardView = PWKeyBoardView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     var selectView = UIView()
     var isSetKeyboard = false//预设值时不设置为第一响应对象
+    var view = UIView()
+    var collectionView :UICollectionView!
     
-    @objc public weak var  delegate : PWHandlerDelegate?
     
+    
+    
+    /*
+     将车牌输入框绑定到一个你自己创建的UIview
+     **/
     @objc public func setKeyBoardView(view: UIView){
         
-        let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UICollectionViewFlowLayout())
+        self.view = view
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: identifier, bundle: Bundle(for: PWHandler.self)), forCellWithReuseIdentifier: identifier)
         
         view.translatesAutoresizingMaskIntoConstraints = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction(tap:)))
+        view.addGestureRecognizer(tap)
         view.addSubview(collectionView)
         if (view.constraints.count > 0) {
             let topCos = NSLayoutConstraint(item: collectionView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0)
@@ -55,7 +66,7 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
             view.addConstraints([topCos,leftCos,rightCos,bottomCos])
         }
         inputCollectionView = collectionView
-        inputTextfield = UITextField(frame: CGRect.zero)
+        inputTextfield = UITextField(frame: CGRect(x: 0, y: 0, width: 0, height: view.frame.height))
         view.addSubview(inputTextfield)
         collectionView.backgroundColor = UIColor.white
         collectionView.isScrollEnabled = false
@@ -72,6 +83,34 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         
     }
     
+    /*
+     检查是否是符合新能源车牌的规则
+     **/
+    @objc public func checkNewEnginePlate() ->Bool{
+        for i in 0..<paletNumber.count {
+            let vpl = paletNumber.subString(0, length: i)
+            let listModel =  KeyboardEngine.generateLayout(at: i, vpl: vpl, numberType:.newEnergy, isMoreType:false);
+            var result = false
+            for j in 0..<listModel.rowArray().count {
+                for k in 0..<listModel.rowArray()[j].count{
+                    let key = listModel.rowArray()[j][k]
+
+                    if paletNumber.subString(i, length: 1) == key.text, key.enabled {
+                        result = true
+                    }
+                }
+            }
+            if !result {
+                return false
+            }
+        }
+        return true
+    }
+ 
+    
+    /*
+     检查输入车牌的完整
+     **/
     @objc public func isComplete()-> Bool{
         return paletNumber.count == maxCount
     }
@@ -81,7 +120,7 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         let isNewEnergy = type == .newEnergy
         var numType = type;
         selectIndex = plate.count == 0 ? 0 : plate.count - 1
-        if  numType == .auto,paletNumber.count > 0,KeyboardEngine.subString(str: paletNumber, start: 0, length: 1) == "W" {
+        if  numType == .auto, paletNumber.count > 0, paletNumber.subString(0, length: 1) == "W" {
             numType = .wuJing
         } else if numType == .auto,paletNumber.count == 8 {
             numType = .newEnergy
@@ -91,16 +130,16 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         changeInputType(isNewEnergy: isNewEnergy)
     }
     
-    @objc  public func changeInputType(isNewEnergy:Bool){
+    @objc  public func changeInputType(isNewEnergy: Bool){
         let keyboardView = inputTextfield.inputView as! PWKeyBoardView
         keyboardView.numType = isNewEnergy ? .newEnergy : .auto
         var numType = keyboardView.numType
-        if  paletNumber.count > 0,KeyboardEngine.subString(str: paletNumber, start: 0, length: 1) == "W" {
+        if  paletNumber.count > 0, paletNumber.subString(0, length: 1) == "W" {
             numType = .wuJing
         }
         maxCount = (numType == .newEnergy || numType == .wuJing) ? 8 : 7
         if paletNumber.count > maxCount {
-            paletNumber = KeyboardEngine.subString(str: paletNumber, start: 0, length: paletNumber.count - 1)
+            paletNumber = paletNumber.subString(0, length: paletNumber.count - 1)
         } else if maxCount == 8,paletNumber.count == 7 {
             selectIndex = 7
         }
@@ -135,6 +174,12 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         }
     }
     
+    @objc func tapAction(tap:UILongPressGestureRecognizer){
+        let tapPoint = tap.location(in: view)
+        let indexPath = collectionView.indexPathForItem(at: tapPoint)
+        collectionView(collectionView, didSelectItemAt: indexPath!)
+    }
+    
     public func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -143,8 +188,6 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         selectIndex = indexPath.row > paletNumber.count ? paletNumber.count : indexPath.row
         keyboardView.updateText(text: paletNumber, isMoreType: false, inputIndex: selectIndex)
         updateCollection()
-        print(collectionView.frame)
-        print(collectionView.superview?.frame ?? "")
     }
     
     public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
@@ -200,7 +243,8 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         
         var isMoreType = false
         if char == "删除" , paletNumber.count >= 1 {
-            paletNumber = KeyboardEngine.subString(str: paletNumber, start: 0, length: paletNumber.count - 1)
+//            KeyboardEngine.subString(str: paletNumber, start: 0, length: paletNumber.count - 1)
+            paletNumber = paletNumber.subString(0, length: paletNumber.count - 1)
             selectIndex = paletNumber.count
         }else  if char == "确定"{
             UIApplication.shared.keyWindow?.endEditing(true)
@@ -219,7 +263,7 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
                 paletNumber = NSString.init(format: "%@", NSPalet) as String
             }
             let keyboardView = inputTextfield.inputView as! PWKeyBoardView
-            let numType = keyboardView.numType == .newEnergy ? PWKeyboardNumType.newEnergy : KeyboardEngine.detectNumberTypeOf(presetNumber: paletNumber)
+            let numType = keyboardView.numType == .newEnergy ? PWKeyboardNumType.newEnergy : KeyboardEngine.plateNumberType(with: paletNumber)
             maxCount = (numType == .newEnergy || numType == .wuJing) ? 8 : 7
             if maxCount > paletNumber.count || selectIndex < paletNumber.count - 1 {
                 selectIndex += 1;
@@ -227,7 +271,9 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         }
         keyboardView.updateText(text: paletNumber, isMoreType: isMoreType, inputIndex: selectIndex)
         updateCollection()
-        delegate?.palteDidChnage?(plate:paletNumber,complete:paletNumber.count == maxCount)
+        if (!isMoreType){
+            delegate?.palteDidChnage?(plate:paletNumber,complete:paletNumber.count == maxCount)
+        }
     }
     
    
@@ -240,6 +286,8 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         }
         return ""
     }
+    
+   
     
    
     

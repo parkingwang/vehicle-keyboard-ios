@@ -55,6 +55,11 @@
 
 //切换新能源车牌
 - (IBAction)changeModeButtonAction:(UIButton *)sender {
+    //下面注释写法是让不符合规则的车牌无法切换到新能源类型
+//    if (!sender.selected && ![self.handler checkNewEnginePlate]){
+//        NSLog(@"不符合规则，无法切换");
+//        return;
+//    }
     sender.selected = !sender.selected;
     //uitextField输入框改变新能源
     [self.myTextField changePlateInputTypeWithIsNewEnergy:sender.selected];

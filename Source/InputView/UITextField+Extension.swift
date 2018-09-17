@@ -36,11 +36,11 @@ extension UITextField :PWKeyBoardViewDeleagte{
             text = ""
         }
         if char != "删除" ,char != "确定" ,inputIndex == text!.count - 1 {
-            text = KeyboardEngine.subString(str: text!, start: 0, length: text!.count - 1)
+            text = text!.subString(0, length: text!.count - 1)
         }
         var isMoreType = false
         if char == "删除" , text!.count >= 1 {
-            text = KeyboardEngine.subString(str: text!, start: 0, length: text!.count - 1)
+            text = text!.subString(0, length: text!.count - 1)
         }else  if char == "确定"{
             endEditing(true)
         }else if char == "更多" {
@@ -70,7 +70,7 @@ extension UITextField :PWKeyBoardViewDeleagte{
     private func refreshKeyboard(isMoreType:Bool){
         //当输入框处于填满状态时，输入的下标往前移动一位数
         let keyboardView = inputView as! PWKeyBoardView
-        let numType = keyboardView.numType == .newEnergy ? PWKeyboardNumType.newEnergy : KeyboardEngine.detectNumberTypeOf(presetNumber: text!)
+        let numType = keyboardView.numType == .newEnergy ? PWKeyboardNumType.newEnergy : KeyboardEngine.plateNumberType(with: text!)
         let maxCount = (numType == .newEnergy || numType == .wuJing) ? 8 : 7
         let inpuntIndex = maxCount <= text!.count  ? (text!.count - 1) : text!.count
         keyboardView.updateText(text: text!,isMoreType:isMoreType,inputIndex:inpuntIndex)

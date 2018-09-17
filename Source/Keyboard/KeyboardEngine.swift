@@ -45,27 +45,24 @@ class KeyboardEngine: NSObject {
     static let _CHAR_SPECIAL = "学警港澳航挂试超使领"
     static let _STR_HK_MACAO = _CHAR_HK + _CHAR_MACAO;
     
-    class func generateLayout(keyboardType: PWKeyboardType,
-                              inputIndex: Int,
-                              presetNumber: String,
+    class func generateLayout(at inputIndex: Int,
+                              vpl: String,
                               numberType: PWKeyboardNumType,
                               isMoreType: Bool) -> KeyboardLayout {
-        
         var detectedNumberType = numberType
         if  numberType == PWKeyboardNumType.auto {
-           detectedNumberType = KeyboardEngine.detectNumberTypeOf(presetNumber: presetNumber)
+           detectedNumberType = KeyboardEngine.plateNumberType(with: vpl)
         }
         
         //获取键位布局
-        var layoutLout = KeyboardEngine.getKeyProvider(inputIndex: inputIndex, presetNumber: presetNumber,isMoreType:isMoreType)
-        
+        var layoutLout = KeyboardLayoutFactory().keyboardLayout(inputIndex: inputIndex, plateNumber: vpl, isMoreType: isMoreType)
+
         //注册键位
-        layoutLout = KeyboardEngine.keyRegist(keyString: presetNumber, inputIndex: inputIndex, listModel: layoutLout, numberType: detectedNumberType)
+        layoutLout = KeyboardEngine.keyRegist(keyString: vpl, inputIndex: inputIndex, listModel: layoutLout, numberType: detectedNumberType)
     
-        layoutLout.presetNumber = presetNumber
-        layoutLout.numberType = numberType
+        layoutLout.presetNumber = vpl
+//        layoutLout.numberType = numberType
         layoutLout.index = inputIndex
-        layoutLout.keyboardType = keyboardType
         
         var keysArray = layoutLout.row1! + layoutLout.row0!
         keysArray += layoutLout.row2!
@@ -75,48 +72,8 @@ class KeyboardEngine: NSObject {
         return layoutLout
     }
     
-    //键位布局
-    static func getKeyProvider(inputIndex: Int ,presetNumber: String, isMoreType: Bool) -> KeyboardLayout{
-        var layout = KeyboardLayout()
-        switch inputIndex {
-        case 0:
-            if !isMoreType {
-                layout = KeyboardEngine.defaultProvinces()
-            } else {
-                layout.row0 = KeyboardEngine.getModelArrayWithString(keyString: _STR_NUM)
-                layout.row1 = KeyboardEngine.getModelArrayWithString(keyString:_STR_Q_N)
-                layout.row2 = KeyboardEngine.getModelArrayWithString(keyString:_STR_A_L)
-                layout.row3 = KeyboardEngine.getModelArrayWithString(keyString:_STR_ZX + _CHAR_MIN + _CHAR_SHI + _STR_BACK + _STR_DEL_OK)
-            }
-            
-        case 1:
-            if presetNumber == _CHAR_MIN {
-                layout = KeyboardEngine.defaultSpecial()
-            } else {
-                layout = KeyboardEngine.defaultNumbersAndLetters()
-            }
-        case 2, 3, 4, 5:
-            if inputIndex == 2 && KeyboardEngine.subString(str: presetNumber, start: 0, length: 2) == (_CHAR_W + _CHAR_J) {
-                layout = KeyboardEngine.defaultProvinces()
-            } else {
-                layout = KeyboardEngine.defaultNumbersAndLetters()
-            }
-        case 6:
-            if !isMoreType {
-                layout = KeyboardEngine.defaultLast()
-            } else {
-                layout = KeyboardEngine.defaultSpecial()
-            }
-        case 7:
-            layout = KeyboardEngine.defaultLast()
-            
-        default: break
-        }
-        return layout
-    }
-    
     //键位注册
-    static func keyRegist(keyString:String , inputIndex: Int , listModel: KeyboardLayout ,numberType :PWKeyboardNumType) -> KeyboardLayout {
+    private static func keyRegist(keyString:String , inputIndex: Int , listModel: KeyboardLayout ,numberType :PWKeyboardNumType) -> KeyboardLayout {
         var list = listModel
         var okString = ""
         if numberType == .newEnergy || numberType == .wuJing {
@@ -164,7 +121,7 @@ class KeyboardEngine: NSObject {
         case 4,5:
             list = KeyboardEngine.disEnabledKey(keyString:KeyboardEngine.chStringArray(string: _CHAR_I + _CHAR_O + disOkString) ,listModel: list,reverseModel:false)
         case 6:
-            if KeyboardEngine.subString(str: keyString, start: 0, length: 2) == "粤Z" {
+            if keyString.subString(0, length: 2) == "粤Z" {
                 list = KeyboardEngine.disEnabledKey(keyString:KeyboardEngine.chStringArray(string: _CHAR_MACAO + _CHAR_HK + _CHAR_DEL + okString), listModel: list,reverseModel:true)
             }else if numberType == .embassy || numberType == .airport || numberType == .newEnergy{
                 list = KeyboardEngine.disEnabledKey(keyString:KeyboardEngine.chStringArray(string: _STR_MORE + disOkString), listModel: list,reverseModel:false)
@@ -174,55 +131,9 @@ class KeyboardEngine: NSObject {
         case 7:
              let complete = keyString.count == 8 ? _STR_OK : ""
             list = KeyboardEngine.disEnabledKey(keyString:KeyboardEngine.chStringArray(string: _STR_NUM + _CHAR_DEL + _STR_DF + complete), listModel: list,reverseModel:true)
-        default:break
+        default:
+            break
         }
-        return listModel
-    }
-    
-    static func getModelArrayWithString(keyString :String) -> Array<Key> {
-        var modelArray = Array<Key>()
-        for ch in keyString{
-            let model = Key()
-            model.enabled = true
-            model.text = String(ch)
-            modelArray.append(model)
-        }
-        return modelArray
-    }
-    
-    static func defaultNumbersAndLetters() ->KeyboardLayout{
-        let listModel = KeyboardLayout()
-        listModel.row0 = KeyboardEngine.getModelArrayWithString(keyString: _STR_NUM)
-        listModel.row1 = KeyboardEngine.getModelArrayWithString(keyString:_STR_Q_OP)
-        listModel.row2 = KeyboardEngine.getModelArrayWithString(keyString:_STR_A_M)
-        listModel.row3 = KeyboardEngine.getModelArrayWithString(keyString:_STR_Z_N + _STR_DEL_OK)
-        return listModel
-    }
-    
-    static func defaultSpecial() ->KeyboardLayout{
-        let listModel = KeyboardLayout()
-        listModel.row0 = KeyboardEngine.getModelArrayWithString(keyString: _CHAR_SPECIAL)
-        listModel.row1 = KeyboardEngine.getModelArrayWithString(keyString:_STR_NUM)
-        listModel.row2 = KeyboardEngine.getModelArrayWithString(keyString:_STR_A_K)
-        listModel.row3 = KeyboardEngine.getModelArrayWithString(keyString:_STR_W_Z + _STR_BACK + _STR_DEL_OK)
-        return listModel
-    }
-    
-    static func defaultLast() -> KeyboardLayout{
-        let listModel = KeyboardLayout()
-        listModel.row0 = KeyboardEngine.getModelArrayWithString(keyString: _STR_NUM)
-        listModel.row1 = KeyboardEngine.getModelArrayWithString(keyString:_STR_Q_N)
-        listModel.row2 = KeyboardEngine.getModelArrayWithString(keyString:_STR_A_B)
-        listModel.row3 = KeyboardEngine.getModelArrayWithString(keyString:_STR_Z_V + _STR_MORE + _STR_DEL_OK)
-        return listModel
-    }
-    
-    static func defaultProvinces() ->KeyboardLayout{
-        let listModel = KeyboardLayout()
-        listModel.row0 = KeyboardEngine.getModelArrayWithString(keyString:KeyboardEngine.subString(str: _STR_CIVIL_PVS, start: 0, length: 10))
-        listModel.row1 = KeyboardEngine.getModelArrayWithString(keyString:KeyboardEngine.subString(str: _STR_CIVIL_PVS, start: 10, length: 10))
-        listModel.row2 = KeyboardEngine.getModelArrayWithString(keyString:KeyboardEngine.subString(str: _STR_CIVIL_PVS, start: 20, length: 8))
-        listModel.row3 = KeyboardEngine.getModelArrayWithString(keyString:KeyboardEngine.subString(str: _STR_CIVIL_PVS, start: 28, length: 4) + _STR_MORE  + _STR_DEL_OK)
         return listModel
     }
     
@@ -234,7 +145,6 @@ class KeyboardEngine: NSObject {
         list.row3 = KeyboardEngine.disEnableKey(keyString: keyString, row: list.row3!,reverseModel:reverseModel)
         return list
     }
-    
     
     
     static func disEnableKey(keyString: [String], row: Array<Key>, reverseModel: Bool) -> Array<Key> {
@@ -271,26 +181,28 @@ class KeyboardEngine: NSObject {
         return strArray
     }
     
-    static func detectNumberTypeOf(presetNumber: String) -> PWKeyboardNumType {
+    static func plateNumberType(with presetNumber: String) -> PWKeyboardNumType {
         if presetNumber.count >= 1 {
-            if KeyboardEngine.subString(str: presetNumber, start: 0, length: 1) == _CHAR_W{
+            let subString = presetNumber.subString(0, length: 1)
+            if subString == _CHAR_W {
                 return .wuJing
-            } else if KeyboardEngine.subString(str: presetNumber, start: 0, length: 1) == _CHAR_MIN {
+            } else if subString == _CHAR_MIN {
                 return .airport
-            } else if KeyboardEngine.subString(str: presetNumber, start: 0, length: 1) == _CHAR_SHI {
+            } else if subString == _CHAR_SHI {
                 return .embassy
             }
         }
-        if presetNumber.count == 8 {
-            return PWKeyboardNumType.newEnergy
+        
+        if presetNumber.starts(with: "粤Z") {
+            return .HK_MO
         }
-        return PWKeyboardNumType.auto
-    }
-    
-    static func subString(str: String, start: Int ,length: Int) -> String {
-        let startIndex = str.index(str.startIndex, offsetBy:start)
-        let endIndex = str.index(startIndex, offsetBy:length)
-        return str.substring(with: startIndex..<endIndex)
+        
+
+        if presetNumber.count == 8 {
+            return .newEnergy
+        }
+        
+        return .auto
     }
 }
 

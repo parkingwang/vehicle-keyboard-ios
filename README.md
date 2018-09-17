@@ -6,7 +6,7 @@
 * 停车王车牌号码专用键盘ios版，支持新能源、武警、领事馆等多项专用格式车牌。
 * 代码为swift编写，已支持oc调用，可以绑定UIview使用格子输入或绑定UItextfield输入，键盘与系统键盘用法类似。
 
-
+### demo需要pod install一下才能运行
 ![gif](./collectionViewgif.gif)
 ![gif](./uitextfieldGIF.gif)
 
@@ -15,8 +15,9 @@
 ### 使用cocoaPods导入
 
 在podfile中添加
-
 ```
+use_frameworks!
+
 pod 'VehicleKeyboard-swift',
 ```
 然后pod install一下
@@ -149,9 +150,10 @@ print("车牌键盘隐藏")
 
 ## 注意
 
+* 在podfile中没有use_frameworks!这句指令的话,请加上，加上之后导入方式会有变化，请百度。
 * 直接作为inputView使用时，当输入长度超过车牌规定长度时，会默认更新最后一位输入内容
 * 键盘除了主题色外，其他样式暂不支持修改
-* 在podfile中没有use_frameworks!这句指令的话,请加上，加上之后导入方式会有变化，请百度。
+
 
 ## 支持
 `VehicleKeyboard`是停车王品牌的各端产品线的基础组件，专为提高中国车牌号码输入速度而定制开发的专用键盘组件，包括以下三个项目：
@@ -179,10 +181,10 @@ print("车牌键盘隐藏")
 - [陈军志](https://github.com/xiaozhi) 联系方式：chenjunzhi@parkingwang.com
 
 ## 可能的Q&A
-Q:
-pod intall的时候失败提示找不到这个库？
-A:
-pod其实是找的本地缓存目录，新上传的库可能出现找不到的情况，删除本地的~/Library/Caches/CocoaPods/search_index.json 缓存目录，用pod repo update master这个命令更新了本地的索引库，再pod install 试试。
+* Q:   pod intall的时候失败提示找不到这个库？
+* A:   pod其实是找的本地缓存目录，新上传的库可能出现找不到的情况，删除本地的~/Library/Caches/CocoaPods/search_index.json 缓存目录，用pod repo update master这个命令更新了本地的索引库，再pod install 试试。
+* Q:  编译报错：xxx.nib This target might include its own product或是引用头文件时一直not find
+* A:   在podfile中加上use_frameworks!变更引用方式，加上之后 导入方式要变  例如 #import"SVProgressHUD.h" 改为   #import <SVProgressHUD/SVProgressHUD.h>
 
 ## 疑问与交流
 
