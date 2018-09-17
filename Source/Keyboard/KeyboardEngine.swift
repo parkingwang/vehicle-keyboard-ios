@@ -100,7 +100,7 @@ class KeyboardEngine: NSObject {
                 layout = KeyboardEngine.defaultNumbersAndLetters()
             }
         case 6:
-            if !isMoreType {
+            if !isMoreType && plateNumberType != .HK_MO {
                 layout = KeyboardEngine.defaultLast()
             } else {
                 layout = KeyboardEngine.defaultSpecial()
@@ -271,8 +271,8 @@ class KeyboardEngine: NSObject {
     }
     
     static func plateNumberType(with presetNumber: String) -> PWKeyboardNumType {
-        let subString = presetNumber.subString(0, length: 1)
         if presetNumber.count >= 1 {
+            let subString = presetNumber.subString(0, length: 1)
             if subString == _CHAR_W {
                 return .wuJing
             } else if subString == _CHAR_MIN {
@@ -282,10 +282,16 @@ class KeyboardEngine: NSObject {
             }
         }
         
-        if presetNumber.count == 8 {
-            return PWKeyboardNumType.newEnergy
+        if presetNumber.starts(with: "粤Z") {
+            return .HK_MO
         }
-        return PWKeyboardNumType.auto
+        
+
+        if presetNumber.count == 8 {
+            return .newEnergy
+        }
+        
+        return .auto
     }
 }
 

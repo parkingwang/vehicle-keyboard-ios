@@ -9,7 +9,7 @@
 import UIKit
 
 @objc public enum PWKeyboardNumType: Int {
-    case auto = 0,airport,wuJing,police,embassy,newEnergy;
+    case auto = 0,airport,wuJing,police,embassy,newEnergy,HK_MO;
 }
 
 enum PWKeyboardButtonType: Int {
