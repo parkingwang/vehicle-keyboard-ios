@@ -55,8 +55,8 @@ class KeyboardEngine: NSObject {
         }
         
         //获取键位布局
-        var layoutLout = KeyboardEngine.keyboardLayout(inputIndex: inputIndex, presetNumber: vpl,isMoreType:isMoreType)
-        
+        var layoutLout = KeyboardLayoutFactory().keyboardLayout(inputIndex: inputIndex, plateNumber: vpl, isMoreType: isMoreType)
+
         //注册键位
         layoutLout = KeyboardEngine.keyRegist(keyString: vpl, inputIndex: inputIndex, listModel: layoutLout, numberType: detectedNumberType)
     
@@ -70,47 +70,6 @@ class KeyboardEngine: NSObject {
         layoutLout.keys = keysArray
         
         return layoutLout
-    }
-    
-    //键位布局
-    private static func keyboardLayout(inputIndex: Int ,presetNumber: String, isMoreType: Bool) -> KeyboardLayout {
-        let plateNumberType = KeyboardEngine.plateNumberType(with: presetNumber)
-        var layout = KeyboardLayout()
-        switch inputIndex {
-        case 0:
-            if !isMoreType {
-                layout = KeyboardEngine.defaultProvinces()
-            } else {
-                layout.row0 = KeyboardEngine.getModelArrayWithString(keyString: _STR_NUM)
-                layout.row1 = KeyboardEngine.getModelArrayWithString(keyString:_STR_Q_N)
-                layout.row2 = KeyboardEngine.getModelArrayWithString(keyString:_STR_A_L)
-                layout.row3 = KeyboardEngine.getModelArrayWithString(keyString:_STR_ZX + _CHAR_MIN + _CHAR_SHI + _STR_BACK + _STR_DEL_OK)
-            }
-            
-        case 1:
-            if plateNumberType == .airport {
-                layout = KeyboardEngine.defaultSpecial()
-            } else {
-                layout = KeyboardEngine.defaultNumbersAndLetters()
-            }
-        case 2, 3, 4, 5:
-            if inputIndex == 2 && plateNumberType == .wuJing {
-                layout = KeyboardEngine.defaultProvinces()
-            } else {
-                layout = KeyboardEngine.defaultNumbersAndLetters()
-            }
-        case 6:
-            if !isMoreType && plateNumberType != .HK_MO {
-                layout = KeyboardEngine.defaultLast()
-            } else {
-                layout = KeyboardEngine.defaultSpecial()
-            }
-        case 7:
-            layout = KeyboardEngine.defaultLast()
-            
-        default: break
-        }
-        return layout
     }
     
     //键位注册
@@ -178,53 +137,6 @@ class KeyboardEngine: NSObject {
         return listModel
     }
     
-    static func getModelArrayWithString(keyString :String) -> Array<Key> {
-        var modelArray = Array<Key>()
-        for ch in keyString{
-            let model = Key()
-            model.enabled = true
-            model.text = String(ch)
-            modelArray.append(model)
-        }
-        return modelArray
-    }
-    
-    static func defaultNumbersAndLetters() ->KeyboardLayout{
-        let listModel = KeyboardLayout()
-        listModel.row0 = KeyboardEngine.getModelArrayWithString(keyString: _STR_NUM)
-        listModel.row1 = KeyboardEngine.getModelArrayWithString(keyString:_STR_Q_OP)
-        listModel.row2 = KeyboardEngine.getModelArrayWithString(keyString:_STR_A_M)
-        listModel.row3 = KeyboardEngine.getModelArrayWithString(keyString:_STR_Z_N + _STR_DEL_OK)
-        return listModel
-    }
-    
-    static func defaultSpecial() ->KeyboardLayout{
-        let listModel = KeyboardLayout()
-        listModel.row0 = KeyboardEngine.getModelArrayWithString(keyString: _CHAR_SPECIAL)
-        listModel.row1 = KeyboardEngine.getModelArrayWithString(keyString:_STR_NUM)
-        listModel.row2 = KeyboardEngine.getModelArrayWithString(keyString:_STR_A_K)
-        listModel.row3 = KeyboardEngine.getModelArrayWithString(keyString:_STR_W_Z + _STR_BACK + _STR_DEL_OK)
-        return listModel
-    }
-    
-    static func defaultLast() -> KeyboardLayout{
-        let listModel = KeyboardLayout()
-        listModel.row0 = KeyboardEngine.getModelArrayWithString(keyString: _STR_NUM)
-        listModel.row1 = KeyboardEngine.getModelArrayWithString(keyString:_STR_Q_N)
-        listModel.row2 = KeyboardEngine.getModelArrayWithString(keyString:_STR_A_B)
-        listModel.row3 = KeyboardEngine.getModelArrayWithString(keyString:_STR_Z_V + _STR_MORE + _STR_DEL_OK)
-        return listModel
-    }
-    
-    static func defaultProvinces() ->KeyboardLayout{
-        let listModel = KeyboardLayout()
-        listModel.row0 = KeyboardEngine.getModelArrayWithString(keyString:_STR_CIVIL_PVS.subString(0, length: 10))
-        listModel.row1 = KeyboardEngine.getModelArrayWithString(keyString:_STR_CIVIL_PVS.subString(10, length: 10))
-        listModel.row2 = KeyboardEngine.getModelArrayWithString(keyString:_STR_CIVIL_PVS.subString(20, length: 8))
-        listModel.row3 = KeyboardEngine.getModelArrayWithString(keyString:_STR_CIVIL_PVS.subString(28, length: 4) + _STR_MORE  + _STR_DEL_OK)
-        return listModel
-    }
-    
     static func disEnabledKey(keyString: [String], listModel: KeyboardLayout,reverseModel:Bool) ->KeyboardLayout {
         let list = listModel
         list.row0 = KeyboardEngine.disEnableKey(keyString: keyString, row: list.row0!,reverseModel:reverseModel)
@@ -233,7 +145,6 @@ class KeyboardEngine: NSObject {
         list.row3 = KeyboardEngine.disEnableKey(keyString: keyString, row: list.row3!,reverseModel:reverseModel)
         return list
     }
-    
     
     
     static func disEnableKey(keyString: [String], row: Array<Key>, reverseModel: Bool) -> Array<Key> {
