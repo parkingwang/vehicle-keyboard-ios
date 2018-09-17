@@ -90,7 +90,7 @@ class KeyboardEngine: NSObject {
             }
             
         case 1:
-            if presetNumber == _CHAR_MIN {
+            if KeyboardEngine.subString(str: presetNumber, start: 0, length: 1) == _CHAR_MIN {
                 layout = KeyboardEngine.defaultSpecial()
             } else {
                 layout = KeyboardEngine.defaultNumbersAndLetters()
@@ -288,6 +288,9 @@ class KeyboardEngine: NSObject {
     }
     
     static func subString(str: String, start: Int ,length: Int) -> String {
+        if length == 0 {
+            return ""
+        }
         let startIndex = str.index(str.startIndex, offsetBy:start)
         let endIndex = str.index(startIndex, offsetBy:length)
         return str.substring(with: startIndex..<endIndex)
