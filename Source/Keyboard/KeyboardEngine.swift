@@ -49,14 +49,13 @@ class KeyboardEngine: NSObject {
                               vpl: String,
                               numberType: PWKeyboardNumType,
                               isMoreType: Bool) -> KeyboardLayout {
-        
         var detectedNumberType = numberType
         if  numberType == PWKeyboardNumType.auto {
-           detectedNumberType = KeyboardEngine.detectNumberTypeOf(presetNumber: vpl)
+           detectedNumberType = KeyboardEngine.plateNumberType(with: vpl)
         }
         
         //获取键位布局
-        var layoutLout = KeyboardEngine.getKeyProvider(inputIndex: inputIndex, presetNumber: vpl,isMoreType:isMoreType)
+        var layoutLout = KeyboardEngine.keyboardLayout(inputIndex: inputIndex, presetNumber: vpl,isMoreType:isMoreType)
         
         //注册键位
         layoutLout = KeyboardEngine.keyRegist(keyString: vpl, inputIndex: inputIndex, listModel: layoutLout, numberType: detectedNumberType)
@@ -74,7 +73,8 @@ class KeyboardEngine: NSObject {
     }
     
     //键位布局
-    static func getKeyProvider(inputIndex: Int ,presetNumber: String, isMoreType: Bool) -> KeyboardLayout{
+    private static func keyboardLayout(inputIndex: Int ,presetNumber: String, isMoreType: Bool) -> KeyboardLayout {
+        let plateNumberType = KeyboardEngine.plateNumberType(with: presetNumber)
         var layout = KeyboardLayout()
         switch inputIndex {
         case 0:
@@ -88,13 +88,13 @@ class KeyboardEngine: NSObject {
             }
             
         case 1:
-            if KeyboardEngine.subString(str: presetNumber, start: 0, length: 1) == _CHAR_MIN {
+            if plateNumberType == .airport {
                 layout = KeyboardEngine.defaultSpecial()
             } else {
                 layout = KeyboardEngine.defaultNumbersAndLetters()
             }
         case 2, 3, 4, 5:
-            if inputIndex == 2 && KeyboardEngine.subString(str: presetNumber, start: 0, length: 2) == (_CHAR_W + _CHAR_J) {
+            if inputIndex == 2 && plateNumberType == .wuJing {
                 layout = KeyboardEngine.defaultProvinces()
             } else {
                 layout = KeyboardEngine.defaultNumbersAndLetters()
@@ -114,7 +114,7 @@ class KeyboardEngine: NSObject {
     }
     
     //键位注册
-    static func keyRegist(keyString:String , inputIndex: Int , listModel: KeyboardLayout ,numberType :PWKeyboardNumType) -> KeyboardLayout {
+    private static func keyRegist(keyString:String , inputIndex: Int , listModel: KeyboardLayout ,numberType :PWKeyboardNumType) -> KeyboardLayout {
         var list = listModel
         var okString = ""
         if numberType == .newEnergy || numberType == .wuJing {
@@ -162,7 +162,7 @@ class KeyboardEngine: NSObject {
         case 4,5:
             list = KeyboardEngine.disEnabledKey(keyString:KeyboardEngine.chStringArray(string: _CHAR_I + _CHAR_O + disOkString) ,listModel: list,reverseModel:false)
         case 6:
-            if KeyboardEngine.subString(str: keyString, start: 0, length: 2) == "粤Z" {
+            if keyString.subString(0, length: 2) == "粤Z" {
                 list = KeyboardEngine.disEnabledKey(keyString:KeyboardEngine.chStringArray(string: _CHAR_MACAO + _CHAR_HK + _CHAR_DEL + okString), listModel: list,reverseModel:true)
             }else if numberType == .embassy || numberType == .airport || numberType == .newEnergy{
                 list = KeyboardEngine.disEnabledKey(keyString:KeyboardEngine.chStringArray(string: _STR_MORE + disOkString), listModel: list,reverseModel:false)
@@ -218,10 +218,10 @@ class KeyboardEngine: NSObject {
     
     static func defaultProvinces() ->KeyboardLayout{
         let listModel = KeyboardLayout()
-        listModel.row0 = KeyboardEngine.getModelArrayWithString(keyString:KeyboardEngine.subString(str: _STR_CIVIL_PVS, start: 0, length: 10))
-        listModel.row1 = KeyboardEngine.getModelArrayWithString(keyString:KeyboardEngine.subString(str: _STR_CIVIL_PVS, start: 10, length: 10))
-        listModel.row2 = KeyboardEngine.getModelArrayWithString(keyString:KeyboardEngine.subString(str: _STR_CIVIL_PVS, start: 20, length: 8))
-        listModel.row3 = KeyboardEngine.getModelArrayWithString(keyString:KeyboardEngine.subString(str: _STR_CIVIL_PVS, start: 28, length: 4) + _STR_MORE  + _STR_DEL_OK)
+        listModel.row0 = KeyboardEngine.getModelArrayWithString(keyString:_STR_CIVIL_PVS.subString(0, length: 10))
+        listModel.row1 = KeyboardEngine.getModelArrayWithString(keyString:_STR_CIVIL_PVS.subString(10, length: 10))
+        listModel.row2 = KeyboardEngine.getModelArrayWithString(keyString:_STR_CIVIL_PVS.subString(20, length: 8))
+        listModel.row3 = KeyboardEngine.getModelArrayWithString(keyString:_STR_CIVIL_PVS.subString(28, length: 4) + _STR_MORE  + _STR_DEL_OK)
         return listModel
     }
     
@@ -270,16 +270,18 @@ class KeyboardEngine: NSObject {
         return strArray
     }
     
-    static func detectNumberTypeOf(presetNumber: String) -> PWKeyboardNumType {
+    static func plateNumberType(with presetNumber: String) -> PWKeyboardNumType {
+        let subString = presetNumber.subString(0, length: 1)
         if presetNumber.count >= 1 {
-            if KeyboardEngine.subString(str: presetNumber, start: 0, length: 1) == _CHAR_W{
+            if subString == _CHAR_W {
                 return .wuJing
-            } else if KeyboardEngine.subString(str: presetNumber, start: 0, length: 1) == _CHAR_MIN {
+            } else if subString == _CHAR_MIN {
                 return .airport
-            } else if KeyboardEngine.subString(str: presetNumber, start: 0, length: 1) == _CHAR_SHI {
+            } else if subString == _CHAR_SHI {
                 return .embassy
             }
         }
+        
         if presetNumber.count == 8 {
             return PWKeyboardNumType.newEnergy
         }
