@@ -3,7 +3,7 @@
 //  VehicleKeyboardDemo
 //
 //  Created by 杨志豪 on 2018/4/8.
-//  Copyright © 2018年 yangzhihao. All rights reserved.
+//  Copyright © 2018年 Xi'an iRain IoT. Technology Service CO., Ltd. All rights reserved.
 //
 
 import UIKit
