@@ -10,39 +10,21 @@ import UIKit
 
 class KeyboardLayoutRegistrar: NSObject {
     
-    let _STR_CIVIL_PVS = "京津晋冀蒙辽吉黑沪苏浙皖闽赣鲁豫鄂湘粤桂琼渝川贵云藏陕甘青宁新台"
-    let _CHAR_DEL = "-"
-    let _STR_OK = "+"
-    let _STR_MORE = ">"
-    let _STR_BACK = "<"
-    let _STR_Q_OP = "QWERTYUIOP"
-    let _STR_Q_N = "QWERTYUPMN"
-    let _STR_Q_P = "QWERTYUP"
-    let _STR_A_L = "ASDFGHJKL"
-    let _STR_A_M = "ASDFGHJKLM"
-    let _STR_A_B = "ASDFGHJKLB"
-    let _STR_A_K = "ABCDEFGHJK"
-    let _STR_Z_V = "ZXCV"
-    let _STR_Z_N = "ZXCVBN"
-    let _STR_W_Z = "WXYZ"
-    let _CHAR_W = "W"
-    let _CHAR_I = "I"
-    let _CHAR_O = "O"
-    let _CHAR_J = "J"
-    let _STR_DF = "DF"
-    let _STR_ZX = "ZX"
-    let _STR_NUM = "1234567890"
-    let _STR_NUM1_3 = "123"
-    let _STR_NUM4_0 = "4567890"
-    let _CHAR_MACAO = "澳"
-    let _CHAR_HK = "港"
-    let _CHAR_TAI = "台"
-    let _CHAR_XUE = "学"
-    let _CHAR_MIN = "民"
-    let _CHAR_HANG = "航"
-    let _CHAR_SHI = "使"
-    let _CHAR_SPECIAL = "学警港澳航挂试超使领"
-    
+    private let _CHAR_DEL = "-"
+    private let _STR_OK = "+"
+    private let _STR_MORE = ">"
+    private let _CHAR_I = "I"
+    private let _CHAR_O = "O"
+    private let _CHAR_J = "J"
+    private let _STR_DF = "DF"
+    private let _STR_NUM = "1234567890"
+    private let _STR_NUM1_3 = "123"
+    private let _STR_NUM4_0 = "4567890"
+    private let _CHAR_MACAO = "澳"
+    private let _CHAR_HK = "港"
+    private let _CHAR_TAI = "台"
+    private let _CHAR_HANG = "航"
+    private let _CHAR_SHI = "使"
     
     /// 车牌键盘键位注册，把布局里面不符合规则的键禁用
     ///
@@ -129,7 +111,7 @@ class KeyboardLayoutRegistrar: NSObject {
     }
     
     
-    private func disableKey(keyString: [String], row: Array<Key>, reverseModel: Bool) -> Array<Key> {
+    private func disableKey(keyString: [String], row: [Key], reverseModel: Bool) -> [Key] {
         for model in row {
             model.enabled = !reverseModel
             model.keyCode = 0
@@ -156,10 +138,8 @@ class KeyboardLayoutRegistrar: NSObject {
     }
     
     private func chStringArray(string: String) -> [String] {
-        var strArray = Array<String>()
-        for ch in string{
-            strArray.append(String(ch))
-        }
-        return strArray
+        return string.map({ (char) -> String in
+            return String(char)
+        })
     }
 }
