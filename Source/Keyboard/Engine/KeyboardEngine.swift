@@ -46,22 +46,21 @@ class KeyboardEngine: NSObject {
     static let _STR_HK_MACAO = _CHAR_HK + _CHAR_MACAO;
     
     class func generateLayout(at inputIndex: Int,
-                              vpl: String,
+                              plateNumber: String,
                               numberType: PWKeyboardNumType,
                               isMoreType: Bool) -> KeyboardLayout {
         var detectedNumberType = numberType
         if  numberType == PWKeyboardNumType.auto {
-           detectedNumberType = KeyboardEngine.plateNumberType(with: vpl)
+           detectedNumberType = KeyboardEngine.plateNumberType(with: plateNumber)
         }
         
         //获取键位布局
-        var layoutLout = KeyboardLayoutFactory().keyboardLayout(inputIndex: inputIndex, plateNumber: vpl, isMoreType: isMoreType)
+        var layoutLout = KeyboardLayoutFactory().keyboardLayout(inputIndex: inputIndex, plateNumber: plateNumber, isMoreType: isMoreType)
 
-        //注册键位
-        layoutLout = KeyboardEngine.keyRegist(keyString: vpl, inputIndex: inputIndex, listModel: layoutLout, numberType: detectedNumberType)
+        layoutLout = KeyboardLayoutRegistrar().register(layout: layoutLout, keyString: plateNumber, inputIndex: inputIndex, numberType: detectedNumberType)
+        
     
-        layoutLout.presetNumber = vpl
-//        layoutLout.numberType = numberType
+        layoutLout.presetNumber = plateNumber
         layoutLout.index = inputIndex
         
         var keysArray = layoutLout.row1! + layoutLout.row0!
@@ -70,116 +69,7 @@ class KeyboardEngine: NSObject {
         layoutLout.keys = keysArray
         
         return layoutLout
-    }
-    
-    //键位注册
-    private static func keyRegist(keyString:String , inputIndex: Int , listModel: KeyboardLayout ,numberType :PWKeyboardNumType) -> KeyboardLayout {
-        var list = listModel
-        var okString = ""
-        if numberType == .newEnergy || numberType == .wuJing {
-            okString = keyString.count == 8 ? _STR_OK : ""
-        }else {
-            okString = keyString.count == 7 ? _STR_OK : ""
-        }
-        let disOkString = okString == "" ? _STR_OK : ""
-        switch inputIndex {
-        case 0:
-            if numberType == PWKeyboardNumType.newEnergy {
-                list = KeyboardEngine.disabledKey(keyString: [_STR_MORE,disOkString,_CHAR_TAI], listModel: list,reverseModel:false)
-            } else {
-                list = KeyboardEngine.disabledKey(keyString: [disOkString,_CHAR_TAI], listModel: list,reverseModel:false)
-            }
-        case 1:
-            if numberType == .wuJing {
-                list = KeyboardEngine.disabledKey(keyString:[_CHAR_J,_CHAR_DEL,okString], listModel: list,reverseModel:true)
-            } else if numberType == .embassy {
-                let stringArray = _STR_NUM1_3.map({ (a) -> String in
-                    return String(a)
-                })
-                list = KeyboardEngine.disabledKey(keyString:[_CHAR_DEL,okString] + stringArray, listModel: list,reverseModel:true)
-            } else if numberType == .airport {
-                list = KeyboardEngine.disabledKey(keyString:[_CHAR_HANG,_CHAR_DEL,okString], listModel: list,reverseModel:true)
-            } else {
-                list = KeyboardEngine.disabledKey(keyString:KeyboardEngine.chStringArray(string: _STR_NUM4_0 + _CHAR_I + disOkString), listModel: list,reverseModel:false)
-            }
-        case 2:
-            if numberType == PWKeyboardNumType.newEnergy {
-                list = KeyboardEngine.disabledKey(keyString:KeyboardEngine.chStringArray(string: _STR_NUM + _CHAR_DEL + _STR_DF + okString), listModel: list,reverseModel:true)
-            }else if numberType == .wuJing {
-                list = KeyboardEngine.disabledKey(keyString:[disOkString,_STR_MORE,_CHAR_TAI] ,listModel: list,reverseModel:false)
-            } else if numberType == .embassy{
-                list = KeyboardEngine.disabledKey(keyString:KeyboardEngine.chStringArray(string: _STR_NUM + _CHAR_DEL + okString) ,listModel: list,reverseModel:true)
-            } else {
-                list = KeyboardEngine.disabledKey(keyString:KeyboardEngine.chStringArray(string: _CHAR_I + _CHAR_O + disOkString) ,listModel: list,reverseModel:false)
-            }
-        case 3:
-            if numberType == .embassy{
-                list = KeyboardEngine.disabledKey(keyString:KeyboardEngine.chStringArray(string: _STR_NUM + _CHAR_DEL + okString) ,listModel: list,reverseModel:true)
-            }else {
-                list = KeyboardEngine.disabledKey(keyString:KeyboardEngine.chStringArray(string: _CHAR_I + _CHAR_O + disOkString) ,listModel: list,reverseModel:false)
-            }
-        case 4,5:
-            list = KeyboardEngine.disabledKey(keyString:KeyboardEngine.chStringArray(string: _CHAR_I + _CHAR_O + disOkString) ,listModel: list,reverseModel:false)
-        case 6:
-            if keyString.subString(0, length: 2) == "粤Z" {
-                list = KeyboardEngine.disabledKey(keyString:KeyboardEngine.chStringArray(string: _CHAR_MACAO + _CHAR_HK + _CHAR_DEL + okString), listModel: list,reverseModel:true)
-            }else if numberType == .embassy || numberType == .airport || numberType == .newEnergy{
-                list = KeyboardEngine.disabledKey(keyString:KeyboardEngine.chStringArray(string: _STR_MORE + disOkString), listModel: list,reverseModel:false)
-            }else{
-                list = KeyboardEngine.disabledKey(keyString:KeyboardEngine.chStringArray(string: _CHAR_MACAO + _CHAR_HK +  disOkString + _CHAR_HANG + _CHAR_SHI), listModel: list,reverseModel:false)
-            }
-        case 7:
-             let complete = keyString.count == 8 ? _STR_OK : ""
-            list = KeyboardEngine.disabledKey(keyString:KeyboardEngine.chStringArray(string: _STR_NUM + _CHAR_DEL + _STR_DF + complete), listModel: list,reverseModel:true)
-        default:
-            break
-        }
-        return listModel
-    }
-    
-    static func disabledKey(keyString: [String], listModel: KeyboardLayout,reverseModel:Bool) ->KeyboardLayout {
-        let list = listModel
-        list.row0 = KeyboardEngine.disableKey(keyString: keyString, row: list.row0!,reverseModel:reverseModel)
-        list.row1 = KeyboardEngine.disableKey(keyString: keyString, row: list.row1!,reverseModel:reverseModel)
-        list.row2 = KeyboardEngine.disableKey(keyString: keyString, row: list.row2!,reverseModel:reverseModel)
-        list.row3 = KeyboardEngine.disableKey(keyString: keyString, row: list.row3!,reverseModel:reverseModel)
-        return list
-    }
-    
-    
-    static func disableKey(keyString: [String], row: Array<Key>, reverseModel: Bool) -> Array<Key> {
-        for model in row {
-            model.enabled = !reverseModel
-            model.keyCode = 0
-            for str in keyString {
-                if model.text == str {
-                    model.enabled = reverseModel
-                }
-            }
-            if model.text == "+" {
-                model.text = "确定"
-                model.keyCode = 2
-            } else if model.text == "-" {
-                model.text = "删除"
-                model.keyCode = 1
-            } else if model.text == ">" {
-                model.keyCode = 3
-                model.text = "更多"
-            } else if model.text == "<" {
-                model.keyCode = 4
-                model.text = "返回"
-            }
-        }
-        return row
-    }
-    
-    static func chStringArray(string: String) -> [String] {
-        var strArray = Array<String>()
-        for ch in string{
-            strArray.append(String(ch))
-        }
-        return strArray
-    }
+    }    
     
     static func plateNumberType(with presetNumber: String) -> PWKeyboardNumType {
         if presetNumber.count >= 1 {

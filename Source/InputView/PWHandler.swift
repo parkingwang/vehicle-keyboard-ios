@@ -89,7 +89,7 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     @objc public func checkNewEnginePlate() ->Bool{
         for i in 0..<paletNumber.count {
             let vpl = paletNumber.subString(0, length: i)
-            let listModel =  KeyboardEngine.generateLayout(at: i, vpl: vpl, numberType:.newEnergy, isMoreType:false);
+            let listModel =  KeyboardEngine.generateLayout(at: i, plateNumber: vpl, numberType:.newEnergy, isMoreType:false);
             var result = false
             for j in 0..<listModel.rowArray().count {
                 for k in 0..<listModel.rowArray()[j].count{

@@ -61,7 +61,7 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
         collectionView.dataSource = self
         collectionView.delaysContentTouches = false;
         collectionView.canCancelContentTouches = true;
-        listModel =  KeyboardEngine.generateLayout(at: 0, vpl: "", numberType:numType,isMoreType:false);
+        listModel =  KeyboardEngine.generateLayout(at: 0, plateNumber: "", numberType:numType,isMoreType:false);
         collectionView.reloadData()
         let lineView = UIView(frame: CGRect(x: 0, y: 0, width: PWScreenWidth, height: 0.5))
         lineView.backgroundColor = UIColor(red: 204/256.0, green: 204/256.0, blue: 204/256.0, alpha: 1)
@@ -85,7 +85,7 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
     
     func updateText(text: String, isMoreType: Bool, inputIndex: Int){
         self.inputIndex = inputIndex
-        listModel = KeyboardEngine.generateLayout(at: inputIndex, vpl: text, numberType: numType,isMoreType:isMoreType);
+        listModel = KeyboardEngine.generateLayout(at: inputIndex, plateNumber: text, numberType: numType,isMoreType:isMoreType);
         collectionView.reloadData()
     }
     
