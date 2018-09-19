@@ -9,16 +9,14 @@
 #import "OCViewController.h"
 #import "VehicleKeyboard-Swift.h"
 
-@interface OCViewController ()<PWHandlerDelegate>
+@interface OCViewController ()<PWPlateNumberInputViewDelegate>
 
 
-@property (weak, nonatomic) IBOutlet UIView *plateInputView;
+@property (weak, nonatomic) IBOutlet PWPlateNumberInputView *plateInputView;
 
 @property (weak, nonatomic) IBOutlet UITextField *myTextField;
 
 @property (weak, nonatomic) IBOutlet UIButton *mynewEnergyButton;
-
-@property (strong,nonatomic) PWHandler *handler;
 
 @end
 
@@ -31,7 +29,7 @@
     [self.myTextField changeToPlatePWKeyBoardInpurView];
     
     //将自己创建的UIView绑定车牌键盘(格子形式)
-    self.handler = [PWHandler new];
+//    self.handler = [PWHandler new];
     
     //    改变主题色
     //    self.handler.mainColor = [UIColor redColor];
@@ -40,11 +38,11 @@
     //    改变文字颜色
     //    self.handler.textColor = [UIColor greenColor];
     
-    [self.handler setKeyBoardViewWithView:self.plateInputView];
-    self.handler.delegate = self;
+//    [self.handler setKeyBoardViewWithView:self.plateInputView];
+    self.plateInputView.delegate = self;
     
-    NSLog(@"当前键盘的输入值%@",self.handler.paletNumber);//获取当前输入的值
-    NSLog([self.handler isComplete] ? @"输入完整" : @"不完整");//获取当前键盘的完整性
+    NSLog(@"当前键盘的输入值%@",self.plateInputView.plateNumber);//获取当前输入的值
+    NSLog([self.plateInputView isComplete] ? @"输入完整" : @"不完整");//获取当前键盘的完整性
 }
 
 
@@ -65,14 +63,14 @@
     [self.myTextField changePlateInputTypeWithIsNewEnergy:sender.selected];
     
     //格子输入框改变新能源
-    [self.handler changeInputTypeWithIsNewEnergy:sender.selected];
+    [self.plateInputView changeInputTypeWithIsNewEnergy:sender.selected];
 }
 
 
 - (IBAction)setCollectionInputButtonAction:(UIButton *)sender {
     self.mynewEnergyButton.selected = NO;
     [[UIApplication sharedApplication].keyWindow endEditing:YES];
-    [self.handler setPlateWithPlate:@"" type:PWKeyboardNumTypeAuto];
+    [self.plateInputView setPlateWithPlate:@"" type:PWKeyboardNumTypeAuto];
 }
 
 - (IBAction)setTextFieldPlateButtonAction:(UIButton *)sender {

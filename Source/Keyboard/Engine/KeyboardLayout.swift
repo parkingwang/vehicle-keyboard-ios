@@ -21,9 +21,9 @@ class KeyboardLayout: NSObject {
     //presetNumber 当前预设的车牌号码；
     var presetNumber :String?
     //presetNumberType 同numberType；
-    var presetNumberType :PWKeyboardNumType?
+    var presetNumberType :PlateNumberType?
     //detectedNumberType 检测当前输入车牌号码的号码类型；
-    var detectedNumberType :PWKeyboardNumType?
+    var detectedNumberType :PlateNumberType?
     //numberLength 当前预设的车牌号码长度；
     var numberLength :Int?
     //numberLimitLength 当前车牌号码的最大长度；

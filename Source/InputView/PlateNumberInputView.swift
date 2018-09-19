@@ -1,21 +1,19 @@
 //
-//  PWHandler.swift
-//  VehicleKeyboardDemo
+//  PlateNumberInputView.swift
+//  VehicleKeyboard
 //
-//  Created by 杨志豪 on 2018/6/28.
-//  Copyright © 2018年 yangzhihao. All rights reserved.
+//  Created by cjz on 2018/9/19.
+//  Copyright © 2018年 Xi'an iRain IoT. Technology Service CO., Ltd. . All rights reserved.
 //
 
 import UIKit
 
-@objc public protocol PWHandlerDelegate{
-    @objc  func plateInputComplete(plate: String)
-    @objc  optional func palteDidChnage(plate:String,complete:Bool)
-    @objc  optional func plateKeyBoardShow()
-    @objc  optional func plateKeyBoardHidden()
-}
-
-public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,PWKeyBoardViewDeleagte {
+@objc(PWPlateNumberInputView)
+public class PlateNumberInputView: UIView,
+                                    UICollectionViewDelegate,
+                                    UICollectionViewDelegateFlowLayout,
+                                    UICollectionViewDataSource,
+                                    KeyBoardViewDeleagte {
     
     //格子中字体的颜色
     @objc public var textColor = UIColor.black
@@ -24,78 +22,82 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     //设置主题色（会影响格子的边框颜色、按下去时提示栏颜色、确定按钮可用时的颜色）
     @objc public var mainColor = UIColor(red: 65 / 256.0, green: 138 / 256.0, blue: 249 / 256.0, alpha: 1)
     //当前格子中的输入内容
-    @objc public  var paletNumber = ""
+    @objc public  var plateNumber = ""
     
-    @objc public weak var  delegate : PWHandlerDelegate?
+    @objc public weak var  delegate : PlateNumberInputViewDelegate?
     
-    let identifier = "PWInputCollectionViewCell"
+    let identifier = "PlateInputViewCollectionCell"
     var inputCollectionView :UICollectionView!
     var maxCount = 7
     var selectIndex = 0
     var inputTextfield :UITextField!
-    let keyboardView = PWKeyBoardView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+    let keyboardView = KeyBoardView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     var selectView = UIView()
     var isSetKeyboard = false//预设值时不设置为第一响应对象
-    var view = UIView()
+    
     var collectionView :UICollectionView!
     
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupUI()
+    }
     
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setupUI()
+    }
     
-    
-    /*
-     将车牌输入框绑定到一个你自己创建的UIview
-     **/
-    @objc public func setKeyBoardView(view: UIView){
-        
-        self.view = view
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UICollectionViewFlowLayout())
+    private func setupUI() {
+        collectionView = UICollectionView(frame: bounds, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(UINib(nibName: identifier, bundle: Bundle(for: PWHandler.self)), forCellWithReuseIdentifier: identifier)
+        collectionView.register(UINib(nibName: identifier, bundle: Bundle(for: PlateNumberInputView.self)), forCellWithReuseIdentifier: identifier)
         
-        view.translatesAutoresizingMaskIntoConstraints = false
+        translatesAutoresizingMaskIntoConstraints = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction(tap:)))
-        view.addGestureRecognizer(tap)
-        view.addSubview(collectionView)
-        if (view.constraints.count > 0) {
-            let topCos = NSLayoutConstraint(item: collectionView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0)
-            let leftCos = NSLayoutConstraint(item: collectionView, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.left, multiplier: 1, constant: 0)
-            let rightCos = NSLayoutConstraint(item: collectionView, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.right, multiplier: 1, constant: 0)
-            let bottomCos = NSLayoutConstraint(item: collectionView, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0)
-            view.addConstraints([topCos,leftCos,rightCos,bottomCos])
-        }
+        
+        addSubview(collectionView)
+        let topCos = NSLayoutConstraint(item: collectionView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0)
+        let leftCos = NSLayoutConstraint(item: collectionView, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.left, multiplier: 1, constant: 0)
+        let rightCos = NSLayoutConstraint(item: collectionView, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.right, multiplier: 1, constant: 0)
+        let bottomCos = NSLayoutConstraint(item: collectionView, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0)
+        addConstraints([topCos,leftCos,rightCos,bottomCos])
+
         inputCollectionView = collectionView
-        inputTextfield = UITextField(frame: CGRect(x: 0, y: 0, width: 0, height: view.frame.height))
-        view.addSubview(inputTextfield)
+        inputTextfield = UITextField(frame: CGRect(x: 0, y: 0, width: 0, height: frame.height))
+        addSubview(inputTextfield)
+        
         collectionView.backgroundColor = UIColor.white
         collectionView.isScrollEnabled = false
+        
         keyboardView.delegate = self
         keyboardView.mainColor = mainColor
         inputTextfield.inputView = keyboardView
-    
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction(tap:)))
+        addGestureRecognizer(tap)
+        
         //因为直接切给collectionView加边框 会盖住蓝色的选中边框   所以加一个和collectionView一样大的view再切边框
         setBackgroundView()
         
         //监听键盘
         NotificationCenter.default.addObserver(self, selector: #selector(plateKeyBoardShow), name:NSNotification.Name.UIKeyboardDidShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(plateKeyBoardHidden), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
-        
     }
     
     /*
      检查是否是符合新能源车牌的规则
      **/
     @objc public func checkNewEnginePlate() ->Bool{
-        for i in 0..<paletNumber.count {
-            let vpl = paletNumber.subString(0, length: i)
-            let listModel =  KeyboardEngine.generateLayout(at: i, vpl: vpl, numberType:.newEnergy, isMoreType:false);
+        for i in 0..<plateNumber.count {
+            let vpl = plateNumber.subString(0, length: i)
+            let listModel =  KeyboardEngine.generateLayout(at: i, plateNumber: vpl, numberType:.newEnergy, isMoreType:false);
             var result = false
             for j in 0..<listModel.rowArray().count {
                 for k in 0..<listModel.rowArray()[j].count{
                     let key = listModel.rowArray()[j][k]
-
-                    if paletNumber.subString(i, length: 1) == key.text, key.enabled {
+                    
+                    if plateNumber.subString(i, length: 1) == key.text, key.enabled {
                         result = true
                     }
                 }
@@ -106,23 +108,23 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         }
         return true
     }
- 
+    
     
     /*
      检查输入车牌的完整
      **/
-    @objc public func isComplete()-> Bool{
-        return paletNumber.count == maxCount
+    @objc public func isComplete() -> Bool{
+        return plateNumber.count == maxCount
     }
     
-    @objc public func setPlate(plate:String,type:PWKeyboardNumType){
-        paletNumber = plate;
+    @objc public func setPlate(plate:String, type: PlateNumberType){
+        plateNumber = plate;
         let isNewEnergy = type == .newEnergy
         var numType = type;
         selectIndex = plate.count == 0 ? 0 : plate.count - 1
-        if  numType == .auto, paletNumber.count > 0, paletNumber.subString(0, length: 1) == "W" {
+        if  numType == .auto, plateNumber.count > 0, plateNumber.subString(0, length: 1) == "W" {
             numType = .wuJing
-        } else if numType == .auto,paletNumber.count == 8 {
+        } else if numType == .auto,plateNumber.count == 8 {
             numType = .newEnergy
         }
         keyboardView.numType = numType
@@ -131,22 +133,22 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     }
     
     @objc  public func changeInputType(isNewEnergy: Bool){
-        let keyboardView = inputTextfield.inputView as! PWKeyBoardView
+        let keyboardView = inputTextfield.inputView as! KeyBoardView
         keyboardView.numType = isNewEnergy ? .newEnergy : .auto
         var numType = keyboardView.numType
-        if  paletNumber.count > 0, paletNumber.subString(0, length: 1) == "W" {
+        if  plateNumber.count > 0, plateNumber.subString(0, length: 1) == "W" {
             numType = .wuJing
         }
         maxCount = (numType == .newEnergy || numType == .wuJing) ? 8 : 7
-        if paletNumber.count > maxCount {
-            paletNumber = paletNumber.subString(0, length: paletNumber.count - 1)
-        } else if maxCount == 8,paletNumber.count == 7 {
+        if plateNumber.count > maxCount {
+            plateNumber = plateNumber.subString(0, length: plateNumber.count - 1)
+        } else if maxCount == 8,plateNumber.count == 7 {
             selectIndex = 7
         }
         if selectIndex > (maxCount - 1) {
             selectIndex = maxCount - 1
         }
-        keyboardView.updateText(text: paletNumber, isMoreType: false, inputIndex: selectIndex)
+        keyboardView.updateText(text: plateNumber, isMoreType: false, inputIndex: selectIndex)
         updateCollection()
     }
     
@@ -175,7 +177,7 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     }
     
     @objc func tapAction(tap:UILongPressGestureRecognizer){
-        let tapPoint = tap.location(in: view)
+        let tapPoint = tap.location(in: self)
         let indexPath = collectionView.indexPathForItem(at: tapPoint)
         collectionView(collectionView, didSelectItemAt: indexPath!)
     }
@@ -185,8 +187,8 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectIndex = indexPath.row > paletNumber.count ? paletNumber.count : indexPath.row
-        keyboardView.updateText(text: paletNumber, isMoreType: false, inputIndex: selectIndex)
+        selectIndex = indexPath.row > plateNumber.count ? plateNumber.count : indexPath.row
+        keyboardView.updateText(text: plateNumber, isMoreType: false, inputIndex: selectIndex)
         updateCollection()
     }
     
@@ -204,7 +206,7 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! PWInputCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! PlateInputViewCollectionCell
         cell.charLabel.text = getPaletChar(index: indexPath.row)
         cell.charLabel.textColor = textColor
         cell.charLabel.font = UIFont.systemFont(ofSize: textFontSize)
@@ -242,54 +244,56 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     func selectComplete(char: String, inputIndex: Int) {
         
         var isMoreType = false
-        if char == "删除" , paletNumber.count >= 1 {
-//            KeyboardEngine.subString(str: paletNumber, start: 0, length: paletNumber.count - 1)
-            paletNumber = paletNumber.subString(0, length: paletNumber.count - 1)
-            selectIndex = paletNumber.count
+        if char == "删除" , plateNumber.count >= 1 {
+            //            KeyboardEngine.subString(str: paletNumber, start: 0, length: paletNumber.count - 1)
+            plateNumber = plateNumber.subString(0, length: plateNumber.count - 1)
+            selectIndex = plateNumber.count
         }else  if char == "确定"{
             UIApplication.shared.keyWindow?.endEditing(true)
-            delegate?.plateInputComplete(plate: paletNumber)
+            delegate?.plateInputComplete(plate: plateNumber)
             return
         }else if char == "更多" {
             isMoreType = true
         } else if char == "返回" {
             isMoreType = false
         } else {
-            if paletNumber.count <= inputIndex{
-                paletNumber += char
+            if plateNumber.count <= inputIndex{
+                plateNumber += char
             } else {
-                let NSPalet = NSMutableString(string: paletNumber)
-                NSPalet.replaceCharacters(in: NSRange(location: inputIndex, length: 1), with: char)
-                paletNumber = NSString.init(format: "%@", NSPalet) as String
+                let plate = NSMutableString(string: plateNumber)
+                plate.replaceCharacters(in: NSRange(location: inputIndex, length: 1), with: char)
+                plateNumber = NSString.init(format: "%@", plate) as String
             }
-            let keyboardView = inputTextfield.inputView as! PWKeyBoardView
-            let numType = keyboardView.numType == .newEnergy ? PWKeyboardNumType.newEnergy : KeyboardEngine.plateNumberType(with: paletNumber)
+            let keyboardView = inputTextfield.inputView as! KeyBoardView
+            let numType = keyboardView.numType == .newEnergy ? PlateNumberType.newEnergy : KeyboardEngine.plateNumberType(with: plateNumber)
+            
             maxCount = (numType == .newEnergy || numType == .wuJing) ? 8 : 7
-            if maxCount > paletNumber.count || selectIndex < paletNumber.count - 1 {
+            
+            if maxCount > plateNumber.count || selectIndex < plateNumber.count - 1 {
                 selectIndex += 1;
             }
         }
-        keyboardView.updateText(text: paletNumber, isMoreType: isMoreType, inputIndex: selectIndex)
+        keyboardView.updateText(text: plateNumber, isMoreType: isMoreType, inputIndex: selectIndex)
         updateCollection()
         if (!isMoreType){
-            delegate?.palteDidChnage?(plate:paletNumber,complete:paletNumber.count == maxCount)
+            delegate?.palteDidChnage?(plate:plateNumber,complete:plateNumber.count == maxCount)
         }
     }
     
-   
+    
     
     func getPaletChar(index:Int) -> String{
-        if paletNumber.count > index {
-            let NSPalet = paletNumber as NSString
+        if plateNumber.count > index {
+            let NSPalet = plateNumber as NSString
             let char = NSPalet.substring(with: NSRange(location: index, length: 1))
             return char
         }
         return ""
     }
     
-   
     
-   
+    
+    
     
     func corners(view:UIView, index :Int){
         view.addRounded(cornevrs: UIRectCorner.allCorners, radii: CGSize(width: 0, height: 0))
@@ -305,3 +309,4 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
 }
+

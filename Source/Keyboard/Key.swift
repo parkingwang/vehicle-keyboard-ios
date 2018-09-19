@@ -1,5 +1,5 @@
 //
-//  PWModel.swift
+//  Key.swift
 //  VehicleKeyboardDemo
 //
 //  Created by 杨志豪 on 2018/4/8.
@@ -8,12 +8,8 @@
 
 import UIKit
 
-@objc public enum PWKeyboardNumType: Int {
+@objc public enum PlateNumberType: Int {
     case auto = 0,airport,wuJing,police,embassy,newEnergy,HK_MO;
-}
-
-enum PWKeyboardButtonType: Int {
-    case output = 0,delete,done;
 }
 
 class Key: NSObject {

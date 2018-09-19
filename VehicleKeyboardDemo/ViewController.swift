@@ -8,12 +8,9 @@
 
 import UIKit
 
-class ViewController: UIViewController,PWHandlerDelegate {
+class ViewController: UIViewController, PlateNumberInputViewDelegate {
     
-    let handler = PWHandler()
-
-
-    @IBOutlet weak var plateInputVIew: UIView!
+    @IBOutlet weak var plateInputView: PlateNumberInputView!
     
     @IBOutlet weak var myTextField: UITextField!
     
@@ -24,7 +21,6 @@ class ViewController: UIViewController,PWHandlerDelegate {
         myTextField.changeToPlatePWKeyBoardInpurView()
         
         //将自己创建的UIView绑定车牌键盘(格子形式)
-        handler.delegate = self
         
         //改变主题色
         //        handler.mainColor = UIColor.red
@@ -33,10 +29,9 @@ class ViewController: UIViewController,PWHandlerDelegate {
         //改变字体颜色
         //        handler.textColor = UIColor.blue
         
-        handler.setKeyBoardView(view: plateInputVIew)
-        
-        print("当前键盘的输入值\(self.handler.paletNumber)");//获取当前输入的值
-        print(self.handler.isComplete() ? "输入完整" : "不完整");//获取当前键盘的完整性
+//        plateInputView.delegate = self
+//        print("当前键盘的输入值\(plateInputView.plateNumber)");//获取当前输入的值
+//        print(plateInputView.isComplete() ? "输入完整" : "不完整");//获取当前键盘的完整性
     }
     
 
@@ -46,7 +41,7 @@ class ViewController: UIViewController,PWHandlerDelegate {
         myTextField.changePlateInputType(isNewEnergy:sender.isSelected)
         
         //格子输入框改变新能源
-        handler.changeInputType(isNewEnergy: sender.isSelected)
+        plateInputView.changeInputType(isNewEnergy: sender.isSelected)
     }
     
     //隐藏键盘
@@ -57,7 +52,7 @@ class ViewController: UIViewController,PWHandlerDelegate {
     //填充格子输入框的值
     @IBAction func setCollectionInputButtonAction(_ sender: UIButton) {
         newEnergyButton.isSelected = false
-        self.handler.setPlate(plate: "湘JR0001", type: .auto)
+        plateInputView.setPlate(plate: "湘JR0001", type: .auto)
     }
     
     //填充uitextfield的值
