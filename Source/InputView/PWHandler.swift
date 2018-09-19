@@ -33,7 +33,7 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     var maxCount = 7
     var selectIndex = 0
     var inputTextfield :UITextField!
-    let keyboardView = PWKeyBoardView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+    let keyboardView = KeyBoardView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
     var selectView = UIView()
     var isSetKeyboard = false//预设值时不设置为第一响应对象
     var view = UIView()
@@ -131,7 +131,7 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     }
     
     @objc  public func changeInputType(isNewEnergy: Bool){
-        let keyboardView = inputTextfield.inputView as! PWKeyBoardView
+        let keyboardView = inputTextfield.inputView as! KeyBoardView
         keyboardView.numType = isNewEnergy ? .newEnergy : .auto
         var numType = keyboardView.numType
         if  paletNumber.count > 0, paletNumber.subString(0, length: 1) == "W" {
@@ -262,7 +262,7 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
                 NSPalet.replaceCharacters(in: NSRange(location: inputIndex, length: 1), with: char)
                 paletNumber = NSString.init(format: "%@", NSPalet) as String
             }
-            let keyboardView = inputTextfield.inputView as! PWKeyBoardView
+            let keyboardView = inputTextfield.inputView as! KeyBoardView
             let numType = keyboardView.numType == .newEnergy ? PWKeyboardNumType.newEnergy : KeyboardEngine.plateNumberType(with: paletNumber)
             maxCount = (numType == .newEnergy || numType == .wuJing) ? 8 : 7
             if maxCount > paletNumber.count || selectIndex < paletNumber.count - 1 {

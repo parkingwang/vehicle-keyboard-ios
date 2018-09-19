@@ -12,19 +12,19 @@ import UIKit
 extension UITextField :PWKeyBoardViewDeleagte{
     
     @objc public func changeToPlatePWKeyBoardInpurView(){
-        let keyboardView = PWKeyBoardView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        let keyboardView = KeyBoardView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         inputView = keyboardView
         keyboardView.delegate = self
     }
     
     @objc public func changePlateInputType(isNewEnergy:Bool){
-        let keyboardView = self.inputView as! PWKeyBoardView
+        let keyboardView = self.inputView as! KeyBoardView
         keyboardView.numType = isNewEnergy ? .newEnergy : .auto
         refreshKeyboard(isMoreType:false)
     }
     
     @objc public func setPlate(plate:String,type:PWKeyboardNumType){
-        let keyboardView = self.inputView as! PWKeyBoardView
+        let keyboardView = self.inputView as! KeyBoardView
         text = plate;
         keyboardView.numType = type
         let isNewEnergy = type == .newEnergy
@@ -57,7 +57,7 @@ extension UITextField :PWKeyBoardViewDeleagte{
         if text == nil {
             return false
         }
-        let keyboardView = inputView as! PWKeyBoardView
+        let keyboardView = inputView as! KeyBoardView
         var complete = false
         if keyboardView.numType == .newEnergy || keyboardView.numType == .wuJing {
             complete = text!.count == 8
@@ -69,7 +69,7 @@ extension UITextField :PWKeyBoardViewDeleagte{
     
     private func refreshKeyboard(isMoreType:Bool){
         //当输入框处于填满状态时，输入的下标往前移动一位数
-        let keyboardView = inputView as! PWKeyBoardView
+        let keyboardView = inputView as! KeyBoardView
         let numType = keyboardView.numType == .newEnergy ? PWKeyboardNumType.newEnergy : KeyboardEngine.plateNumberType(with: text!)
         let maxCount = (numType == .newEnergy || numType == .wuJing) ? 8 : 7
         let inpuntIndex = maxCount <= text!.count  ? (text!.count - 1) : text!.count

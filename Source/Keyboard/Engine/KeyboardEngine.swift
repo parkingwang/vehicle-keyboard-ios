@@ -63,13 +63,13 @@ class KeyboardEngine: NSObject {
         layoutLout.presetNumber = plateNumber
         layoutLout.index = inputIndex
         
-        var keysArray = layoutLout.row1! + layoutLout.row0!
+        var keysArray = layoutLout.row1! + layoutLout.row0! 
         keysArray += layoutLout.row2!
         keysArray += layoutLout.row3!
         layoutLout.keys = keysArray
         
         return layoutLout
-    }    
+    }
     
     static func plateNumberType(with presetNumber: String) -> PWKeyboardNumType {
         if presetNumber.count >= 1 {
