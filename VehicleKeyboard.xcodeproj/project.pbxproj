@@ -20,8 +20,8 @@
 		4788C1A4214A17BD00FEB3FA /* UIView+PWCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788C197214A17BD00FEB3FA /* UIView+PWCorners.swift */; };
 		4788C1A5214A17BD00FEB3FA /* KeyboardEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788C198214A17BD00FEB3FA /* KeyboardEngine.swift */; };
 		4788C1A6214A17BD00FEB3FA /* PWKeyBoardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788C199214A17BD00FEB3FA /* PWKeyBoardCollectionViewCell.swift */; };
-		4788C1A7214A17BD00FEB3FA /* PWInputCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4788C19A214A17BD00FEB3FA /* PWInputCollectionViewCell.xib */; };
-		4788C1A9214A17BD00FEB3FA /* PWInputCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788C19C214A17BD00FEB3FA /* PWInputCollectionViewCell.swift */; };
+		4788C1A7214A17BD00FEB3FA /* PlateInputViewCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4788C19A214A17BD00FEB3FA /* PlateInputViewCollectionCell.xib */; };
+		4788C1A9214A17BD00FEB3FA /* PlateInputViewCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788C19C214A17BD00FEB3FA /* PlateInputViewCollectionCell.swift */; };
 		4788C1AB214A17BD00FEB3FA /* PWPromptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788C19E214A17BD00FEB3FA /* PWPromptView.swift */; };
 		4788C1AC214A17BD00FEB3FA /* PWKeyBoardCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4788C19F214A17BD00FEB3FA /* PWKeyBoardCollectionViewCell.xib */; };
 		4788C1AE214A17BD00FEB3FA /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788C1A1214A17BD00FEB3FA /* UITextField+Extension.swift */; };
@@ -77,8 +77,8 @@
 		4788C197214A17BD00FEB3FA /* UIView+PWCorners.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+PWCorners.swift"; sourceTree = "<group>"; };
 		4788C198214A17BD00FEB3FA /* KeyboardEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardEngine.swift; sourceTree = "<group>"; };
 		4788C199214A17BD00FEB3FA /* PWKeyBoardCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWKeyBoardCollectionViewCell.swift; sourceTree = "<group>"; };
-		4788C19A214A17BD00FEB3FA /* PWInputCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PWInputCollectionViewCell.xib; sourceTree = "<group>"; };
-		4788C19C214A17BD00FEB3FA /* PWInputCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWInputCollectionViewCell.swift; sourceTree = "<group>"; };
+		4788C19A214A17BD00FEB3FA /* PlateInputViewCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlateInputViewCollectionCell.xib; sourceTree = "<group>"; };
+		4788C19C214A17BD00FEB3FA /* PlateInputViewCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlateInputViewCollectionCell.swift; sourceTree = "<group>"; };
 		4788C19E214A17BD00FEB3FA /* PWPromptView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWPromptView.swift; sourceTree = "<group>"; };
 		4788C19F214A17BD00FEB3FA /* PWKeyBoardCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PWKeyBoardCollectionViewCell.xib; sourceTree = "<group>"; };
 		4788C1A1214A17BD00FEB3FA /* UITextField+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
@@ -234,8 +234,8 @@
 			isa = PBXGroup;
 			children = (
 				4788C1A1214A17BD00FEB3FA /* UITextField+Extension.swift */,
-				4788C19C214A17BD00FEB3FA /* PWInputCollectionViewCell.swift */,
-				4788C19A214A17BD00FEB3FA /* PWInputCollectionViewCell.xib */,
+				4788C19C214A17BD00FEB3FA /* PlateInputViewCollectionCell.swift */,
+				4788C19A214A17BD00FEB3FA /* PlateInputViewCollectionCell.xib */,
 				47BA97EA2152306300CF8346 /* PlateNumberInputView.swift */,
 				4728032B2152450900BBFECF /* PlateNumberInputViewDelegate.swift */,
 			);
@@ -387,7 +387,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4788C1AF214A17BD00FEB3FA /* PWBundle.bundle in Resources */,
-				4788C1A7214A17BD00FEB3FA /* PWInputCollectionViewCell.xib in Resources */,
+				4788C1A7214A17BD00FEB3FA /* PlateInputViewCollectionCell.xib in Resources */,
 				270C770E2079F16F009688AF /* LaunchScreen.storyboard in Resources */,
 				4788C1B0214A17BD00FEB3FA /* PWPromptView.xib in Resources */,
 				4788C1AC214A17BD00FEB3FA /* PWKeyBoardCollectionViewCell.xib in Resources */,
@@ -472,7 +472,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				47A2495E214F97A900B189C1 /* KeyboardLayoutFactory.swift in Sources */,
-				4788C1A9214A17BD00FEB3FA /* PWInputCollectionViewCell.swift in Sources */,
+				4788C1A9214A17BD00FEB3FA /* PlateInputViewCollectionCell.swift in Sources */,
 				47DCE152214A6AFD005E7490 /* Key.swift in Sources */,
 				47A249632150AC1A00B189C1 /* Device.swift in Sources */,
 				47DCE159214F8BB9005E7490 /* String+SubString.swift in Sources */,

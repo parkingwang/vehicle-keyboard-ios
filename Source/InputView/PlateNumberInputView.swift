@@ -26,7 +26,7 @@ public class PlateNumberInputView: UIView,
     
     @objc public weak var  delegate : PlateNumberInputViewDelegate?
     
-    let identifier = "PWInputCollectionViewCell"
+    let identifier = "PlateInputViewCollectionCell"
     var inputCollectionView :UICollectionView!
     var maxCount = 7
     var selectIndex = 0
@@ -206,7 +206,7 @@ public class PlateNumberInputView: UIView,
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! PWInputCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! PlateInputViewCollectionCell
         cell.charLabel.text = getPaletChar(index: indexPath.row)
         cell.charLabel.textColor = textColor
         cell.charLabel.font = UIFont.systemFont(ofSize: textFontSize)
@@ -260,13 +260,15 @@ public class PlateNumberInputView: UIView,
             if plateNumber.count <= inputIndex{
                 plateNumber += char
             } else {
-                let NSPalet = NSMutableString(string: plateNumber)
-                NSPalet.replaceCharacters(in: NSRange(location: inputIndex, length: 1), with: char)
-                plateNumber = NSString.init(format: "%@", NSPalet) as String
+                let plate = NSMutableString(string: plateNumber)
+                plate.replaceCharacters(in: NSRange(location: inputIndex, length: 1), with: char)
+                plateNumber = NSString.init(format: "%@", plate) as String
             }
             let keyboardView = inputTextfield.inputView as! KeyBoardView
             let numType = keyboardView.numType == .newEnergy ? PWKeyboardNumType.newEnergy : KeyboardEngine.plateNumberType(with: plateNumber)
+            
             maxCount = (numType == .newEnergy || numType == .wuJing) ? 8 : 7
+            
             if maxCount > plateNumber.count || selectIndex < plateNumber.count - 1 {
                 selectIndex += 1;
             }

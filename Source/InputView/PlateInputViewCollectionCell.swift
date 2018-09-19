@@ -1,5 +1,5 @@
 //
-//  PWInputCollectionViewCell.swift
+//  PlateInputViewCollectionCell.swift
 //  VehicleKeyboardDemo
 //
 //  Created by 杨志豪 on 2018/6/28.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PWInputCollectionViewCell: UICollectionViewCell {
+class PlateInputViewCollectionCell: UICollectionViewCell {
     @IBOutlet weak var charLabel: UILabel!
     
     override func awakeFromNib() {
