@@ -47,10 +47,10 @@ class KeyboardEngine: NSObject {
     
     class func generateLayout(at inputIndex: Int,
                               plateNumber: String,
-                              numberType: PWKeyboardNumType,
+                              numberType: PlateNumberType,
                               isMoreType: Bool) -> KeyboardLayout {
         var detectedNumberType = numberType
-        if  numberType == PWKeyboardNumType.auto {
+        if  numberType == PlateNumberType.auto {
            detectedNumberType = KeyboardEngine.plateNumberType(with: plateNumber)
         }
         
@@ -71,7 +71,7 @@ class KeyboardEngine: NSObject {
         return layoutLout
     }
     
-    static func plateNumberType(with presetNumber: String) -> PWKeyboardNumType {
+    static func plateNumberType(with presetNumber: String) -> PlateNumberType {
         if presetNumber.count >= 1 {
             let subString = presetNumber.subString(0, length: 1)
             if subString == _CHAR_W {

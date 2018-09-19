@@ -8,7 +8,7 @@
 
 import UIKit
 
-@objc public enum PWKeyboardNumType: Int {
+@objc public enum PlateNumberType: Int {
     case auto = 0,airport,wuJing,police,embassy,newEnergy,HK_MO;
 }
 

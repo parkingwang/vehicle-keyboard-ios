@@ -24,7 +24,7 @@ class KeyBoardView: UIView,
 
     var keyboardLayout : KeyboardLayout!
     
-    var numType = PWKeyboardNumType.auto
+    var numType = PlateNumberType.auto
     var inputIndex = 0;
     var delegate: KeyBoardViewDeleagte?
     var itemHeight : CGFloat = 51

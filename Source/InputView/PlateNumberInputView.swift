@@ -117,7 +117,7 @@ public class PlateNumberInputView: UIView,
         return plateNumber.count == maxCount
     }
     
-    @objc public func setPlate(plate:String, type: PWKeyboardNumType){
+    @objc public func setPlate(plate:String, type: PlateNumberType){
         plateNumber = plate;
         let isNewEnergy = type == .newEnergy
         var numType = type;
@@ -265,7 +265,7 @@ public class PlateNumberInputView: UIView,
                 plateNumber = NSString.init(format: "%@", plate) as String
             }
             let keyboardView = inputTextfield.inputView as! KeyBoardView
-            let numType = keyboardView.numType == .newEnergy ? PWKeyboardNumType.newEnergy : KeyboardEngine.plateNumberType(with: plateNumber)
+            let numType = keyboardView.numType == .newEnergy ? PlateNumberType.newEnergy : KeyboardEngine.plateNumberType(with: plateNumber)
             
             maxCount = (numType == .newEnergy || numType == .wuJing) ? 8 : 7
             

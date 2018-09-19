@@ -23,7 +23,7 @@ extension UITextField :KeyBoardViewDeleagte{
         refreshKeyboard(isMoreType:false)
     }
     
-    @objc public func setPlate(plate:String,type:PWKeyboardNumType){
+    @objc public func setPlate(plate:String,type:PlateNumberType){
         let keyboardView = self.inputView as! KeyBoardView
         text = plate;
         keyboardView.numType = type
@@ -70,7 +70,7 @@ extension UITextField :KeyBoardViewDeleagte{
     private func refreshKeyboard(isMoreType:Bool){
         //当输入框处于填满状态时，输入的下标往前移动一位数
         let keyboardView = inputView as! KeyBoardView
-        let numType = keyboardView.numType == .newEnergy ? PWKeyboardNumType.newEnergy : KeyboardEngine.plateNumberType(with: text!)
+        let numType = keyboardView.numType == .newEnergy ? PlateNumberType.newEnergy : KeyboardEngine.plateNumberType(with: text!)
         let maxCount = (numType == .newEnergy || numType == .wuJing) ? 8 : 7
         let inpuntIndex = maxCount <= text!.count  ? (text!.count - 1) : text!.count
         keyboardView.updateText(text: text!,isMoreType:isMoreType,inputIndex:inpuntIndex)

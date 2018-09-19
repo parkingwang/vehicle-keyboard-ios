@@ -34,7 +34,7 @@ class KeyboardLayoutRegistrar: NSObject {
     ///   - inputIndex: 光标所在位置
     ///   - numberType: 车牌类型
     /// - Returns: 注册完成的布局
-    func register(layout: KeyboardLayout, keyString: String, inputIndex: Int, numberType: PWKeyboardNumType) -> KeyboardLayout {
+    func register(layout: KeyboardLayout, keyString: String, inputIndex: Int, numberType: PlateNumberType) -> KeyboardLayout {
         
         var mLayout = layout
         var okString = ""
