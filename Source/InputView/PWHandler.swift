@@ -15,7 +15,7 @@ import UIKit
     @objc  optional func plateKeyBoardHidden()
 }
 
-public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,PWKeyBoardViewDeleagte {
+public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,KeyBoardViewDeleagte {
     
     //格子中字体的颜色
     @objc public var textColor = UIColor.black

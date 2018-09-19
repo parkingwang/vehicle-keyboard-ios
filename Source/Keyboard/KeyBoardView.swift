@@ -9,13 +9,9 @@
 import UIKit
 
 let KeybordHeight : CGFloat = 226
-
 let kItemSpacing : CGFloat = 1
 
-var kItemHeight : CGFloat = 51
-
-
-protocol PWKeyBoardViewDeleagte {
+protocol KeyBoardViewDeleagte {
     func selectComplete(char:String, inputIndex:Int)
 }
 
@@ -30,7 +26,8 @@ class KeyBoardView: UIView,
     
     var numType = PWKeyboardNumType.auto
     var inputIndex = 0;
-    var delegate: PWKeyBoardViewDeleagte?
+    var delegate: KeyBoardViewDeleagte?
+    var itemHeight : CGFloat = 51
     
     let identifier = "PWKeyBoardCollectionViewCell"
     
@@ -46,7 +43,7 @@ class KeyBoardView: UIView,
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setUI() {
+    private func setUI() {
         keyboardLayout =  KeyboardEngine.generateLayout(at: 0, plateNumber: "", numberType: numType, isMoreType: false);
         
         let flowLayout = UICollectionViewFlowLayout()
@@ -71,60 +68,22 @@ class KeyBoardView: UIView,
         addSubview(promptView)
     }
     
-    func iphoneXtabHeight() -> CGFloat {
-        return Device.isIphoneX() ? 34 : 0;
-    }
     
-    func iphonxKeyBoardHeight() -> CGFloat{
-        return KeybordHeight + iphoneXtabHeight()
-    }
+    //MARK: - Prompt
     
-    func updateText(text: String, isMoreType: Bool, inputIndex: Int){
-        self.inputIndex = inputIndex
-        keyboardLayout = KeyboardEngine.generateLayout(at: inputIndex, plateNumber: text, numberType: numType,isMoreType:isMoreType);
-        collectionView.reloadData()
-    }
-    
-    func normalItemWith() -> CGFloat{
-        
-        let width = (Device.screenWidth - 8 - kItemSpacing * (CGFloat(keyboardLayout.rowArray()[0].count) - 1)) / CGFloat(keyboardLayout.rowArray()[0].count)
-        return width
-    }
-    
-    func submitItemWidth() -> CGFloat{
-        let width = (normalItemWith() - 5) / 40 * 70 + 5
-        return width
-    }
-    
-    func deleteItemWidth() -> CGFloat{
-        //在没有更多的情况下删除按钮的大小还需要加上左边的间距
-        if keyboardLayout.row3![keyboardLayout.row3!.count - 3].keyCode! > 2 {
-            return specialButtonWidth()
-        }
-        let width = (Device.screenWidth - 8 - submitItemWidth() - normalItemWith() * CGFloat(keyboardLayout.rowArray()[3].count - 2) - CGFloat(keyboardLayout.rowArray()[3].count - 1) * kItemSpacing) - 0.1
-        return width
-    }
-    
-    func moreItemWIdth() -> CGFloat {
-        let width = (Device.screenWidth - 8 - submitItemWidth() - normalItemWith() * CGFloat(keyboardLayout.rowArray()[3].count - 3) - CGFloat(keyboardLayout.rowArray()[3].count - 1) * kItemSpacing) - 0.1 - deleteItemWidth()
-        return width
-    }
-    
-    func specialButtonWidth() -> CGFloat {
-        let width = (normalItemWith() - 5) / 40 * 80 + 5
-        return width
-    }
-    
-    func showPrompt(item: PWKeyBoardCollectionViewCell){
-        promptView.center = CGPoint(x: item.center.x, y: item.center.y - kItemHeight / 2 - 21)
+    private func showPrompt(item: PWKeyBoardCollectionViewCell){
+        promptView.center = CGPoint(x: item.center.x, y: item.center.y - itemHeight / 2 - 21)
         promptView.centerTextLabel.text = item.centerLabel.text
         promptView.centerTextLabel.textColor = mainColor
         promptView.isHidden = false
     }
     
-    func hiddenPromt(){
+    private func hiddenPromt(){
         promptView.isHidden = true
     }
+    
+    
+    //MARK: - UICollectionViewDelegate && UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return keyboardLayout.rowArray()[section].count
@@ -166,19 +125,19 @@ class KeyBoardView: UIView,
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = normalItemWith()
-        kItemHeight = Device.isIphoneX() ? 45 : kItemHeight
+        itemHeight = Device.isIphoneX() ? 45 : itemHeight
         //更多键的宽度需要加上左边空出来的宽度，没有更多时删除键加上
         if (keyboardLayout.rowArray()[indexPath.section][indexPath.row] == keyboardLayout.row3![keyboardLayout.row3!.count - 2]){
-            return CGSize(width: deleteItemWidth(), height: kItemHeight)
+            return CGSize(width: deleteItemWidth(), height: itemHeight)
         } else if (keyboardLayout.rowArray()[indexPath.section][indexPath.row] == keyboardLayout.row3?.last){
-            return CGSize(width: submitItemWidth(), height: kItemHeight)
+            return CGSize(width: submitItemWidth(), height: itemHeight)
         } else if (keyboardLayout.rowArray()[indexPath.section][indexPath.row] == keyboardLayout.row3![keyboardLayout.row3!.count - 3]){
             //有更多的时候加长
             if keyboardLayout.row3![keyboardLayout.row3!.count - 3].keyCode! > 2 {
-                return CGSize(width:moreItemWIdth(), height: kItemHeight)
+                return CGSize(width:moreItemWIdth(), height: itemHeight)
             }
         }
-        return CGSize(width: width, height: kItemHeight)
+        return CGSize(width: width, height: itemHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -225,5 +184,54 @@ class KeyBoardView: UIView,
     
     func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         hiddenPromt()
+    }
+    
+    
+    //MARK: Public Method
+    
+    func updateText(text: String, isMoreType: Bool, inputIndex: Int){
+        self.inputIndex = inputIndex
+        keyboardLayout = KeyboardEngine.generateLayout(at: inputIndex, plateNumber: text, numberType: numType,isMoreType:isMoreType);
+        collectionView.reloadData()
+    }
+    
+    //MARK: - Compute Property
+    
+    private func iphoneXtabHeight() -> CGFloat {
+        return Device.isIphoneX() ? 34 : 0;
+    }
+    
+    private func iphonxKeyBoardHeight() -> CGFloat{
+        return KeybordHeight + iphoneXtabHeight()
+    }
+    
+    private func normalItemWith() -> CGFloat{
+        
+        let width = (Device.screenWidth - 8 - kItemSpacing * (CGFloat(keyboardLayout.rowArray()[0].count) - 1)) / CGFloat(keyboardLayout.rowArray()[0].count)
+        return width
+    }
+    
+    private func submitItemWidth() -> CGFloat{
+        let width = (normalItemWith() - 5) / 40 * 70 + 5
+        return width
+    }
+    
+    private func deleteItemWidth() -> CGFloat{
+        //在没有更多的情况下删除按钮的大小还需要加上左边的间距
+        if keyboardLayout.row3![keyboardLayout.row3!.count - 3].keyCode! > 2 {
+            return specialButtonWidth()
+        }
+        let width = (Device.screenWidth - 8 - submitItemWidth() - normalItemWith() * CGFloat(keyboardLayout.rowArray()[3].count - 2) - CGFloat(keyboardLayout.rowArray()[3].count - 1) * kItemSpacing) - 0.1
+        return width
+    }
+    
+    private func moreItemWIdth() -> CGFloat {
+        let width = (Device.screenWidth - 8 - submitItemWidth() - normalItemWith() * CGFloat(keyboardLayout.rowArray()[3].count - 3) - CGFloat(keyboardLayout.rowArray()[3].count - 1) * kItemSpacing) - 0.1 - deleteItemWidth()
+        return width
+    }
+    
+    private func specialButtonWidth() -> CGFloat {
+        let width = (normalItemWith() - 5) / 40 * 80 + 5
+        return width
     }
 }

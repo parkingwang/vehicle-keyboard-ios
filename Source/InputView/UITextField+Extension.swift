@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-extension UITextField :PWKeyBoardViewDeleagte{
+extension UITextField :KeyBoardViewDeleagte{
     
     @objc public func changeToPlatePWKeyBoardInpurView(){
         let keyboardView = KeyBoardView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
