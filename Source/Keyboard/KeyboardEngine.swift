@@ -165,7 +165,7 @@ class KeyboardEngine: NSObject {
             list = KeyboardEngine.disEnabledKey(keyString:KeyboardEngine.chStringArray(string: _CHAR_I + _CHAR_O + disOkString) ,listModel: list,reverseModel:false)
         case 6:
             if KeyboardEngine.subString(str: keyString, start: 0, length: 2) == "粤Z" {
-                list = KeyboardEngine.disEnabledKey(keyString:KeyboardEngine.chStringArray(string: _CHAR_MACAO + _CHAR_HK + _CHAR_DEL + okString), listModel: list,reverseModel:true)
+                list = KeyboardEngine.disEnabledKey(keyString:KeyboardEngine.chStringArray(string: _CHAR_MACAO + _CHAR_HK + _CHAR_DEL + okString + _STR_MORE), listModel: list,reverseModel:true)
             }else if numberType == .embassy || numberType == .airport || numberType == .newEnergy{
                 list = KeyboardEngine.disEnabledKey(keyString:KeyboardEngine.chStringArray(string: _STR_MORE + disOkString), listModel: list,reverseModel:false)
             }else{
