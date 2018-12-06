@@ -25,6 +25,10 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     @objc public var mainColor = UIColor(red: 65 / 256.0, green: 138 / 256.0, blue: 249 / 256.0, alpha: 1)
     //当前格子中的输入内容
     @objc public  var paletNumber = ""
+    //每个格子的背景色
+    @objc public var itemColor = UIColor.white
+    //格子之间的间距
+    @objc public var itemSpacing:CGFloat = 0
     
     @objc public weak var  delegate : PWHandlerDelegate?
     
@@ -58,13 +62,8 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         let tap = UITapGestureRecognizer(target: self, action: #selector(tapAction(tap:)))
         view.addGestureRecognizer(tap)
         view.addSubview(collectionView)
-        if (view.constraints.count > 0) {
-            let topCos = NSLayoutConstraint(item: collectionView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0)
-            let leftCos = NSLayoutConstraint(item: collectionView, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.left, multiplier: 1, constant: 0)
-            let rightCos = NSLayoutConstraint(item: collectionView, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.right, multiplier: 1, constant: 0)
-            let bottomCos = NSLayoutConstraint(item: collectionView, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0)
-            view.addConstraints([topCos,leftCos,rightCos,bottomCos])
-        }
+        setNSLayoutConstraint(subView: collectionView, superView: view)
+        
         inputCollectionView = collectionView
         inputTextfield = UITextField(frame: CGRect(x: 0, y: 0, width: 0, height: view.frame.height))
         view.addSubview(inputTextfield)
@@ -149,15 +148,29 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     }
     
     private func setBackgroundView(){
-        let backgroundView = UIView(frame: inputCollectionView.bounds)
-        inputCollectionView.backgroundView = backgroundView
-        backgroundView.layer.borderWidth = 1
-        backgroundView.layer.borderColor = UIColor(red: 216/255.0, green: 216/255.0, blue: 216/255.0, alpha: 1).cgColor
-        backgroundView.isUserInteractionEnabled = false
-        backgroundView.layer.masksToBounds = true
-        backgroundView.layer.cornerRadius = 2
-        selectView.isUserInteractionEnabled = false
-        inputCollectionView.addSubview(selectView)
+        if itemSpacing <= 0 {
+            let backgroundView = UIView(frame: inputCollectionView.bounds)
+            backgroundView.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(backgroundView)
+            setNSLayoutConstraint(subView: backgroundView, superView: view)
+            backgroundView.layer.borderWidth = 1
+            backgroundView.layer.borderColor = UIColor(red: 216/255.0, green: 216/255.0, blue: 216/255.0, alpha: 1).cgColor
+            backgroundView.isUserInteractionEnabled = false
+            backgroundView.layer.masksToBounds = true
+            backgroundView.layer.cornerRadius = 2
+            selectView.isUserInteractionEnabled = false
+        }
+        view.addSubview(selectView)
+    }
+    
+    private func setNSLayoutConstraint(subView:UIView,superView:UIView){
+        if (superView.constraints.count > 0) {
+            let topCos = NSLayoutConstraint(item: subView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: superView, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0)
+            let leftCos = NSLayoutConstraint(item: subView, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: superView, attribute: NSLayoutAttribute.left, multiplier: 1, constant: 0)
+            let rightCos = NSLayoutConstraint(item: subView, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: superView, attribute: NSLayoutAttribute.right, multiplier: 1, constant: 0)
+            let bottomCos = NSLayoutConstraint(item: subView, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: superView, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0)
+            superView.addConstraints([topCos,leftCos,rightCos,bottomCos])
+        }
     }
     
     @objc func plateKeyBoardShow(){
@@ -176,56 +189,6 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         let tapPoint = tap.location(in: view)
         let indexPath = collectionView.indexPathForItem(at: tapPoint)
         collectionView(collectionView, didSelectItemAt: indexPath!)
-    }
-    
-    public func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectIndex = indexPath.row > paletNumber.count ? paletNumber.count : indexPath.row
-        keyboardView.updateText(text: paletNumber, isMoreType: false, inputIndex: selectIndex)
-        updateCollection()
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return maxCount
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        return CGSize(width: (collectionView.frame.size.width / CGFloat(maxCount)) - 0.01, height: collectionView.frame.height)
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! PWInputCollectionViewCell
-        cell.charLabel.text = getPaletChar(index: indexPath.row)
-        cell.charLabel.textColor = textColor
-        cell.charLabel.font = UIFont.systemFont(ofSize: textFontSize)
-        if indexPath.row == selectIndex {
-            //给cell加上选中的边框
-            selectView.layer.borderWidth = 2
-            selectView.layer.borderColor = mainColor.cgColor
-            selectView.frame = cell.frame
-            let rightSpace :CGFloat = (maxCount - 1) == selectIndex ? 0 : 0.5
-            selectView.center = CGPoint(x: cell.center.x + rightSpace, y: cell.center.y)
-            corners(view: selectView, index: selectIndex)
-        }
-        corners(view: cell, index: indexPath.row)
-        cell.layer.masksToBounds = true
-        return cell
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
     }
     
     
@@ -286,19 +249,83 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     
    
     
-   
-    
     func corners(view:UIView, index :Int){
-        view.addRounded(cornevrs: UIRectCorner.allCorners, radii: CGSize(width: 0, height: 0))
-        if index == 0{
-            view.addRounded(cornevrs: UIRectCorner(rawValue: UIRectCorner.RawValue(UInt8(UIRectCorner.topLeft.rawValue) | UInt8(UIRectCorner.bottomLeft.rawValue))), radii: CGSize(width: 2, height: 2))
-        } else if index == maxCount - 1 {
-            view.addRounded(cornevrs: UIRectCorner(rawValue: UIRectCorner.RawValue(UInt8(UIRectCorner.topRight.rawValue) | UInt8(UIRectCorner.bottomRight.rawValue))), radii: CGSize(width: 2, height: 2))
+        if itemSpacing > 0 {
+            view.addRounded(cornevrs: UIRectCorner.allCorners, radii: CGSize(width: 2, height: 2))
+        } else {
+            //当格子之间没有间距时，第一个的左边和最后一个的右边会切圆角，其他都是直角
+            view.addRounded(cornevrs: UIRectCorner.allCorners, radii: CGSize(width: 0, height: 0))
+            if index == 0{
+                view.addRounded(cornevrs: UIRectCorner(rawValue: UIRectCorner.RawValue(UInt8(UIRectCorner.topLeft.rawValue) | UInt8(UIRectCorner.bottomLeft.rawValue))), radii: CGSize(width: 2, height: 2))
+            } else if index == maxCount - 1 {
+                view.addRounded(cornevrs: UIRectCorner(rawValue: UIRectCorner.RawValue(UInt8(UIRectCorner.topRight.rawValue) | UInt8(UIRectCorner.bottomRight.rawValue))), radii: CGSize(width: 2, height: 2))
+            }
         }
+        
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
+    
+    //MARK:- collectionViewDelegate
+    
+    public func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectIndex = indexPath.row > paletNumber.count ? paletNumber.count : indexPath.row
+        keyboardView.updateText(text: paletNumber, isMoreType: false, inputIndex: selectIndex)
+        updateCollection()
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return maxCount
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        return CGSize(width: ((collectionView.frame.size.width - CGFloat(maxCount - 1) * itemSpacing ) / CGFloat(maxCount)) - 0.01, height: collectionView.frame.height)
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! PWInputCollectionViewCell
+        cell.charLabel.text = getPaletChar(index: indexPath.row)
+        cell.charLabel.textColor = textColor
+        cell.charLabel.font = UIFont.systemFont(ofSize: textFontSize)
+        cell.backgroundColor = itemColor
+        if indexPath.row == selectIndex {
+            //给cell加上选中的边框
+            selectView.layer.borderWidth = 2
+            selectView.layer.borderColor = mainColor.cgColor
+            selectView.frame = cell.frame
+            let rightSpace :CGFloat = (maxCount - 1) == selectIndex ? 0 : 0.5
+            selectView.center = CGPoint(x: cell.center.x + rightSpace, y: cell.center.y)
+            corners(view: selectView, index: selectIndex)
+        }
+        if itemSpacing > 0 {
+            cell.layer.borderWidth = 1
+            cell.layer.borderColor = UIColor(red: 216/256.0, green: 216/256.0, blue: 216/256.0, alpha: 1).cgColor
+        }
+        corners(view: cell, index: indexPath.row)
+        cell.layer.masksToBounds = true
+        return cell
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return itemSpacing
+    }
+    
 }
+
+
