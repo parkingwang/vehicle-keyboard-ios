@@ -33,18 +33,25 @@
     //将自己创建的UIView绑定车牌键盘(格子形式)
     self.handler = [PWHandler new];
     
-    //    改变主题色
-    //    self.handler.mainColor = [UIColor redColor];
-    //    改变文字大小
-    //    self.handler.textFontSize = 18;
-    //    改变文字颜色
-    //    self.handler.textColor = [UIColor greenColor];
+//    //格子之间的间距
+//    self.handler.itemSpacing = 10;
+//    //主题色
+//    self.handler.mainColor = [UIColor redColor];
+//    //文字大小
+//    self.handler.textFontSize = 18;
+//    //文字颜色
+//    self.handler.textColor = [UIColor greenColor];
+//    //格子背景色
+//    self.handler.itemColor = [UIColor grayColor];
     
     [self.handler setKeyBoardViewWithView:self.plateInputView];
+    [self.handler setPaletNumber:@""];
     self.handler.delegate = self;
     
     NSLog(@"当前键盘的输入值%@",self.handler.paletNumber);//获取当前输入的值
     NSLog([self.handler isComplete] ? @"输入完整" : @"不完整");//获取当前键盘的完整性
+    //手动弹出格子输入框的键盘
+     // [self.handler vehicleKeyBoardBecomeFirstResponder];
 }
 
 

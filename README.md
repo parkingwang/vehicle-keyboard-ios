@@ -48,15 +48,16 @@ oc引用pod中的库
 @property (weak, nonatomic) IBOutlet UIView *plateInputView;
 
 self.handler = [PWHandler new];
-[self.handler setKeyBoardViewWithView:self.plateInputView];
-
-self.handler.delegate = self;
 //改变主题色
 self.handler.mainColor = [UIColor redColor];
 //改变文字大小
 self.handler.textFontSize = 18;
 //改变文字颜色
 self.handler.textColor = [UIColor greenColor];
+
+[self.handler setKeyBoardViewWithView:self.plateInputView];
+
+self.handler.delegate = self;
 ```
 
 格子输入框的各种回调方法
@@ -110,13 +111,14 @@ let handler = PWHandler()
 @IBOutlet weak var plateInputVIew: UIView!
 
 handler.delegate = self
-handler.setKeyBoardView(view: plateInputVIew)
 //改变主题色
 handler.mainColor = UIColor.red
 //改变字体大小
 handler.textFontSize = 18
 //改变字体颜色
 handler.textColor = UIColor.blue
+
+handler.setKeyBoardView(view: plateInputVIew)
 ```
 
 格子输入框的各种回调方法
@@ -185,6 +187,8 @@ print("车牌键盘隐藏")
 * A:   pod其实是找的本地缓存目录，新上传的库可能出现找不到的情况，删除本地的~/Library/Caches/CocoaPods/search_index.json 缓存目录，用pod repo update master这个命令更新了本地的索引库，再pod install 试试。
 * Q:  编译报错：xxx.nib This target might include its own product或是引用头文件时一直not find
 * A:   在podfile中加上use_frameworks!变更引用方式，加上之后 导入方式要变  例如 #import"SVProgressHUD.h" 改为   #import <SVProgressHUD/SVProgressHUD.h>
+* Q:  我设置了一些ui参数，但是实际显示和设置又些出入?
+* A:   请在设置各种ui参数后再调用setKeyBoardView方法。
 
 ## 疑问与交流
 

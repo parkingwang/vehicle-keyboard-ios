@@ -83,6 +83,20 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     }
     
     /*
+     手动弹出键盘
+     **/
+    @objc public func vehicleKeyBoardBecomeFirstResponder(){
+        self.inputTextfield.becomeFirstResponder()
+    }
+    
+    /*
+     手动隐藏键盘
+     **/
+    @objc public func vehicleKeyBoardEndEditing(){
+        UIApplication.shared.keyWindow?.endEditing(true)
+    }
+    
+    /*
      检查是否是符合新能源车牌的规则
      **/
     @objc public func checkNewEnginePlate() ->Bool{
