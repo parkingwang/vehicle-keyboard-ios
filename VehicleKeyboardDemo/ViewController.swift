@@ -27,16 +27,22 @@ class ViewController: UIViewController,PWHandlerDelegate {
         handler.delegate = self
         
         //改变主题色
-        //        handler.mainColor = UIColor.red
+//        handler.mainColor = UIColor.red
         //改变字体大小
-        //        handler.textFontSize = 18
+//        handler.textFontSize = 18
         //改变字体颜色
-        //        handler.textColor = UIColor.blue
+//        handler.textColor = UIColor.blue
+        //在格子间增加间隔
+//        handler.itemSpacing = 10
+        //格子中间的背景色
+//        handler.itemColor = UIColor.gray
         
         handler.setKeyBoardView(view: plateInputVIew)
         
-        print("当前键盘的输入值\(self.handler.paletNumber)");//获取当前输入的值
-        print(self.handler.isComplete() ? "输入完整" : "不完整");//获取当前键盘的完整性
+        print("当前键盘的输入值\(self.handler.paletNumber)")//获取当前输入的值
+        print(self.handler.isComplete() ? "输入完整" : "不完整")//获取当前键盘的完整性
+        //手动弹出键盘
+//        handler.vehicleKeyBoardBecomeFirstResponder()
     }
     
 

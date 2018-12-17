@@ -45,13 +45,12 @@
 //    self.handler.itemColor = [UIColor grayColor];
     
     [self.handler setKeyBoardViewWithView:self.plateInputView];
-    [self.handler setPaletNumber:@""];
     self.handler.delegate = self;
     
     NSLog(@"当前键盘的输入值%@",self.handler.paletNumber);//获取当前输入的值
     NSLog([self.handler isComplete] ? @"输入完整" : @"不完整");//获取当前键盘的完整性
-    //手动弹出格子输入框的键盘
-     // [self.handler vehicleKeyBoardBecomeFirstResponder];
+    //手动弹出键盘
+//    [self.handler vehicleKeyBoardBecomeFirstResponder];
 }
 
 
@@ -79,7 +78,7 @@
 - (IBAction)setCollectionInputButtonAction:(UIButton *)sender {
     self.mynewEnergyButton.selected = NO;
     [[UIApplication sharedApplication].keyWindow endEditing:YES];
-    [self.handler setPlateWithPlate:@"" type:PWKeyboardNumTypeAuto];
+    [self.handler setPlateWithPlate:@"粤BR0001" type:PWKeyboardNumTypeAuto];
 }
 
 - (IBAction)setTextFieldPlateButtonAction:(UIButton *)sender {
