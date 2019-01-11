@@ -33,9 +33,12 @@ class ViewController: UIViewController,PWHandlerDelegate {
         //改变字体颜色
 //        handler.textColor = UIColor.blue
         //在格子间增加间隔
-//        handler.itemSpacing = 10
+//        handler.itemSpacing = 20
+//        handler.cellBorderColor = UIColor.gray
+//        handler.cornerRadius = 8
         //格子中间的背景色
 //        handler.itemColor = UIColor.gray
+        
         
         handler.setKeyBoardView(view: plateInputVIew)
         

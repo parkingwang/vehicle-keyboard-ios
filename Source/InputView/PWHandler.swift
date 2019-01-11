@@ -30,6 +30,12 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     //格子之间的间距
     @objc public var itemSpacing:CGFloat = 0
     
+    //边框颜色
+    @objc public var cellBorderColor = UIColor(red: 216/256.0, green: 216/256.0, blue: 216/256.0, alpha: 1)
+    
+    //每个格子的圆角(ps:仅在有间距时生效)
+    @objc public var cornerRadius:CGFloat = 2
+    
     @objc public weak var  delegate : PWHandlerDelegate?
     
     let identifier = "PWInputCollectionViewCell"
@@ -50,7 +56,6 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
      将车牌输入框绑定到一个你自己创建的UIview
      **/
     @objc public func setKeyBoardView(view: UIView){
-        
         self.view = view
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.delegate = self
@@ -168,10 +173,10 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
             view.addSubview(backgroundView)
             setNSLayoutConstraint(subView: backgroundView, superView: view)
             backgroundView.layer.borderWidth = 1
-            backgroundView.layer.borderColor = UIColor(red: 216/255.0, green: 216/255.0, blue: 216/255.0, alpha: 1).cgColor
+            backgroundView.layer.borderColor = cellBorderColor.cgColor
             backgroundView.isUserInteractionEnabled = false
             backgroundView.layer.masksToBounds = true
-            backgroundView.layer.cornerRadius = 2
+            backgroundView.layer.cornerRadius = cornerRadius
             selectView.isUserInteractionEnabled = false
         }
         view.addSubview(selectView)
@@ -202,7 +207,9 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     @objc func tapAction(tap:UILongPressGestureRecognizer){
         let tapPoint = tap.location(in: view)
         let indexPath = collectionView.indexPathForItem(at: tapPoint)
-        collectionView(collectionView, didSelectItemAt: indexPath!)
+        if indexPath != nil {
+            collectionView(collectionView, didSelectItemAt: indexPath!)
+        }
     }
     
     
@@ -265,7 +272,7 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     
     func corners(view:UIView, index :Int){
         if itemSpacing > 0 {
-            view.addRounded(cornevrs: UIRectCorner.allCorners, radii: CGSize(width: 2, height: 2))
+            view.layer.cornerRadius = cornerRadius
         } else {
             //当格子之间没有间距时，第一个的左边和最后一个的右边会切圆角，其他都是直角
             view.addRounded(cornevrs: UIRectCorner.allCorners, radii: CGSize(width: 0, height: 0))
@@ -319,13 +326,16 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
             selectView.layer.borderWidth = 2
             selectView.layer.borderColor = mainColor.cgColor
             selectView.frame = cell.frame
-            let rightSpace :CGFloat = (maxCount - 1) == selectIndex ? 0 : 0.5
+            var rightSpace :CGFloat = (maxCount - 1) == selectIndex ? 0 : 0.5
+            if itemSpacing > 0 {
+                rightSpace = 0
+            }
             selectView.center = CGPoint(x: cell.center.x + rightSpace, y: cell.center.y)
             corners(view: selectView, index: selectIndex)
         }
         if itemSpacing > 0 {
             cell.layer.borderWidth = 1
-            cell.layer.borderColor = UIColor(red: 216/256.0, green: 216/256.0, blue: 216/256.0, alpha: 1).cgColor
+            cell.layer.borderColor = cellBorderColor.cgColor
         }
         corners(view: cell, index: indexPath.row)
         cell.layer.masksToBounds = true
