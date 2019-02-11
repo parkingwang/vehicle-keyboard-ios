@@ -173,15 +173,6 @@ print("车牌键盘隐藏")
 - VehicleKeyboard-JS GitHub项目主页： [https://github.com/parkingwang/vehicle-keyboard-js](https://github.com/parkingwang/vehicle-keyboard-js)
 - VehicleKeyboard-JS OSChina项目主页： [https://gitee.com/iRainIoT/vehicle-keyboard-js](https://gitee.com/iRainIoT/vehicle-keyboard-js)
 
-
-
-
-
-## 维护
-
-- [杨志豪](https://github.com/yzhtracy) 联系方式：yangzhihao@parkingwang.com
-- [陈军志](https://github.com/xiaozhi) 联系方式：chenjunzhi@parkingwang.com
-
 ## 可能的Q&A
 * Q:   pod intall的时候失败提示找不到这个库？
 * A:   pod其实是找的本地缓存目录，新上传的库可能出现找不到的情况，删除本地的~/Library/Caches/CocoaPods/search_index.json 缓存目录，用pod repo update master这个命令更新了本地的索引库，再pod install 试试。
@@ -189,14 +180,4 @@ print("车牌键盘隐藏")
 * A:   在podfile中加上use_frameworks!变更引用方式，加上之后 导入方式要变  例如 #import"SVProgressHUD.h" 改为   #import <SVProgressHUD/SVProgressHUD.h>
 * Q:  我设置了一些ui参数，但是实际显示和设置又些出入?
 * A:   请在设置各种ui参数后再调用setKeyBoardView方法。
-
-## 疑问与交流
-
-如果你在使用此键盘时，出现一些问题，或者有相关疑问。可以添加以下微信技术群做讨论。
-
-![WxQRCode](./QrCode-Group.png)
-
-如果群二维码过期，可以通过以下微信加好友，注明“车牌键盘”，我会拉到专门技术群做讨论。
-
-![WxQRCode](./QrCode-Yoojia.png)
 
