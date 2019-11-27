@@ -49,9 +49,6 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     var view = UIView()
     var collectionView :UICollectionView!
     
-    
-    
-    
     /*
      将车牌输入框绑定到一个你自己创建的UIview
      **/
@@ -82,8 +79,8 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         setBackgroundView()
         
         //监听键盘
-        NotificationCenter.default.addObserver(self, selector: #selector(plateKeyBoardShow), name:NSNotification.Name.UIKeyboardDidShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(plateKeyBoardHidden), name:NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(plateKeyBoardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(plateKeyBoardHidden), name: UIResponder.keyboardWillHideNotification, object: nil)
         
     }
     
@@ -123,7 +120,6 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         return true
     }
  
-    
     /*
      检查输入车牌的完整
      **/
@@ -184,10 +180,10 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     
     private func setNSLayoutConstraint(subView:UIView,superView:UIView){
         if (superView.constraints.count > 0) {
-            let topCos = NSLayoutConstraint(item: subView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: superView, attribute: NSLayoutAttribute.top, multiplier: 1, constant: 0)
-            let leftCos = NSLayoutConstraint(item: subView, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: superView, attribute: NSLayoutAttribute.left, multiplier: 1, constant: 0)
-            let rightCos = NSLayoutConstraint(item: subView, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: superView, attribute: NSLayoutAttribute.right, multiplier: 1, constant: 0)
-            let bottomCos = NSLayoutConstraint(item: subView, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: superView, attribute: NSLayoutAttribute.bottom, multiplier: 1, constant: 0)
+            let topCos = NSLayoutConstraint(item: subView, attribute: NSLayoutConstraint.Attribute.top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: superView, attribute: NSLayoutConstraint.Attribute.top, multiplier: 1, constant: 0)
+            let leftCos = NSLayoutConstraint(item: subView, attribute: NSLayoutConstraint.Attribute.left, relatedBy: NSLayoutConstraint.Relation.equal, toItem: superView, attribute: NSLayoutConstraint.Attribute.left, multiplier: 1, constant: 0)
+            let rightCos = NSLayoutConstraint(item: subView, attribute: NSLayoutConstraint.Attribute.right, relatedBy: NSLayoutConstraint.Relation.equal, toItem: superView, attribute: NSLayoutConstraint.Attribute.right, multiplier: 1, constant: 0)
+            let bottomCos = NSLayoutConstraint(item: subView, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: superView, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1, constant: 0)
             superView.addConstraints([topCos,leftCos,rightCos,bottomCos])
         }
     }
@@ -211,7 +207,6 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
             collectionView(collectionView, didSelectItemAt: indexPath!)
         }
     }
-    
     
     func updateCollection(){
         inputCollectionView.reloadData()
@@ -256,9 +251,7 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
             delegate?.palteDidChnage?(plate:paletNumber,complete:paletNumber.count == maxCount)
         }
     }
-    
-   
-    
+        
     func getPaletChar(index:Int) -> String{
         if paletNumber.count > index {
             let NSPalet = paletNumber as NSString
@@ -267,9 +260,7 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
         }
         return ""
     }
-    
-   
-    
+        
     func corners(view:UIView, index :Int){
         if itemSpacing > 0 {
             view.layer.cornerRadius = cornerRadius
@@ -286,8 +277,8 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardDidShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardDidShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     //MARK:- collectionViewDelegate
