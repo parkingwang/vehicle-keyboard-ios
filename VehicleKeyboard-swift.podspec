@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.homepage      = "https://github.com/parkingwang/vehicle-keyboard-ios"
   s.license       = { :type => 'MIT', :file => 'LICENSE' }
   s.author        = { "yzh" => "yzhtracy@163.com" }
-  s.platform      = :ios, "8.0"
+  s.platform      = :ios, "9.0"
   s.source        = { :git => "https://github.com/parkingwang/vehicle-keyboard-ios.git", :tag => "#{s.version}" }
   s.source_files  = ["Source/*/*/*.{h,m,swift}","Source/*/*.{h,m,swift}"]
   s.resource      = ["Source/*/*/*.{bundle,xib}","Source/*/*.{bundle,xib}"]
