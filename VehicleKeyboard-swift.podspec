@@ -3,7 +3,7 @@
 Pod::Spec.new do |s|
 
   s.name          = "VehicleKeyboard-swift"
-  s.version       = "1.0.5"
+  s.version       = "1.0.6"
   s.summary       = "停车王ios车牌键盘，支持原生输入框及格子样式输入框"
   s.homepage      = "https://github.com/parkingwang/vehicle-keyboard-ios"
   s.license       = { :type => 'MIT', :file => 'LICENSE' }

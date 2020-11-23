@@ -302,7 +302,8 @@ class KeyboardEngine: NSObject {
         }
         let startIndex = str.index(str.startIndex, offsetBy:start)
         let endIndex = str.index(startIndex, offsetBy:length)
-        return str.substring(with: startIndex..<endIndex)
+        let lastStr = str[startIndex..<endIndex]
+        return String(lastStr)
     }
 }
 
