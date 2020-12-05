@@ -78,7 +78,6 @@ class PWKeyBoardView: UIView,UICollectionViewDelegate,UICollectionViewDelegateFl
               }
               
               if unwrapedWindow.safeAreaInsets.left > 0 || unwrapedWindow.safeAreaInsets.bottom > 0 {
-                  print(unwrapedWindow.safeAreaInsets)
                   return true
               }
         }

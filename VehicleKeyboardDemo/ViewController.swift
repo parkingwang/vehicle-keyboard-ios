@@ -20,9 +20,18 @@ class ViewController: UIViewController,PWHandlerDelegate {
     @IBOutlet weak var newEnergyButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-        //UITextField绑定车牌键盘(输入框形式)
-        myTextField.changeToPlatePWKeyBoardInpurView()
         
+        //选择以下两种键盘样式之一
+        
+        //UITextField绑定车牌键盘(输入框形式)
+        setupSystemTextfield()
+        
+        //将自己创建的UIView绑定车牌键盘(格子形式)
+        setupPWTextfield()
+        
+    }
+    
+    func setupPWTextfield() {
         //将自己创建的UIView绑定车牌键盘(格子形式)
         handler.delegate = self
         
@@ -46,6 +55,25 @@ class ViewController: UIViewController,PWHandlerDelegate {
         print(self.handler.isComplete() ? "输入完整" : "不完整")//获取当前键盘的完整性
         //手动弹出键盘
 //        handler.vehicleKeyBoardBecomeFirstResponder()
+    }
+    
+    func setupSystemTextfield() {
+        
+        //UITextField绑定车牌键盘(输入框形式)
+        myTextField.changeToPlatePWKeyBoardInpurView()
+        
+        //监听键盘的改变
+        myTextField.plateChange = { (text,complete) in
+            print("系统输入框键盘改变了text:\(text)\n是否完成车牌输入:\(complete ? "是" : "否")")
+        }
+        
+        myTextField.pwKeyBoardShow = {
+           print("系统框车牌键盘显示了")
+        }
+        
+        myTextField.pwKeyBoardHidden = {
+           print("系统框车牌键盘隐藏了")
+        }
     }
     
 
@@ -86,11 +114,11 @@ class ViewController: UIViewController,PWHandlerDelegate {
     }
     //车牌键盘出现的回调
     func plateKeyBoardShow() {
-        print("车牌键盘显示")
+        print("格式输入框车牌键盘显示")
     }
     //车牌键盘消失的回调
     func plateKeyBoardHidden() {
-        print("车牌键盘隐藏")
+        print("格式输入框车牌键盘隐藏")
     }
 }
 

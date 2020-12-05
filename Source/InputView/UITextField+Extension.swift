@@ -9,12 +9,66 @@
 import Foundation
 import UIKit
 
+var vehicleKeyboardText = "VehicleKeyboardText"
+
+var vehicleKeyboardShow = "vehicleKeyboardShow"
+
+var vehicleKeyboardHidden = "vehicleKeyboardHidden"
+
 extension UITextField :PWKeyBoardViewDeleagte{
+    
+    @objc var plateChange: ((String,Bool) -> ())? {
+            set {
+                if newValue != nil {
+                    objc_setAssociatedObject(self, &vehicleKeyboardText, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                }
+            }
+            get {
+                
+                if let rs = objc_getAssociatedObject(self, &vehicleKeyboardText) as? ((String,Bool) -> ()) {
+                    return rs
+                }
+                return nil
+            }
+        }
+    
+    @objc var pwKeyBoardShow: (() -> ())? {
+            set {
+                if newValue != nil {
+                    objc_setAssociatedObject(self, &vehicleKeyboardShow, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                }
+            }
+            get {
+                
+                if let rs = objc_getAssociatedObject(self, &vehicleKeyboardShow) as? (() -> ()) {
+                    return rs
+                }
+                return nil
+            }
+        }
+    
+    @objc var pwKeyBoardHidden: (() -> ())? {
+            set {
+                if newValue != nil {
+                    objc_setAssociatedObject(self, &vehicleKeyboardHidden, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                }
+            }
+            get {
+                
+                if let rs = objc_getAssociatedObject(self, &vehicleKeyboardHidden) as? (() -> ()) {
+                    return rs
+                }
+                return nil
+            }
+        }
     
     @objc public func changeToPlatePWKeyBoardInpurView(){
         let keyboardView = PWKeyBoardView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         inputView = keyboardView
         keyboardView.delegate = self
+        //监听键盘
+        NotificationCenter.default.addObserver(self, selector: #selector(plateKeyBoardShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(plateKeyBoardHidden), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @objc public func changePlateInputType(isNewEnergy:Bool){
@@ -74,5 +128,20 @@ extension UITextField :PWKeyBoardViewDeleagte{
         let maxCount = (numType == .newEnergy || numType == .wuJing) ? 8 : 7
         let inpuntIndex = maxCount <= text!.count  ? (text!.count - 1) : text!.count
         keyboardView.updateText(text: text!,isMoreType:isMoreType,inputIndex:inpuntIndex)
+        plateChange?(text!,maxCount == text!.count)
+    }
+    
+    @objc func plateKeyBoardShow(){
+        if self.isFirstResponder {
+            pwKeyBoardShow?()
+        } else {
+            pwKeyBoardHidden?()
+        }
+    }
+    
+    @objc func plateKeyBoardHidden(){
+        if !self.isFirstResponder {
+            pwKeyBoardHidden?()
+        }
     }
 }

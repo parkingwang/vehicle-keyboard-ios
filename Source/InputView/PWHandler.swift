@@ -191,11 +191,13 @@ public class PWHandler: NSObject,UICollectionViewDelegate,UICollectionViewDelega
     @objc func plateKeyBoardShow(){
         if inputTextfield.isFirstResponder {
             delegate?.plateKeyBoardShow?()
+        } else {
+            delegate?.plateKeyBoardHidden?()
         }
     }
     
     @objc func plateKeyBoardHidden(){
-        if inputTextfield.isFirstResponder {
+        if !inputTextfield.isFirstResponder {
             delegate?.plateKeyBoardHidden?()
         }
     }

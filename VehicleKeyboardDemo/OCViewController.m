@@ -27,9 +27,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //UITextField绑定车牌键盘(输入框形式)
-    [self.myTextField changeToPlatePWKeyBoardInpurView];
+    //选择以下两种键盘样式之一
     
+    //UITextField绑定车牌键盘(输入框形式)
+    [self setupSystemTextfield];
+    
+    //将自己创建的UIView绑定车牌键盘(格子形式)
+    [self setupPWTextfield];
+    
+}
+
+- (void)setupPWTextfield {
     //将自己创建的UIView绑定车牌键盘(格子形式)
     self.handler = [PWHandler new];
     
@@ -53,6 +61,23 @@
 //    [self.handler vehicleKeyBoardBecomeFirstResponder];
 }
 
+- (void)setupSystemTextfield {
+    //UITextField绑定车牌键盘(输入框形式)
+    [self.myTextField changeToPlatePWKeyBoardInpurView];
+    
+    //一些键盘事件的监听方法
+    self.myTextField.plateChange = ^(NSString *text,BOOL complete) {
+        NSLog(@"系统框车牌发生变化:%@\n是否输入完成:%@",text,complete ? @"是" : @"否");
+    };
+    
+    self.myTextField.pwKeyBoardShow = ^{
+        NSLog(@"系统框车牌键盘显示");
+    };
+    
+    self.myTextField.pwKeyBoardHidden = ^{
+        NSLog(@"系统框车牌键盘隐藏");
+    };
+}
 
 //隐藏键盘
 - (IBAction)hiddenButtonAction:(UIButton *)sender {
