@@ -34,6 +34,19 @@ oc引用pod中的库
 
 ```objective-c
 [self.myTextField changeToPlatePWKeyBoardInpurView];
+
+//一些键盘事件的监听方法
+self.myTextField.plateChange = ^(NSString *text,BOOL complete) {
+    NSLog(@"系统框车牌发生变化:%@\n是否输入完成:%@",text,complete ? @"是" : @"否");
+};
+
+self.myTextField.pwKeyBoardShow = ^{
+    NSLog(@"系统框车牌键盘显示");
+};
+
+self.myTextField.pwKeyBoardHidden = ^{
+    NSLog(@"系统框车牌键盘隐藏");
+};
 ```
 直接作为inputView使用时，回调于取值都与系统方法一直，直接当做系统UItextfield使用即可
 
@@ -97,6 +110,19 @@ import VehicleKeyboard_swift
 
 ```swift
 myTextField.changeToPlatePWKeyBoardInpurView()
+
+//监听键盘的改变
+myTextField.plateChange = { (text,complete) in
+    print("系统输入框键盘改变了text:\(text)\n是否完成车牌输入:\(complete ? "是" : "否")")
+}
+
+myTextField.pwKeyBoardShow = {
+   print("系统框车牌键盘显示了")
+}
+
+myTextField.pwKeyBoardHidden = {
+   print("系统框车牌键盘隐藏了")
+}
 ```
 直接作为inputView使用时，回调于取值都与系统方法一直，直接当做系统UItextfield使用即可
 
