@@ -15,6 +15,7 @@
 		270C77192079F16F009688AF /* VehicleKeyboardDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270C77182079F16F009688AF /* VehicleKeyboardDemoTests.swift */; };
 		270C77242079F16F009688AF /* VehicleKeyboardDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 270C77232079F16F009688AF /* VehicleKeyboardDemoUITests.swift */; };
 		2780CB122106C94E002591F5 /* OCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2780CB112106C94E002591F5 /* OCViewController.m */; };
+		2785FC5026B004FF00E2AE8F /* KeyboardEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788C198214A17BD00FEB3FA /* KeyboardEngine.swift */; };
 		471E6B3437B3A7EE2474F7E3 /* Pods_VehicleKeyboard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E233B4BA5BCCD207009035E /* Pods_VehicleKeyboard.framework */; };
 		4788C1A4214A17BD00FEB3FA /* UIView+PWCorners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788C197214A17BD00FEB3FA /* UIView+PWCorners.swift */; };
 		4788C1A6214A17BD00FEB3FA /* PWKeyBoardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4788C199214A17BD00FEB3FA /* PWKeyBoardCollectionViewCell.swift */; };
@@ -431,6 +432,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2785FC5026B004FF00E2AE8F /* KeyboardEngine.swift in Sources */,
 				4788C1A9214A17BD00FEB3FA /* PWInputCollectionViewCell.swift in Sources */,
 				47DCE152214A6AFD005E7490 /* Key.swift in Sources */,
 				4788C1AB214A17BD00FEB3FA /* PWPromptView.swift in Sources */,
